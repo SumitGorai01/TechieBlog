@@ -22,6 +22,7 @@ import Signup from './pages/Signup.jsx'
 import EditPost from "./pages/EditPost.jsx";
 import Post from "./pages/Post.jsx";
 import AllPosts from "./pages/AllPosts.jsx";
+import SearchedBlogs from './pages/SearchedBlogs.jsx'
 
 const router = createBrowserRouter([
   {
@@ -79,6 +80,10 @@ const router = createBrowserRouter([
             path: "/post/:slug",
             element: <Post />,
         },
+        {
+            path: "search/:slug",
+            element: <SearchedBlogs />,
+        }
     ],
 },
 ])

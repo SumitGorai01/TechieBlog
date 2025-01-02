@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import logo from "../../assets/logo1.jpg";
+import Searchbar from "./Searchbar";
 
 function Header() {
   const authStatus = useSelector((state) => state.auth.status);
@@ -52,6 +53,8 @@ function Header() {
               {/* <img src={logo} alt="" width="100px" className='rounded-2xl' style={{ backgroundColor: '#ffcc00' }} /> */}
             </Link>
           </div>
+
+          {authStatus && <Searchbar />}
 
           <ul className="flex ml-auto ">
             {navItems.map((item) =>

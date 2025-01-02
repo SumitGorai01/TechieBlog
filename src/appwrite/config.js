@@ -17,6 +17,7 @@ export class Service{
 
     async createPost({title , slug , content ,featuredImage , status , userId}){
         try {
+            
             return await this.databases.createDocument(
                 conf.appwriteDatabaseId,
                 conf.appwriteCollectionId,
@@ -90,6 +91,22 @@ export class Service{
         } catch (error) {
             console.log("Appwrite service : : getAllPost :: error ",error);
             return false;
+        }
+    }
+
+    async getSearchedPosts(key) {
+        try {
+            return await this.databases.listDocuments(
+                conf.appwriteDatabaseId,
+                conf.appwriteCollectionId,
+                [
+                    Query.search("title", [key]),
+                    Query.equal("status", "active")
+                ]
+            )
+        } catch (error) {
+            console.log("Appwrite service : : getSearchedPosts :: error ",error);
+            return
         }
     }
 
