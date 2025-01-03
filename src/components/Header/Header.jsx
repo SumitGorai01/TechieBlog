@@ -1,8 +1,9 @@
 import React from "react";
-import { Container, Logo, LogoutBtn } from "../index";
+import { Container, LogoutBtn } from "../index";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+
 import logo from "../../assets/logo1.jpg";
 import Searchbar from "./Searchbar";
 
@@ -40,28 +41,31 @@ function Header() {
   ];
 
   return (
-    <header className="py-3 shadow bg-gray-500">
+    <header className="py-3 shadow bg-gradient-to-r from-yellow-100 via-orange-100 to-red-100 transition duration-300 animate-slide-down">
       <Container>
-        <nav className="flex">
-          <div className="mr-4">
+        <nav className="flex items-center">
+          <div className="mr-4 animate-fade-in">
             <Link to="/">
               <div>
-                <span className="inline-block w-full max-w-[100px]">
-                  <Logo width="100%" />
-                </span>
+                <img
+                  src="src/assets/logo1.jpg"
+                  alt="Logo"
+                  className="w-[120px] h-auto object-contain transition-transform duration-500 hover:scale-110"
+                />
               </div>
-              {/* <img src={logo} alt="" width="100px" className='rounded-2xl' style={{ backgroundColor: '#ffcc00' }} /> */}
             </Link>
           </div>
 
+
           {authStatus && <Searchbar />}
 
-          <ul className="flex ml-auto ">
+          <ul className="flex ml-auto space-x-4">
+
             {navItems.map((item) =>
               item.active ? (
-                <li key={item.name}>
+                <li key={item.name} className="animate-fade-in-delayed">
                   <button
-                    className="inline-block px-6 py-2 duration-200 hover:bg-blue-100 rounded-full"
+                    className="inline-block px-6 py-2 text-orange-600 font-semibold bg-yellow-100 hover:bg-orange-200 rounded-full shadow-md transition-transform duration-300 hover:scale-105"
                     onClick={() => navigate(item.slug)}
                   >
                     {item.name}
@@ -70,7 +74,7 @@ function Header() {
               ) : null
             )}
             {authStatus && (
-              <li>
+              <li className="animate-fade-in-delayed">
                 <LogoutBtn />
               </li>
             )}
