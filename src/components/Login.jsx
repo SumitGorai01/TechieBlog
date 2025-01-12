@@ -53,7 +53,7 @@ function Login() {
             <Logo width="100%" className="justify-center" />
           </span>
         </div>
-        <h2 className="text-center text-2xl font-bold leading-tight">
+        <h2 className="text-center text-3xl font-bold leading-tight text-shadow">
           Sign in to your account
         </h2>
         <p className="mt-2 text-center text-base text-black/60">
@@ -69,7 +69,8 @@ function Login() {
         <form onSubmit={handleSubmit(login)} className="mt-8">
           <div className="space-y-5">
             <Input
-              label="Email :"
+              className="hover-input"
+              label={<strong>Email:</strong>}
               placeholder="Enter your email"
               type="email"
               {...register("email", {
@@ -84,7 +85,8 @@ function Login() {
 
             <div className="space-y-2">
               <Input
-                label="Password : "
+                className="hover-input"
+                label={<strong>Password:</strong>}
                 type="password"
                 placeholder="Enter Your Password"
                 {...register("password", {
