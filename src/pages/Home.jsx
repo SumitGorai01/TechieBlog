@@ -1,15 +1,16 @@
 import { useEffect, useState } from "react";
 import appwriteService from "../appwrite/config";
-import { Container, PostCard, Testimonials } from '../components'
-import Loading from '../components/loaders/Loading.jsx'
+import { Container, PostCard, Testimonials } from '../components';
+import Loading from '../components/loaders/Loading.jsx';
 import { Link } from "react-router-dom";
 import LoginIcon from '@mui/icons-material/Login';
 import ContributorsLink from "../components/contributors/contributorsLink.jsx";
-// import { getPostsFromDatabase } from '../appwrite/config.js';
-import img from '../assets/tech-blog-illustration.png'
+import img from '../assets/tech-blog-illustration.png';
+
 function Home() {
   const [posts, setPosts] = useState([]);
-  const [loading, setLoading] = useState(true)
+  const [loading, setLoading] = useState(true);
+
   useEffect(() => {
     const fetchPosts = async () => {
       try {
@@ -34,88 +35,102 @@ function Home() {
     fetchPosts();
   }, []);
 
-
   if (posts.length === 0) {
     return (
       <div className="w-full text-center bg-gradient-to-r from-yellow-50 via-orange-50 to-red-50 
-dark:bg-gradient-to-r dark:from-gray-800 dark:via-gray-900 dark:to-black min-h-screen flex flex-col 
-justify-center animate-fade-in transition-colors duration-300">
+        dark:bg-gradient-to-r dark:from-gray-800 dark:via-gray-900 dark:to-black min-h-screen flex flex-col 
+        justify-center animate-fade-in transition-colors duration-300">
         <div className="p-6">
           <h1 className="text-3xl md:text-5xl font-extrabold text-orange-600 
-    dark:text-orange-400 tracking-tight animate-slide-in">
+            dark:text-orange-400 tracking-tight animate-slide-in">
             Welcome to <span className="text-red-800 dark:text-red-400">TechieBlog</span>
           </h1>
           <p className="text-gray-700 dark:text-gray-300 mt-4 text-lg md:text-xl 
-    animate-fade-in-delayed">
+            animate-fade-in-delayed">
             Your hub for the latest in technology and innovation.
           </p>
           <Link
             to={"/signup"}
             className="bg-orange-600 text-white font-semibold py-3 px-4 rounded-lg 
-      shadow-md mt-6 inline-flex items-center gap-2 text-lg
-      hover:bg-orange-700 dark:bg-orange-500 dark:hover:bg-orange-600 
-      transition-colors duration-300"
-          ><span>Get Started</span><LoginIcon /></Link>
+              shadow-md mt-6 inline-flex items-center gap-2 text-lg
+              hover:bg-orange-700 dark:bg-orange-500 dark:hover:bg-orange-600 
+              transition-colors duration-300"
+          >
+            <span>Get Started</span><LoginIcon />
+          </Link>
         </div>
-
-        <div className="mt-8 max-w-3xl mx-auto bg-white dark:bg-gray-800 
-  shadow-lg rounded-lg p-8 animate-fade-up transition-colors duration-300">
-          <h2 className="text-2xl md:text-4xl font-bold text-gray-900 dark:text-gray-100">
-            Subscribe to TechieBlog
-          </h2>
-          <p className="text-gray-700 dark:text-gray-300 mt-2">
-            Get the latest posts delivered right to your inbox.
-          </p>
-          <form action="#" className="mt-6">
-            <div className="flex flex-col md:flex-row items-center gap-4">
-              <input
-                type="email"
-                placeholder="youremail@example.com"
-                className="w-full md:w-auto flex-1 rounded-lg border-gray-300 
+<div className="mt-8 max-w-3xl mx-auto p-8 flex animate-fade-up transition-colors duration-300">
+  <div className="text-center md:text-left">
+    <h2 className="text-2xl md:text-4xl font-bold text-gray-900 dark:text-gray-100">
+      Subscribe to TechieBlog
+    </h2>
+    <p className="text-gray-700 dark:text-gray-300 mt-2">
+      Get the latest posts delivered right to your inbox.
+    </p>
+    <div className="flex md:flex-row items-center gap-4 mt-4">
+      <input
+        type="email"
+        placeholder="youremail@example.com"
+        className="w-full md:w-auto flex-1 rounded-lg border-gray-300 
           dark:border-gray-600 shadow-sm focus:ring focus:ring-orange-300 
           dark:focus:ring-orange-500 p-3 bg-white dark:bg-gray-700 
           text-gray-900 dark:text-gray-100 placeholder-gray-500 
           dark:placeholder-gray-400 transition-colors duration-300"
-              />
-              <button
-                type="submit"
-                className="w-full md:w-auto px-6 py-3 bg-orange-600 
+      />
+      <button
+        type="submit"
+        className="w-full md:w-auto px-6 py-3 bg-orange-600 
           dark:bg-orange-500 text-white font-semibold rounded-lg shadow-md 
           hover:bg-orange-700 dark:hover:bg-orange-600 
           transition duration-300"
-              >
-                Subscribe
-              </button>
-            </div>
-          </form>
-        </div>
+      >
+        Subscribe
+      </button>
+    </div>
+  </div>
 
-        <div className="mt-12 animate-fade-in-delayed">
-          <img
-            src={img}
-            alt="Tech Blog Illustration"
-            className="mx-auto w-full max-w-md animate-bounce-slow 
-      dark:opacity-90 transition-opacity duration-300"
-          />
+  <div className="animate-fade-in-delayed flex justify-center">
+    <img
+      src={img}
+      alt="Tech Blog Illustration"
+      className="w-full max-w-md animate-bounce-small 
+        dark:opacity-90 transition-opacity duration-300"
+    />
+  </div>
+  
+  <style jsx>{`
+    @keyframes bounce-small {
+      0%, 100% {
+        transform: translateY(0);
+      }
+      50% {
+        transform: translateY(-8px);
+      }
+    }
+    .animate-bounce-small {
+      animation: bounce-small 2s infinite;
+    }
+  `}</style>
+</div>
+          <Testimonials />
+          <section className="mb-10">
+            <h2 className="text-3xl md:text-4xl font-bold text-black dark:text-gray-200 my-6">Meet the Contributors</h2>
+            <p className="text-gray-700 mt-2 mb-6 mx-6">Meet the brilliant minds who brought this project to life!</p>
+            <div className="hidden md:block"><ContributorsLink classes="w-20 h-20" /></div>
+            <div className="block md:hidden"><ContributorsLink classes="w-12 h-12" /></div>
+          </section>
         </div>
-        <Testimonials />
-        <section className="mb-10">
-          <h2 className="text-3xl md:text-4xl font-bold text-black dark:text-gray-200 my-6">Meet the Contributors</h2>
-          <p className="text-gray-700 mt-2 mb-6 mx-6">Meet the brilliant minds who brought this project to life!</p>
-          <div className="hidden md:block"><ContributorsLink classes="w-20 h-20" /></div>
-          <div className="block md:hidden"><ContributorsLink classes="w-12 h-12" /></div>
-        </section>
-      </div>
+     
     );
   }
 
   return (
     <div className="w-full py-8 bg-gradient-to-b from-orange-50 to-red-100 
-  dark:bg-gradient-to-r dark:from-gray-800 dark:via-gray-900 dark:to-black min-h-screen 
-  transition-colors duration-300">
+      dark:bg-gradient-to-r dark:from-gray-800 dark:via-gray-900 dark:to-black min-h-screen 
+      transition-colors duration-300">
       <div className="text-center">
         <h1 className="text-4xl font-extrabold text-orange-600 dark:text-orange-400 
-      mb-8 animate-slide-in">
+          mb-8 animate-slide-in">
           Latest Posts
         </h1>
         <div className='w-full py-8'>
@@ -136,7 +151,6 @@ justify-center animate-fade-in transition-colors duration-300">
           </Container>
         </div>
 
-
         <div className="mt-16 animate-fade-in-delayed">
           <h2 className="text-3xl font-bold text-gray-900 dark:text-gray-100">Join the Community</h2>
           <p className="text-gray-700 dark:text-gray-300 mt-2">
@@ -144,9 +158,9 @@ justify-center animate-fade-in transition-colors duration-300">
           </p>
           <button
             className="mt-6 px-8 py-3 bg-orange-600 dark:bg-orange-500 
-        text-white font-semibold rounded-lg shadow-md 
-        hover:bg-orange-700 dark:hover:bg-orange-600 
-        transition-colors duration-300"
+              text-white font-semibold rounded-lg shadow-md 
+              hover:bg-orange-700 dark:hover:bg-orange-600 
+              transition-colors duration-300"
           >
             Get Started
           </button>

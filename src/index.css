@@ -69,10 +69,6 @@
   transform-style: preserve-3d;
 }
 
-.testimonial-card:hover .testimonial-inner {
-  transform: rotateY(180deg);
-}
-
 .testimonial-front, .testimonial-back {
   position: absolute;
   width: 100%;
