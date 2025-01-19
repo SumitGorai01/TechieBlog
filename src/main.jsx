@@ -27,7 +27,7 @@ const ChangePassword = lazy(() => import('./pages/ChangePassword.jsx'));
 const Profile = lazy(() => import('./pages/Profile.jsx'));
 const FAQ = lazy(() => import('./components/FAQ.jsx'));
 const Terms = lazy(() => import('./components/Terms.jsx'));
-
+const FeedbackPage = lazy(() => import('./components/FeedbackPage.jsx'));
 
 const router = createBrowserRouter([
     {
@@ -130,6 +130,10 @@ const router = createBrowserRouter([
             {
                 path: "/faq",
                 element: <FAQ />,
+            },
+            {
+                path: "/feedback",
+                element: <FeedbackPage />
             },
             {
                 path: "*",

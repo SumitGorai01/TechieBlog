@@ -117,3 +117,10 @@
 .terms{
   color: blue;
 }
+.btn-shadow{
+  transition: all 0.3s;
+}
+.btn-shadow:hover{
+  text-shadow: 4px 4px 4px rgba(0, 0, 0, 0.5);
+  transform: scale(1.05);
+}
