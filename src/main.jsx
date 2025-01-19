@@ -4,7 +4,9 @@ import ReactDOM from 'react-dom/client';
 import App from './App.jsx';
 import './index.css';
 import { Provider } from 'react-redux';
-import store from './store/store.js';
+import { store } from './store/store.js';
+import { PersistGate } from "redux-persist/integration/react"
+import { persistStore } from "redux-persist"
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 import Loader from './components/loaders/Loading.jsx'
 
@@ -143,12 +145,16 @@ const router = createBrowserRouter([
     },
 ]);
 
+let persistor = persistStore(store);
+
 ReactDOM.createRoot(document.getElementById('root')).render(
     <React.StrictMode>
         <Provider store={store}>
-            <Suspense fallback={<Loader />}>
-                <RouterProvider router={router} />
-            </Suspense>
+            <PersistGate persistor={persistor} >
+                <Suspense fallback={<Loader />}>
+                    <RouterProvider router={router} />
+                </Suspense>
+            </PersistGate>
         </Provider>
     </React.StrictMode>,
 );
