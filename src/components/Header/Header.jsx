@@ -79,7 +79,7 @@ function Header() {
   };
 
   return (
-    <header className="py-3 shadow bg-gradient-to-r from-yellow-100 via-orange-100 to-red-100 dark:bg-gradient-to-r dark:from-gray-800 dark:via-gray-900 dark:to-black transition duration-300 animate-slide-down" style="background: #17192c;">
+    <header className="py-3 shadow  transition duration-300 animate-slide-down"   style={{ background: "#17192c" }}>
       <Container>
         <nav className="flex items-center justify-between">
           <div className="flex items-center space-x-4">
