@@ -1,5 +1,5 @@
 import React from 'react';
-
+import { Link } from 'react-router-dom';
 const Events = () => {
     const events = [
         {
@@ -34,7 +34,9 @@ const Events = () => {
                     </div>
                 ))}
             </div>
+            <Link to="/add-event">
             <button className="btn-shadow w-80 px-4 text-xl py-4 bg-orange-600 text-white font-semibold rounded-md shadow-sm hover:bg-orange-700 hover:text-shadow transition duration-300">Add Events/Webinars</button>
+            </Link>
         </div>
     );
 }
