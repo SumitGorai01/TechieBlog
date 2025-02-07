@@ -32,8 +32,8 @@ const AddEvent = () => {
             <div className="border rounded-lg shadow-lg p-6 bg-white dark:bg-gray-800">
                 <form onSubmit={handleSubmit}>
                     <div className="mb-4">
-                        <label className="block text-gray-700 dark:text-gray-200 mb-2">Event Title:</label>
-                        <input type="text" name="title" value={eventDetails.title} onChange={handleChange} className="w-full p-2 border rounded border-gray-300 dark:border-gray-700 focus:outline-none focus:ring-2 focus:ring-orange-500 dark:bg-gray-800 dark:text-gray-100" />
+                        <label className="block text-gray-700 dark:text-gray-200 mb-2" >Event Title:</label>
+                        <input type="text" placeholder="Enter Event Title" name="title" value={eventDetails.title} onChange={handleChange} className="w-full p-2 border rounded border-gray-300 dark:border-gray-700 focus:outline-none focus:ring-2 focus:ring-orange-500 dark:bg-gray-800 dark:text-gray-100" />
                     </div>
                     <div className="mb-4">
                         <label className="block text-gray-700 dark:text-gray-200 mb-2">Date:</label>
@@ -45,15 +45,15 @@ const AddEvent = () => {
                     </div>
                     <div className="mb-4">
                         <label className="block text-gray-700 dark:text-gray-200 mb-2">Location:</label>
-                        <input type="text" name="location" value={eventDetails.location} onChange={handleChange} className="w-full p-2 border rounded border-gray-300 dark:border-gray-700 focus:outline-none focus:ring-2 focus:ring-orange-500 dark:bg-gray-800 dark:text-gray-100" />
+                        <input type="text" placeholder='Enter Location' name="location" value={eventDetails.location} onChange={handleChange} className="w-full p-2 border rounded border-gray-300 dark:border-gray-700 focus:outline-none focus:ring-2 focus:ring-orange-500 dark:bg-gray-800 dark:text-gray-100" />
                     </div>
                     <div className="mb-4">
                         <label className="block text-gray-700 dark:text-gray-200 mb-2">Eligibility:</label>
-                        <input type="text" name="eligibility" value={eventDetails.eligibility} onChange={handleChange} className="w-full p-2 border rounded border-gray-300 dark:border-gray-700 focus:outline-none focus:ring-2 focus:ring-orange-500 dark:bg-gray-800 dark:text-gray-100" style={{ height: '80px' }} />
+                        <input type="text" placeholder='Enter Eligibility'  name="eligibility" value={eventDetails.eligibility} onChange={handleChange} className="w-full p-2 border rounded border-gray-300 dark:border-gray-700 focus:outline-none focus:ring-2 focus:ring-orange-500 dark:bg-gray-800 dark:text-gray-100" style={{ height: '80px' }} />
                     </div>
                     <div className="mb-4">
                         <label className="block text-gray-700 dark:text-gray-200 mb-2">Event Description:</label>
-                        <textarea name="description" value={eventDetails.description} onChange={handleChange} className="w-full p-2 border rounded border-gray-300 dark:border-gray-700 focus:outline-none focus:ring-2 focus:ring-orange-500 dark:bg-gray-800 dark:text-gray-100" style={{ height: '150px' }} />
+                        <textarea name="description" placeholder='Enter Description' value={eventDetails.description} onChange={handleChange} className="w-full p-2 border rounded border-gray-300 dark:border-gray-700 focus:outline-none focus:ring-2 focus:ring-orange-500 dark:bg-gray-800 dark:text-gray-100" style={{ height: '150px' }} />
                     </div>
                     <button type="submit" className="btn-shadow w-60 px-4 py-2 bg-orange-600 text-white font-semibold rounded-md shadow-sm hover:bg-orange-700 hover:text-shadow transition duration-300">
                         Submit Event
