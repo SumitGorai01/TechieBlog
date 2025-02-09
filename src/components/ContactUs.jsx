@@ -1,4 +1,7 @@
 import React, { useState } from 'react';
+import axios from 'axios';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const ContactUs = () => {
     const [formData, setFormData] = useState({
@@ -13,7 +16,7 @@ const ContactUs = () => {
         message: ''
     });
 
-    const [submitStatus, setSubmitStatus] = useState('');
+    const [isSubmitting, setIsSubmitting] = useState(false);
 
     const validateEmail = (email) => {
         return email.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/);
@@ -32,7 +35,7 @@ const ContactUs = () => {
         }));
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
         let newErrors = {};
         let isValid = true;
@@ -61,25 +64,34 @@ const ContactUs = () => {
         setErrors(newErrors);
 
         if (isValid) {
-            // Show success message
-            setSubmitStatus('success');
-            // Reset form
-            setFormData({ name: '', email: '', message: '' });
-            // Clear success message after 3 seconds
-            setTimeout(() => setSubmitStatus(''), 3000);
+            setIsSubmitting(true);
+            
+            try {
+                const response = await axios.post(
+                    `http://localhost:5000/api/contact`,
+                    formData
+                );
+
+                if (response.data.success) {
+                    toast.success('Message sent successfully!');
+                    setFormData({ name: '', email: '', message: '' });
+                }
+            } catch (error) {
+                toast.error(error.response?.data?.error || 'Failed to send message. Please try again later.');
+            } finally {
+                setIsSubmitting(false);
+            }
+        } else {
+            toast.error('Please fill in all required fields correctly.');
         }
     };
 
     return (
         <div className="mt-20 mb-28 max-w-3xl mx-auto p-8 bg-white bg-gradient-to-r dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 shadow-lg rounded-lg dark:text-white">
+            <ToastContainer position="top-right" />
+            
             <h1 className="text-4xl font-bold mb-6 text-center text-orange-600">Contact Us</h1>
             <p className="mb-8 text-center text-lg">If you have any questions, feel free to reach out!</p>
-            
-            {submitStatus === 'success' && (
-                <div className="mb-6 p-4 bg-green-100 dark:bg-green-800 text-green-700 dark:text-green-100 rounded-md text-center">
-                    Message sent successfully!
-                </div>
-            )}
 
             <form onSubmit={handleSubmit} className="space-y-6">
                 <div>
@@ -92,7 +104,9 @@ const ContactUs = () => {
                         name="name"
                         value={formData.name}
                         onChange={handleChange}
-                        className={`block w-full px-4 py-3 border ${errors.name ? 'border-red-500' : 'border-gray-300'} rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-orange-300 dark:bg-gray-800 transition duration-200`}
+                        className={`block w-full px-4 py-3 border ${
+                            errors.name ? 'border-red-500' : 'border-gray-300'
+                        } rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-orange-300 dark:bg-gray-800 transition duration-200`}
                         placeholder="Enter your name"
                     />
                     {errors.name && (
@@ -110,7 +124,9 @@ const ContactUs = () => {
                         name="email"
                         value={formData.email}
                         onChange={handleChange}
-                        className={`block w-full px-4 py-3 border ${errors.email ? 'border-red-500' : 'border-gray-300'} rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-orange-300 dark:bg-gray-800 transition duration-200`}
+                        className={`block w-full px-4 py-3 border ${
+                            errors.email ? 'border-red-500' : 'border-gray-300'
+                        } rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-orange-300 dark:bg-gray-800 transition duration-200`}
                         placeholder="Enter your email"
                     />
                     {errors.email && (
@@ -127,7 +143,9 @@ const ContactUs = () => {
                         name="message"
                         value={formData.message}
                         onChange={handleChange}
-                        className={`block w-full px-4 py-3 border ${errors.message ? 'border-red-500' : 'border-gray-300'} rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-orange-300 dark:bg-gray-800 transition duration-200`}
+                        className={`block w-full px-4 py-3 border ${
+                            errors.message ? 'border-red-500' : 'border-gray-300'
+                        } rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-orange-300 dark:bg-gray-800 transition duration-200`}
                         rows="6"
                         placeholder="Enter your message"
                     ></textarea>
@@ -138,13 +156,16 @@ const ContactUs = () => {
 
                 <button
                     type="submit"
-                    className="w-full px-6 py-3 bg-orange-600 text-white font-semibold rounded-md shadow-md hover:bg-orange-700 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-offset-2 transform hover:scale-[1.02] transition-all duration-200"
+                    disabled={isSubmitting}
+                    className={`w-full px-6 py-3 bg-orange-600 text-white font-semibold rounded-md shadow-md hover:bg-orange-700 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-offset-2 transform hover:scale-[1.02] transition-all duration-200 ${
+                        isSubmitting ? 'opacity-70 cursor-not-allowed' : ''
+                    }`}
                 >
-                    Send Message
+                    {isSubmitting ? 'Sending...' : 'Send Message'}
                 </button>
             </form>
         </div>
     );
-}
+};
 
 export default ContactUs;

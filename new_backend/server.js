@@ -2,6 +2,8 @@ const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
 const bodyParser = require('body-parser');
+const nodemailer = require('nodemailer');
+require('dotenv').config();
 
 const app = express();
 
@@ -14,7 +16,16 @@ mongoose.connect('mongodb://localhost:27017/eventsdb')
     .then(() => console.log('MongoDB connected'))
     .catch(err => console.log(err));
 
-// Event Schema
+// Email transporter setup
+const transporter = nodemailer.createTransport({
+    service: 'gmail',
+    auth: {
+        user: process.env.GMAIL_USER,
+        pass: process.env.GMAIL_PASS
+    }
+});
+
+// Schemas
 const eventSchema = new mongoose.Schema({
     title: String,
     date: String,
@@ -24,9 +35,17 @@ const eventSchema = new mongoose.Schema({
     description: String
 });
 
-const Event = mongoose.model('Event', eventSchema);
+const contactSchema = new mongoose.Schema({
+    name: String,
+    email: String,
+    message: String,
+    date: { type: Date, default: Date.now }
+});
 
-// Route to handle form submission
+const Event = mongoose.model('Event', eventSchema);
+const Contact = mongoose.model('Contact', contactSchema);
+
+// Routes
 app.post('/api/events', async (req, res) => {
     const newEvent = new Event(req.body);
     try {
@@ -34,6 +53,37 @@ app.post('/api/events', async (req, res) => {
         res.status(201).json({ message: 'Event saved successfully!' });
     } catch (err) {
         res.status(400).json({ error: err.message });
+    }
+});
+
+app.post('/api/contact', async (req, res) => {
+    try {
+        // Save to database
+        const newContact = new Contact(req.body);
+        await newContact.save();
+
+        // Send email
+        const mailOptions = {
+            from: process.env.GMAIL_USER,
+            to: 'support@techieblog.com',
+            subject: 'New Contact Form Submission',
+            html: `
+                <h3>New Message from Contact Form</h3>
+                <p><strong>Name:</strong> ${req.body.name}</p>
+                <p><strong>Email:</strong> ${req.body.email}</p>
+                <p><strong>Message:</strong></p>
+                <p>${req.body.message}</p>
+            `
+        };
+
+        await transporter.sendMail(mailOptions);
+        
+        res.status(200).json({ success: true });
+    } catch (error) {
+        console.error('Contact form error:', error);
+        res.status(500).json({ 
+            error: error.response?.data?.error || 'Failed to send message' 
+        });
     }
 });
 
