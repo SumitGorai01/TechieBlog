@@ -32,14 +32,9 @@ function Header() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false); // Sidebar is open by default
 
   const navItems = [
+   
     {
-      name: "Login",
-      slug: "/login",
-      active: !authStatus,
-      icon: LogIn,
-    },
-    {
-      name: "Signup",
+      name: "Signup / Login",
       slug: "/signup",
       active: !authStatus,
       icon: UserPlus,
@@ -104,12 +99,10 @@ function Header() {
                 </div>
               </Link>
             </div>
-           
-            
 
             {/* Desktop Navigation */}
             <ul className="hidden md:flex justify-center items-center w-full space-x-4">
-            {authStatus && <Searchbar />}
+              {authStatus && <Searchbar />}
               {!authStatus &&
                 navItems.map(
                   (item) =>
@@ -131,36 +124,31 @@ function Header() {
                       </li>
                     )
                 )}
-              
-
-
-              
             </ul>
 
-            
-           <ul className="flex justify-end items-center space-x-5"> {/* <li className="animate-fade-in-delayed "> */}
-                <button
-                  onClick={() => dispatch(toggleTheme())}
-                  className="inline-block px-2 justify-end ml-16 py-2 text-orange-600 dark:text-orange-400 font-semibold bg-yellow-100 dark:bg-gray-800 hover:bg-orange-200 dark:hover:bg-gray-700 rounded-full shadow-md transition-transform duration-300 hover:scale-105"
-                >
-                  {darkMode ? <LightModeIcon /> : <DarkModeIcon />}
-                </button>
-              {/* </li> */}
-            {authStatus && <BasicMenu />}
-            {/* Sidebar (Only if user is logged in) */}
-{authStatus && <Sidebar isOpen={isSidebarOpen} />}
-            {/* Header */}
-
-            {authStatus && (
+            <ul className="flex justify-end items-center space-x-5">
+              {" "}
+              {/* <li className="animate-fade-in-delayed "> */}
               <button
-                className="text-orange-600 bg-yellow-100 dark:bg-gray-500 dark:text-orange-300 hover:bg-gray-200 dark:hover:bg-gray-700 p-2 rounded-full transition"
-                onClick={() => setIsSidebarOpen(!isSidebarOpen)}
+                onClick={() => dispatch(toggleTheme())}
+                className="inline-block px-2 justify-end ml-16 py-2 text-orange-600 dark:text-orange-400 font-semibold bg-yellow-100 dark:bg-gray-800 hover:bg-orange-200 dark:hover:bg-gray-700 rounded-full shadow-md transition-transform duration-300 hover:scale-105"
               >
-                {isSidebarOpen ? <X size={28} /> : <Menu size={28} />}
+                {darkMode ? <LightModeIcon /> : <DarkModeIcon />}
               </button>
-            )}</ul>
-         
-
+              {/* </li> */}
+              {authStatus && <BasicMenu />}
+              {/* Sidebar (Only if user is logged in) */}
+              {authStatus && <Sidebar isOpen={isSidebarOpen} />}
+              {/* Header */}
+              {authStatus && (
+                <button
+                  className="text-orange-600 bg-yellow-100 dark:bg-gray-500 dark:text-orange-300 hover:bg-gray-200 dark:hover:bg-gray-700 p-2 rounded-full transition"
+                  onClick={() => setIsSidebarOpen(!isSidebarOpen)}
+                >
+                  {isSidebarOpen ? <X size={28} /> : <Menu size={28} />}
+                </button>
+              )}
+            </ul>
 
             {/* Mobile Menu Button */}
             {!authStatus && (
