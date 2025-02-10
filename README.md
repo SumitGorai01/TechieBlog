@@ -19,6 +19,8 @@ Link :- https://techie-blogs.vercel.app/
 - **Database**: Appwrite Database
 - **Authentication**: Appwrite Authentication
 - **Link**: [Click Here](https://techie-blogs.vercel.app/)
+- ![techie-blog](https://github.com/user-attachments/assets/d010c27b-1b1e-4eea-999c-f9d0c9433f86)
+
 
 ## 1.3. Installation
 
