@@ -27,15 +27,15 @@ const Register = () => {
                 <form onSubmit={handleSubmit}>
                     <div className="mb-4">
                         <label className="block text-gray-700 dark:text-gray-300">Full Name</label>
-                        <input type="text" name="fullName" value={formData.fullName} onChange={handleChange} className="w-full px-3 py-2 border border-gray-300 dark:border-gray-700 rounded-md focus:outline-none focus:ring-2 focus:ring-orange-500 dark:bg-gray-800 dark:text-gray-100" required />
+                        <input type="text" placeholder='Enter full name' name="fullName" value={formData.fullName} onChange={handleChange} className="w-full px-3 py-2 border border-gray-300 dark:border-gray-700 rounded-md focus:outline-none focus:ring-2 focus:ring-orange-500 dark:bg-gray-800 dark:text-gray-100" required />
                     </div>
                     <div className="mb-4">
                         <label className="block text-gray-700 dark:text-gray-300">Email Address</label>
-                        <input type="email" name="email" value={formData.email} onChange={handleChange} className="w-full px-3 py-2 border border-gray-300 dark:border-gray-700 rounded-md focus:outline-none focus:ring-2 focus:ring-orange-500 dark:bg-gray-800 dark:text-gray-100" required />
+                        <input type="email" placeholder='Enter email address' name="email" value={formData.email} onChange={handleChange} className="w-full px-3 py-2 border border-gray-300 dark:border-gray-700 rounded-md focus:outline-none focus:ring-2 focus:ring-orange-500 dark:bg-gray-800 dark:text-gray-100" required />
                     </div>
                     <div className="mb-4">
                         <label className="block text-gray-700 dark:text-gray-300">Phone Number</label>
-                        <input type="tel" name="phoneNumber" value={formData.phoneNumber} onChange={handleChange} className="w-full px-3 py-2 border border-gray-300 dark:border-gray-700 rounded-md focus:outline-none focus:ring-2 focus:ring-orange-500 dark:bg-gray-800 dark:text-gray-100" required />
+                        <input type="tel" placeholder='eg: +91 xxxxx-xxxxx' name="phoneNumber" value={formData.phoneNumber} onChange={handleChange} className="w-full px-3 py-2 border border-gray-300 dark:border-gray-700 rounded-md focus:outline-none focus:ring-2 focus:ring-orange-500 dark:bg-gray-800 dark:text-gray-100" required />
                     </div>
                     <div className="mb-4">
                         <label className="block text-gray-700 dark:text-gray-300">Select Workshop</label>
@@ -50,7 +50,7 @@ const Register = () => {
                     </div>
                     <div className="mb-4">
                         <label className="block text-gray-700 dark:text-gray-300">Comments</label>
-                        <textarea name="comments" value={formData.comments} onChange={handleChange} className="w-full px-3 py-2 border border-gray-300 dark:border-gray-700 rounded-md focus:outline-none focus:ring-2 focus:ring-orange-500 dark:bg-gray-800 dark:text-gray-100"></textarea>
+                        <textarea name="comments" placeholder='type here.....' value={formData.comments} onChange={handleChange} className="w-full px-3 py-2 border border-gray-300 dark:border-gray-700 rounded-md focus:outline-none focus:ring-2 focus:ring-orange-500 dark:bg-gray-800 dark:text-gray-100"></textarea>
                     </div>
                     <button type="submit" className="btn-shadow w-60 px-4 py-2 bg-orange-600 text-white font-semibold rounded-md shadow-sm hover:bg-orange-700 hover:text-shadow transition duration-300">
                         Register

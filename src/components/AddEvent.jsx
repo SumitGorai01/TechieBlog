@@ -111,6 +111,7 @@ const AddEvent = () => {
                     <div className="mb-4">
                         <label className="block text-gray-700 dark:text-gray-200 mb-2">Event Description:</label>
                         <textarea name="description" placeholder='Enter Description' value={eventDetails.description} onChange={handleChange} className="w-full p-2 border rounded border-gray-300 dark:border-gray-700 focus:outline-none focus:ring-2 focus:ring-orange-500 dark:bg-gray-800 dark:text-gray-100" style={{ height: '150px' }} />
+                    </div>
 
         <div className="max-w-2xl mx-auto p-6 bg-white dark:bg-gray-900 rounded-xl shadow-2xl">
             <div className="flex justify-between items-center mb-6">
@@ -255,8 +256,11 @@ const AddEvent = () => {
                     Submit Event
                 </button>
             </form>
+                </div>
+            </form>
+            </div>
         </div>
-    );
-};
+        );
+    };
 
 export default AddEvent;
