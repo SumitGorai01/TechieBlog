@@ -68,14 +68,62 @@ If you don’t have an Appwrite account, follow these steps:
     VITE_APPWRITE_PROJECT_ID = ""
     VITE_APPWRITE_DATABASE_ID = ""
     VITE_APPWRITE_COLLECTION_ID = ""
+    VITE_APPWRITE_COMMENT_COLLECTION_ID = ""
     VITE_APPWRITE_BUCKET_ID = ""
     VITE_API_KEY = ""
+    ```
+    
 7. Start the application:
     
     ```bash
     npm run dev
     ```
 8. The app should now be running at http://localhost:5173 (or another specified port).
+
+### Setting Up Appwrite Keys for Contributors
+To contribute to the TechieBlog project, you need to set up your own Appwrite instance and obtain the required keys. Follow these steps:
+
+1. Create an Appwrite Account
+    - Go to the Appwrite website.
+    - Click on Sign Up and create a new account.
+    - Verify your email address to activate your account.
+
+
+
+2. Create a New Project
+    - Log in to your Appwrite account.
+    - Click on Create Project.
+    - Name your project (e.g., TechieBlog) and click Create.
+
+
+3. Set Up a Database
+    - In your project dashboard, go to the Database section.
+    - Click on Create Database.
+    - Name your database (e.g., TechieBlogDB) and click Create.
+    - Inside the database, create a collection for blog posts:
+    - Click on Create Collection.
+    - Name it (e.g., Posts) and configure permissions (e.g., read/write access for users).
+    - Create another collection for comments:
+    - Click on Create Collection.
+    - Name it (e.g., Comments) and configure permissions.
+
+![Overall Database](1.png)
+![Article Schema](2.png)
+
+![Comment Schema](3.png)
+![Permissions](4.png)
+
+4. Set Up Storage
+    - In your project dashboard, go to the Storage section.
+    - Click on Create Bucket.
+    - Name your bucket (e.g., BlogImages) and configure permissions (e.g., read/write access for users).
+
+
+5. Generate API Keys
+    - In your project dashboard, go to the API Keys section.
+    - Click on Create API Key.
+    - Select the required scopes (e.g., Database, Storage, Users).
+    - Click Create and copy the generated API key.
 
 ## Usage
 Once the app is running, you can:
