@@ -17,7 +17,11 @@ export default function RTE({ name, control, label, defaultValue = "" }) {
         </label>
       )}
       <button 
-        onClick={() => setIsMarkdown(!isMarkdown)}
+        type="button" // Prevents form submission
+        onClick={(e) => {
+          e.preventDefault(); // Stop unintended form submission
+          setIsMarkdown((prev) => !prev);
+        }}
         className="mb-2 px-3 py-1 text-sm font-medium text-white bg-blue-600 rounded-lg hover:bg-blue-700 transition"
       >
         {isMarkdown ? "Switch to Normal Editor" : "Switch to Markdown Editor"}
