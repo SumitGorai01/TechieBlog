@@ -1,13 +1,9 @@
 import { useState } from "react";
 import { Controller } from "react-hook-form";
-import ReactMde from "react-mde";
-import Showdown from "showdown";
-import "react-mde/lib/styles/css/react-mde-all.css";
+import ReactMarkdown from "react-markdown";
 
 export default function RTE({ name, control, label, defaultValue = "" }) {
-  const [selectedTab, setSelectedTab] = useState("write");
   const [isMarkdown, setIsMarkdown] = useState(false);
-  const converter = new Showdown.Converter({ tables: true, simplifiedAutoLink: true });
 
   return (
     <div className="w-full">
@@ -16,33 +12,23 @@ export default function RTE({ name, control, label, defaultValue = "" }) {
           {label}
         </label>
       )}
-      <button 
-        type="button" // Prevents form submission
-        onClick={(e) => {
-          e.preventDefault(); // Stop unintended form submission
-          setIsMarkdown((prev) => !prev);
-        }}
+      <button
+        type="button"
+        onClick={() => setIsMarkdown((prev) => !prev)}
         className="mb-2 px-3 py-1 text-sm font-medium text-white bg-blue-600 rounded-lg hover:bg-blue-700 transition"
       >
-        {isMarkdown ? "Switch to Normal Editor" : "Switch to Markdown Editor"}
+        {isMarkdown ? "Switch to Editor" : "Switch to Markdown Preview"}
       </button>
-      <div className="relative rounded-lg border border-gray-300 dark:border-gray-600 shadow-sm hover:border-orange-300 dark:hover:border-orange-400 transition-all duration-300">
+      <div className="relative rounded-lg border border-gray-300 dark:border-gray-600 shadow-sm transition-all duration-300">
         <Controller
           name={name || "content"}
           control={control}
           defaultValue={defaultValue}
           render={({ field: { value, onChange } }) => (
             isMarkdown ? (
-              <ReactMde
-                value={value}
-                onChange={onChange}
-                selectedTab={selectedTab}
-                onTabChange={setSelectedTab}
-                generateMarkdownPreview={(markdown) =>
-                  Promise.resolve(converter.makeHtml(markdown))
-                }
-                className="rounded-lg backdrop-blur-sm bg-white/70 dark:bg-gray-800/80"
-              />
+              <div className="p-3 bg-white dark:bg-gray-800 rounded-lg">
+                <ReactMarkdown>{value}</ReactMarkdown>
+              </div>
             ) : (
               <textarea
                 value={value}
