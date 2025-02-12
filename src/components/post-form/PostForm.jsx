@@ -5,6 +5,7 @@ import appwriteService from "../../appwrite/config"
 import { useNavigate } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 import { ClipLoader } from 'react-spinners'
+import MarkDownRTE from '../MarkDownRTE.jsx'
 
 export default function PostForm({ post }) {
     const [loading, setLoading] = useState(false);
@@ -104,7 +105,7 @@ export default function PostForm({ post }) {
                             />
                             <div className="space-y-2">
                                 <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">Content</label>
-                                <RTE
+                                <MarkDownRTE
                                     label=""
                                     name="content"
                                     control={control}
