@@ -4,6 +4,7 @@ import { Button, Input } from './index'
 const ContactUs = () => {
   return (
     <div class="p-2 dark:bg-gray-800 ">
+      <div className="mt-24"></div>
        <h1 className="text-3xl font-bold mb-6 text-center text-orange-600">
         Contact Us
       </h1>

@@ -43,6 +43,7 @@ function Home() {
 dark:bg-gradient-to-r dark:from-gray-800 dark:via-gray-900 dark:to-black min-h-screen flex flex-col 
 justify-center animate-fade-in transition-colors duration-300"
       >
+        <div className="mt-16"></div>
         <div className="p-6 mt-5">
           <h1 className="text-3xl md:text-5xl font-extrabold text-orange-600 dark:text-orange-400 tracking-tight">
             <TypeAnimation
@@ -146,6 +147,7 @@ justify-center animate-fade-in transition-colors duration-300"
   dark:bg-gradient-to-r dark:from-gray-800 dark:via-gray-900 dark:to-black min-h-screen 
   transition-colors duration-300"
     >
+      <div className="mt-20"></div>
       <div className="text-center">
         <h1
           className="text-4xl font-extrabold text-orange-600 dark:text-orange-400 
