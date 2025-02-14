@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link, NavLink } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import {
@@ -25,6 +25,17 @@ function Header() {
   const authStatus = useSelector((state) => state.auth.status);
   const darkMode = useSelector((state) => state.theme.darkMode);
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth >= 1024) {
+        setIsMenuOpen(false); // Close menu when screen width is lg or larger
+      }
+    };
+
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   const navItems = [
     { name: "Login", slug: "/login", active: !authStatus, icon: LogIn },
