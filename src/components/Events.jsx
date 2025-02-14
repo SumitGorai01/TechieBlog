@@ -22,6 +22,7 @@ const Events = () => {
 
     return (
         <div className="p-6 min-h-screen">
+            <div className='mt-20'></div>
             <motion.h1 
                 initial={{ opacity: 0, y: -50 }}
                 animate={{ opacity: 1, y: 0 }}
