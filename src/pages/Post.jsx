@@ -4,13 +4,14 @@ import { useSelector } from "react-redux";
 // import parse from "html-react-parser";
 import Swal from 'sweetalert2';
 import { format, formatDistanceToNow } from "date-fns";
-import { ArrowLeft, Calendar, Clock, Share2, User, Heart } from "lucide-react";
+import { ArrowLeft, Calendar, Clock, Share2, User, Heart, Send } from "lucide-react";
 
 import appwriteService from "../appwrite/config";
 import authService from "../appwrite/auth";
 import { Container } from "../components";
 import Loading from "../components/loaders/Loading";
 import MarkdownDisplay from "../components/MarkdownDisplay";
+import Comments from "./Comments";
 
 export default function Post() {
   const [post, setPost] = useState(null);
@@ -21,6 +22,8 @@ export default function Post() {
   const [likes, setLikes] = useState(0);
   const [isLiking, setIsLiking] = useState(false);
   const [isLiked, setIsLiked] = useState(false);
+
+  const [isSaved, setIsSaved] = useState(false)
 
   useEffect(() => {
     if (post && userData) {
@@ -55,6 +58,77 @@ export default function Post() {
 
     fetchPost();
   }, [slug, navigate]);
+
+  const saveForLater = async () => {
+    try {
+
+        setIsSaved(prev => !prev)
+
+        console.log("User ID:", userData?.$id);
+        console.log("Post ID:", post?.$id);
+
+        if (!userData?.$id || !post?.$id) {
+            Swal.fire("Error", "Invalid user or post data", "error");
+            return;
+        }
+
+        const result = await Swal.fire({
+            title: "Save for Later?",
+            text: `${isSaved ? "Remove now..." : "You can access this post later from your saved list."}`,
+            icon: "question",
+            showCancelButton: true,
+            confirmButtonColor: "#f59e0b",
+            cancelButtonColor: "#6b7280",
+            confirmButtonText: "Save",
+            cancelButtonText: "Cancel",
+        });
+
+        if (!result.isConfirmed) return;
+
+        // Call the service method
+        const response = await appwriteService.saveForLater(userData.$id, post.$id);
+
+        if (response) {
+            Swal.fire(
+                "Success",
+                `${isSaved ? "Post is removed":"Post has been added to your saved list!" }`,
+                "success"
+            );
+        } else {
+            Swal.fire("Error", "Failed to save the post", "error");
+        }
+    } catch (error) {
+        console.error("Error in handleSaveForLater:", error);
+        Swal.fire("Error", "Something went wrong", "error");
+    }
+};
+
+useEffect(() => {
+  async function getsaveForLater(userId) {
+    try {
+      console.log(`Fetching savedForLater posts for userId: ${userId}`);
+      
+      const response = await appwriteService.getsaveForLater(userId);
+      console.log("Saved Posts Response:", response);
+      
+      if (response && response.includes(post.$id)) {
+        setIsSaved(prev => !prev);
+      }
+
+      return response; // Return data for future use if needed
+    } catch (error) {
+      console.error(`Error fetching saved posts for userId: ${userId}`, error);
+      return null;
+    }
+  }
+
+  getsaveForLater(userData.$id);
+}, [userData?.$id, post?.$id]); // Ensure effect runs only when IDs are available
+
+  
+  
+  
+  
 
   const deletePost = async () => {
     try {
@@ -215,9 +289,23 @@ export default function Post() {
               >
                 Delete
               </button>
+
+              <button
+                onClick={saveForLater}
+                className={`px-6 py-2 rounded-lg transition-colors duration-300 ${
+                  isSaved ? "bg-red-600 hover:bg-red-700" : "bg-amber-500 hover:bg-amber-600"
+                } text-white`}
+              >
+                  {isSaved ? "Remove from Saved" : "Save for Later"}
+              </button>
+
+
+
             </div>
           )}
         </article>
+
+        <Comments post={post} userData={userData} />
       </Container>
     </div>
   );

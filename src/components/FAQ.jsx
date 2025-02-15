@@ -1,95 +1,143 @@
-import React, { useState } from 'react';
-import { FaChevronDown, FaChevronUp, FaBlog } from 'react-icons/fa';
+import React from "react";
+import { FaUserCircle, FaUserTie } from "react-icons/fa";
+import { motion } from "framer-motion";
+import faqImage from "../assets/faq.svg"; // Replace with actual image path
 
 const FAQ = () => {
-  const [activeIndex, setActiveIndex] = useState(null);
-
-  const questions = [
+  const faqItems = [
     {
-      question: "What is TechieBlog?",
-      answer: "TechieBlog is your hub for the latest in technology and innovation. Stay updated with our latest posts, join the community, and share your knowledge.",
+      type: 'question',
+      content: "What is TechieBlog?",
     },
     {
-      question: "How often is new content published?",
-      answer: "We strive to publish new content regularly. Typically, you can expect new articles to be posted at least once a week. Subscribe to our newsletter to stay updated on the latest posts."
+      type: 'answer',
+      content: "TechieBlog is your hub for the latest in technology and innovation. Stay updated with our latest posts, join the community, and share your knowledge.",
     },
     {
-      question: "How can I find a specific article?",
-      answer: "To find a specific article, use the search bar located at the top of our website. Enter keywords related to the topic you're looking for, and a list of relevant articles will appear."
+      type: 'question',
+      content: "How often is new content published?",
     },
     {
-      question: "How do I create an account?",
-      answer: "To create an account, click on the signup link in the navbar and fill out the required information. You'll receive a confirmation email to activate your account."
+      type: 'answer',
+      content: "We publish new content weekly, ensuring you always have fresh insights and tech updates. Subscribe to our newsletter to never miss a post!",
     },
     {
-      question: "How do I reset my password?",
-      answer: "To reset your password, click on the forgot password link on the login page and follow the instructions. You'll receive a password reset email."
+      type: 'question',
+      content: "How can I contribute to TechieBlog?",
     },
     {
-      question: "How can I submit a post?",
-      answer: "First you need create your account. Then you can submit your post by clicking on the submit post button in the navbar. We welcome original, insightful content related to technology. Once your article is reviewed and approved, it will be published on our site."
+      type: 'answer',
+      content: "We welcome contributions from tech enthusiasts! You can submit your articles through our submission form. Our editorial team will review and provide feedback within 48 hours.",
     },
     {
-      question: "How do I subscribe to the blog?",
-      answer: "You can subscribe to our blog by entering your email address in the subscription box located at the bottom of our homepage. You'll receive regular updates and notifications about our latest posts directly to your inbox."
+      type: 'question',
+      content: "What topics does TechieBlog cover?",
     },
     {
-      question: "How can I contact the blog author?",
-      answer: "If you have questions or feedback for a specific blog author, you can reach them through the \"Contact\" section. Each author has a dedicated profile page with their contact information and social media links."
+      type: 'answer',
+      content: "We cover a wide range of tech topics including web development, AI/ML, cybersecurity, cloud computing, mobile development, and emerging technologies. Our content is carefully curated to keep you informed about the latest trends.",
     },
     {
-      question: "How do I report a technical issue with the website?",
-      answer: "To report a technical issue, please use the \"Support\" form available in the \"Contact\" section. Provide a detailed description of the issue, and our technical team will address it as soon as possible."
+      type: 'question',
+      content: "How can I connect with other tech enthusiasts?",
+    },
+    {
+      type: 'answer',
+      content: "Join our vibrant community through our forums, comment sections, and monthly virtual meetups. We also have active social media groups where members share insights and discuss tech trends.",
     }
   ];
 
-  const toggleAnswer = (index) => {
-    setActiveIndex(activeIndex === index ? null : index);
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.2
+      }
+    }
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { type: "spring", stiffness: 100 },
+    },
   };
 
   return (
-    <div className="faq-page min-h-screen p-6 sm:p-10 lg:p-20 bg-gradient-to-r from-yellow-50 via-orange-50 to-red-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900">
-      <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-center text-orange-600 dark:text-orange-500 mb-10">
-        Frequently Asked Questions
-      </h1>
-      <div className="faq-list space-y-6 max-w-4xl mx-auto">
-        {questions.map((item, index) => (
-          <div
-            key={index}
-            id={`faq-item-${index}`}
-            className={`faq-item p-5 rounded-lg shadow-lg transition-all ${
-              activeIndex === index
-                ? "bg-orange-50 dark:bg-orange-900 border-orange-500"
-                : "bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700"
-            }`}
+    <div className="min-h-screen bg-gradient-to-br from-orange-50 via-white to-orange-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 py-10 px-4 sm:px-6 lg:px-8">
+      <div className="text-center">
+        <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold bg-clip-text text-transparent bg-gradient-to-r from-orange-500 to-amber-500 dark:from-orange-400 dark:to-amber-400 mb-4">
+          Frequently Asked Questions
+        </h1>
+        <p className="text-lg text-gray-600 dark:text-gray-300">
+          Get answers to common questions about TechieBlog
+        </p>
+      </div>
+      <div className="max-w-6xl mx-auto flex flex-col lg:flex-row items-center gap-12">
+        {/* Image Section */}
+        <div className="w-full lg:w-1/3 flex justify-center lg:self-start">
+  <img src={faqImage} alt="FAQ" className="w-full h-auto" />
+</div>
+
+        {/* FAQ Section */}
+        <div className="w-full lg:w-2/3">
+          <motion.div
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            className="text-center mb-5"
+          ></motion.div>
+
+          <motion.div
+            variants={containerVariants}
+            initial="hidden"
+            animate="visible"
+            className="space-y-4"
           >
-            <div
-              className="flex justify-between items-center cursor-pointer"
-              onClick={() => toggleAnswer(index)}
-              aria-expanded={activeIndex === index}
-            >
-              <div className="flex items-center space-x-3">
-                <h2 className="text-xl font-bold text-gray-900 dark:text-gray-100 hover:text-orange-600 dark:hover:text-orange-400 transition-colors duration-200">
-                  {item.question}
-                </h2>
-              </div>
-              {activeIndex === index ? (
-                <FaChevronUp className="text-orange-500 transform transition-transform duration-300 rotate-180" />
-              ) : (
-                <FaChevronDown className="text-gray-400 dark:text-gray-500 transform transition-transform duration-300" />
-              )}
-            </div>
-            <div
-              className={`overflow-hidden transition-[max-height] duration-500 ease-in-out ${
-                activeIndex === index ? "max-h-[500px]" : "max-h-0"
-              }`}
-            >
-              <p className="mt-3 text-gray-700 dark:text-gray-300 text-left leading-relaxed">
-                {item.answer}
-              </p>
-            </div>
-          </div>
-        ))}
+            {faqItems.map((item, index) => (
+              <motion.div
+                key={index}
+                variants={itemVariants}
+                className={`flex ${
+                  item.type === "question" ? "justify-start" : "justify-end"
+                } items-start gap-4`}
+              >
+                {item.type === "question" && (
+                  <>
+                    <div className="flex-shrink-0">
+                      <FaUserCircle className="w-10 h-10 text-orange-400 dark:text-orange-300" />
+                    </div>
+                    <div className="flex-1 max-w-2xl">
+                      <div className="bg-white dark:bg-gray-800 mt-2 p-4 rounded-2xl rounded-tl-none shadow-sm border border-gray-100 dark:border-gray-700">
+                        <p className="text-gray-700 dark:text-gray-200 text-lg text-left">
+                          {item.content}
+                        </p>
+                      </div>
+                    </div>
+                  </>
+                )}
+
+                {item.type === "answer" && (
+                  <>
+                    <div className="flex-1 max-w-2xl">
+                      <div className="bg-amber-50 dark:bg-amber-900/30 p-3 rounded-2xl rounded-tr-none shadow-sm border border-amber-100 dark:border-amber-800">
+                        <p className="text-amber-800 dark:text-amber-100 text-lg text-justify">
+                          {item.content}
+                        </p>
+                      </div>
+                    </div>
+                    <div className="flex-shrink-0">
+                      <FaUserTie className="w-10 h-10 text-amber-500 dark:text-amber-400" />
+                    </div>
+                  </>
+                )}
+              </motion.div>
+            ))}
+          </motion.div>
+        </div>
       </div>
     </div>
   );

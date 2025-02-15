@@ -83,7 +83,7 @@ const AddEvent = () => {
     };
 
     return (
-        <div className="max-w-2xl mx-auto p-6 bg-white dark:bg-gray-900 rounded-xl shadow-2xl">
+        <div className="max-w-2xl mx-auto m-5 p-6 bg-white dark:bg-gray-900 rounded-xl shadow-2xl">
             <div className="flex justify-between items-center mb-6">
                 <h1 className="text-3xl font-extrabold text-orange-600 dark:text-orange-400">
                     Create New Event

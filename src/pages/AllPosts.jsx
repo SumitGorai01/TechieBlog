@@ -25,13 +25,13 @@ function AllPosts() {
   }, []);
 
   return (
-    <div className='w-full py-8 md:py-12 min-h-screen bg-gradient-to-b from-yellow-50 via-orange-50 to-red-50 dark:bg-gradient-to-r dark:from-gray-800 dark:via-gray-900 dark:to-black transition-colors duration-300'>
+    <div className='w-full py-4 md:py-5 min-h-screen bg-gradient-to-b from-yellow-50 via-orange-50 to-red-50 dark:bg-gradient-to-r dark:from-gray-800 dark:via-gray-900 dark:to-black transition-colors duration-300'>
       <Container>
         {loading ? (
           <Loading />
         ) : (
-          <div className='max-w-[1800px] mx-auto px-4 sm:px-6 lg:px-8'>
-          <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-6 justify-items-center'>
+          <div className='max-w-[1500px] mx-auto px-4 sm:px-6 lg:px-4'>
+          <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-5 justify-items-center'>
               {posts.length === 0 ? (
                 <div className="col-span-full text-center py-10">
                   <p className="text-xl text-gray-600 dark:text-gray-400">No posts found</p>

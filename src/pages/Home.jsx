@@ -8,7 +8,6 @@ import ContributorsLink from "../components/contributors/contributorsLink.jsx";
 // import { getPostsFromDatabase } from '../appwrite/config.js';
 import { TypeAnimation } from "react-type-animation";
 
-
 import img from "../assets/tech-blog-illustration.png";
 function Home() {
   const [posts, setPosts] = useState([]);
@@ -45,22 +44,22 @@ dark:bg-gradient-to-r dark:from-gray-800 dark:via-gray-900 dark:to-black min-h-s
 justify-center animate-fade-in transition-colors duration-300"
       >
         <div className="p-6 mt-5">
-        <h1 className="text-3xl md:text-5xl font-extrabold text-orange-600 dark:text-orange-400 tracking-tight">
-      <TypeAnimation
-        sequence={[
-          "Welcome to ",  // First part
-          1000,           // Delay (1 second)
-          "Welcome to TechieBlog", // Full text
-          1500,           // Delay (1.5 seconds)
-          "",             // Clear text
-          500,            // Pause before restarting
-        ]}
-        wrapper="span"
-        speed={10} // Typing speed
-        repeat={Infinity} // Loop indefinitely
-        cursor={true} // Show blinking cursor
-      />
-    </h1>
+          <h1 className="text-3xl md:text-5xl font-extrabold text-orange-600 dark:text-orange-400 tracking-tight">
+            <TypeAnimation
+              sequence={[
+                "Welcome to ", // First part
+                1000, // Delay (1 second)
+                "Welcome to TechieBlog", // Full text
+                1500, // Delay (1.5 seconds)
+                "", // Clear text
+                500, // Pause before restarting
+              ]}
+              wrapper="span"
+              speed={10} // Typing speed
+              repeat={Infinity} // Loop indefinitely
+              cursor={true} // Show blinking cursor
+            />
+          </h1>
           <p
             className="text-gray-700 dark:text-gray-300 mt-4 text-lg md:text-xl 
     animate-fade-in-delayed"
@@ -80,48 +79,48 @@ justify-center animate-fade-in transition-colors duration-300"
         </div>
 
         <div className="mt-2 max-w-5xl mx-auto flex flex-col md:flex-row items-center gap-12">
-  {/* Subscription Form */}
-  <div className="flex-1 bg-white dark:bg-gray-800 shadow-lg rounded-lg p-8 animate-fade-up transition-colors duration-300">
-    <h2 className="text-2xl md:text-4xl font-bold text-gray-900 dark:text-gray-100">
-      Subscribe to TechieBlog
-    </h2>
-    <p className="text-gray-700 dark:text-gray-300 mt-2">
-      Get the latest posts delivered right to your inbox.
-    </p>
-    <form action="#" className="mt-6">
-      <div className="flex flex-col md:flex-row items-center gap-4">
-        <input
-          type="email"
-          placeholder="youremail@example.com"
-          className="w-full md:w-auto flex-1 rounded-lg border-gray-300 
+          {/* Subscription Form */}
+          <div className="flex-1 bg-white dark:bg-gray-800 shadow-lg rounded-lg p-8 animate-fade-up transition-colors duration-300">
+            <h2 className="text-2xl md:text-4xl font-bold text-gray-900 dark:text-gray-100">
+              Subscribe to TechieBlog
+            </h2>
+            <p className="text-gray-700 dark:text-gray-300 mt-2">
+              Get the latest posts delivered right to your inbox.
+            </p>
+            <form action="#" className="mt-6">
+              <div className="flex flex-col md:flex-row items-center gap-4">
+                <input
+                  type="email"
+                  placeholder="youremail@example.com"
+                  className="w-full md:w-auto flex-1 rounded-lg border-gray-300 
           dark:border-gray-600 shadow-sm focus:ring focus:ring-orange-300 
           dark:focus:ring-orange-500 p-3 bg-white dark:bg-gray-700 
           text-gray-900 dark:text-gray-100 placeholder-gray-500 
           dark:placeholder-gray-400 transition-colors duration-300"
-        />
-        <button
-          type="submit"
-          className="w-full md:w-auto px-6 py-3 bg-orange-600 
+                />
+                <button
+                  type="submit"
+                  className="w-full md:w-auto px-6 py-3 bg-orange-600 
           dark:bg-orange-500 text-white font-semibold rounded-lg shadow-md 
           hover:bg-orange-700 dark:hover:bg-orange-600 
           transition duration-300"
-        >
-          Subscribe
-        </button>
-      </div>
-    </form>
-  </div>
+                >
+                  Subscribe
+                </button>
+              </div>
+            </form>
+          </div>
 
-  {/* Image Section */}
-  <div className="flex-1 animate-fade-in-delayed">
-    <img
-      src={img}
-      alt="Tech Blog Illustration"
-      className="w-full max-w-md mx-auto animate-bounce-slow 
+          {/* Image Section */}
+          <div className="flex-1 animate-fade-in-delayed">
+            <img
+              src={img}
+              alt="Tech Blog Illustration"
+              className="w-full max-w-md mx-auto animate-bounce-slow 
       dark:opacity-90 transition-opacity duration-300"
-    />
-  </div>
-</div>
+            />
+          </div>
+        </div>
         <Testimonials />
         <section className="mb-10">
           <h2 className="text-3xl md:text-4xl font-bold text-black dark:text-gray-200 my-6">
@@ -150,7 +149,7 @@ justify-center animate-fade-in transition-colors duration-300"
       <div className="text-center">
         <h1
           className="text-4xl font-extrabold text-orange-600 dark:text-orange-400 
-      mb-8 animate-slide-in"
+      mb-2 animate-slide-in"
         >
           Latest Posts
         </h1>

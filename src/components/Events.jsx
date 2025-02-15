@@ -1,5 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { motion } from 'framer-motion';
+
 const Events = () => {
     const events = [
         {
@@ -7,7 +9,7 @@ const Events = () => {
             date: "February 10, 2025",
             time: "10:00 AM - 12:00 PM",
             description: "Join us for an introductory session on HTML where you'll learn the basics of structuring a webpage and creating content.",
-            link: "/register"  
+            link: "/register"
         },
         {
             title: "Workshop: Advanced CSS techniques",
@@ -19,26 +21,50 @@ const Events = () => {
     ];
 
     return (
-        <div className="p-4">
-            <h1 className='text-3xl font-bold mb-6 text-orange-600 dark:text-gray-100 text-center' style={{ textShadow: '2px 4px 4px rgba(0, 0, 0, 0.8)' }}>Upcoming Events/Webinars</h1>
-            <div className="mx-4 sm:mx-8 md:mx-16 lg:mx-60 mb-20">
+        <div className="p-6 min-h-screen">
+            <motion.h1 
+                initial={{ opacity: 0, y: -50 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8 }}
+                className='text-4xl font-extrabold mb-10 text-orange-600 dark:text-gray-100 text-center '
+            >
+                Upcoming Events/Webinars
+            </motion.h1>
+            <div className="flex flex-wrap justify-center gap-10 mx-4 sm:mx-8 md:mx-16 lg:mx-60 mb-20">
                 {events.map((event, index) => (
-                    <div key={index} className="p-4 border rounded-lg shadow-lg bg-white dark:bg-gray-800 mb-10">
-                        <h2 className="text-xl sm:text-2xl font-semibold mb-4 sm:mb-10">{event.title}</h2>
-                        <p className="text-gray-600 dark:text-gray-400 mb-4 sm:mb-8"><strong>Date:</strong> {event.date}</p>
-                        <p className="text-gray-600 dark:text-gray-400 mb-4 sm:mb-8"><strong>Time:</strong> {event.time}</p>
-                        <p className="mt-2 text-gray-700 dark:text-gray-300 mb-8 sm:mb-16">{event.description}</p>
-                        <div className="flex justify-center">
-                            <button className="btn-shadow w-full sm:w-60 px-4 py-2 bg-orange-600 text-white font-semibold rounded-md shadow-sm hover:bg-orange-700 hover:text-shadow transition duration-300">
-                                <a href={event.link}>Register Now</a>
-                            </button>
+                    <motion.div 
+                        key={index} 
+                        initial={{ opacity: 0, scale: 0.9 }}
+                        whileInView={{ opacity: 1, scale: 1 }}
+                        transition={{ duration: 0.5 }}
+                        className="flex flex-col p-6 w-full sm:w-96 border rounded-xl shadow-2xl bg-white dark:bg-gray-800 hover:shadow-orange-500 transition-all duration-300"
+                    >
+                        <h2 className="text-2xl sm:text-3xl font-bold mb-6 text-gray-800 dark:text-gray-200">{event.title}</h2>
+                        <p className="text-gray-700 dark:text-gray-400 mb-4"><strong>Date:</strong> {event.date}</p>
+                        <p className="text-gray-700 dark:text-gray-400 mb-4"><strong>Time:</strong> {event.time}</p>
+                        <p className="text-gray-600 dark:text-gray-300 mb-8">{event.description}</p>
+                        <div className="mt-auto flex justify-center">
+                            <motion.a 
+                                href={event.link} 
+                                whileHover={{ scale: 1.1 }}
+                                whileTap={{ scale: 0.9 }}
+                                className="w-full sm:w-60 px-6 py-3 bg-orange-600 text-white font-semibold rounded-lg shadow-md hover:bg-orange-700 transition duration-300"
+                            >
+                                Register Now
+                            </motion.a>
                         </div>
-                    </div>
+                    </motion.div>
                 ))}
             </div>
             <div className="flex justify-center">
                 <Link to="/add-event">
-                    <button className="btn-shadow w-full sm:w-80 px-4 text-lg sm:text-xl py-3 sm:py-4 bg-orange-600 text-white font-semibold rounded-md shadow-sm hover:bg-orange-700 hover:text-shadow transition duration-300">Add Events/Webinars</button>
+                    <motion.button 
+                        whileHover={{ scale: 1.05 }}
+                        whileTap={{ scale: 0.95 }}
+                        className="w-full sm:w-80 px-6 py-4 text-lg sm:text-xl bg-orange-600 text-white font-bold rounded-lg shadow-lg hover:bg-orange-700 transition duration-300"
+                    >
+                        Add Events/Webinars
+                    </motion.button>
                 </Link>
             </div>
         </div>

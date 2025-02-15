@@ -8,8 +8,9 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        'sans': ['"Source Sans 3"', 'system-ui', '-apple-system', 'sans-serif'],
+        'sans': ['Inter', 'sans-serif', "Source Sans 3", 'system-ui', '-apple-system', 'sans-serif'],
         'heading': ['Montserrat', 'system-ui', '-apple-system', 'sans-serif'],
+        'serif': ['Merriweather', 'serif'],
       },
       colors: {
         primary: '#0A84FF',

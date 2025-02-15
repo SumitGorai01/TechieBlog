@@ -3,26 +3,26 @@ import { Link } from 'react-router-dom';
 import { Facebook, Linkedin, Instagram, ArrowUp, Mail, MapPin, Phone } from 'lucide-react';
 import Logo from '../Logo';
 import ContributorsLink from '../contributors/contributorsLink';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faArrowUp } from "@fortawesome/free-solid-svg-icons";
 
 const Footer = () => {
+  const [scrollProgress, setScrollProgress] = useState(0);
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
-    const toggleVisibility = () => {
-      if (window.pageYOffset > 300) {
-        setIsVisible(true);
-      } else {
-        setIsVisible(false);
-      }
+    const handleScroll = () => {
+      const scrollTop = window.scrollY;
+      const scrollHeight = document.documentElement.scrollHeight - window.innerHeight;
+      const progress = (scrollTop / scrollHeight) * 360;
+      
+      setScrollProgress(progress);
+      setIsVisible(scrollTop > 100);
     };
 
-    window.addEventListener('scroll', toggleVisibility);
-    return () => window.removeEventListener('scroll', toggleVisibility);
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
-
-  const scrollToTop = () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  };
 
   return (
     <footer className="relative bg-gradient-to-r from-yellow-200 via-orange-200 to-red-200 dark:bg-gradient-to-r dark:from-gray-800 dark:via-gray-900 dark:to-black">
@@ -149,14 +149,22 @@ const Footer = () => {
       </div>
 
       {/* Enhanced Scroll to Top Button */}
-      <button
-        onClick={scrollToTop}
-        className={`fixed bottom-[20px] right-[20px] p-2 rounded-full bg-orange-500 text-white shadow-md hover:bg-blue-600 transition-all duration-300 transform hover:scale-110 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
-          }`}
-        aria-label="Scroll to top"
+      <div
+        id="scrollButton"
+        className={`fixed bottom-6 right-6 w-14 h-14 flex items-center justify-center z-50 cursor-pointer transition-opacity duration-500 ${isVisible ? "opacity-100" : "opacity-0 pointer-events-none"}`}
+        onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
       >
-        <ArrowUp className="w-5 h-5" />
-      </button>
+        <div
+          className="relative w-full h-full rounded-full flex items-center justify-center"
+          style={{
+            background: `conic-gradient(orange 0deg, orange ${scrollProgress}deg, transparent ${scrollProgress}deg, transparent 360deg)`,
+          }}
+        >
+          <div className="w-11 h-11 bg-white rounded-full flex items-center justify-center shadow-lg">
+            <FontAwesomeIcon icon={faArrowUp} className="text-orange-500 text-2xl" />
+          </div>
+        </div>
+      </div>
     </footer>
   );
 };

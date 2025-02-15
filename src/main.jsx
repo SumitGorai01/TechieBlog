@@ -36,6 +36,7 @@ const Events = lazy(() => import('./components/Events.jsx'));
 const Register = lazy(() => import('./components/Register.jsx'));
 const Verify = lazy(() => import('./pages/Verify.jsx'));
 const AddEvent = lazy(() => import('./components/AddEvent.jsx'))
+const AddComment = lazy(() => import('./components/AddComment.jsx'));
 const router = createBrowserRouter([
     {
         path: "/",
@@ -100,6 +101,14 @@ const router = createBrowserRouter([
                         <AddPost />
                     </AuthLayout>
                 ),
+            },
+            {
+                path: "/add-comment",
+                element: (
+                    <AuthLayout authentication>
+                        <AddComment/>
+                    </AuthLayout>
+                )
             },
             {
                 path: "/edit-post/:slug",

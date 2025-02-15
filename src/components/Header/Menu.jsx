@@ -6,36 +6,36 @@ import LogoutBtn from "./LogoutBtn";
 import Avatar from "@mui/material/Avatar";
 import { toggleTheme } from "../../store/themeSlice";
 
-const ThemeToggle = () => {
-  const dispatch = useDispatch();
-  const isDarkMode = useSelector((state) => state.theme.darkMode);
+// const ThemeToggle = () => {
+//   const dispatch = useDispatch();
+//   const isDarkMode = useSelector((state) => state.theme.darkMode);
 
-  return (
-    <button
-      onClick={() => dispatch(toggleTheme())}
-      className={`
-        relative inline-flex items-center justify-center
-        w-12 h-6 rounded-full transition-colors duration-200 ease-in-out
-        focus:outline-none focus:ring-2 focus:ring-orange-400 focus:ring-offset-2
-        ${isDarkMode ? "bg-orange-700" : "bg-orange-200"}
-      `}
-      aria-label="Toggle theme"
-    >
-      <span
-        className={`
-          absolute left-1 transform transition-transform duration-200
-          ${isDarkMode ? "translate-x-6" : "translate-x-0"}
-        `}
-      ></span>
-      <span
-        className={`
-          absolute w-4 h-4 rounded-full transition-colors duration-200
-          ${isDarkMode ? "bg-gray-900 left-7" : "bg-white left-1"}
-        `}
-      />
-    </button>
-  );
-};
+//   return (
+//     <button
+//       onClick={() => dispatch(toggleTheme())}
+//       className={`
+//         relative inline-flex items-center justify-center
+//         w-12 h-6 rounded-full transition-colors duration-200 ease-in-out
+//         focus:outline-none focus:ring-2 focus:ring-orange-400 focus:ring-offset-2
+//         ${isDarkMode ? "bg-orange-700" : "bg-orange-200"}
+//       `}
+//       aria-label="Toggle theme"
+//     >
+//       <span
+//         className={`
+//           absolute left-1 transform transition-transform duration-200
+//           ${isDarkMode ? "translate-x-6" : "translate-x-0"}
+//         `}
+//       ></span>
+//       <span
+//         className={`
+//           absolute w-4 h-4 rounded-full transition-colors duration-200
+//           ${isDarkMode ? "bg-gray-900 left-7" : "bg-white left-1"}
+//         `}
+//       />
+//     </button>
+//   );
+// };
 
 export default function BasicMenu() {
   const username = useSelector((state) => state.auth.userData.name);

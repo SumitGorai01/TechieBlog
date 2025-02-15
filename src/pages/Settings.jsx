@@ -8,7 +8,7 @@ function Settings() {
         {
             title: 'Account Information',
             icon: <User size={20} />,
-            path: '/account'
+            path: '/profile'
         },
         {
             title: 'Change Password',
