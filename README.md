@@ -143,3 +143,8 @@ Contributions are welcome! Please fork the repository and submit a pull request.
 3. Make your changes and commit them
 4. Push to the branch (git push origin feature/your-feature)
 5. Create a pull request to the main repository
+
+## License
+
+Note: This project uses a **modified MIT License** that includes additional restrictions.  
+Please see the [LICENSE](./LICENSE) file for more details.
