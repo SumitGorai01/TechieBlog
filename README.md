@@ -1,10 +1,22 @@
-# 1. TechieBlog
-
+<h1 align="center">TechieBlog</h1>
+<p align="center">
+<a href="https://techie-blogs.vercel.app/"><strong>🚀 Live Demo</strong></a>
+</p>
 TechieBlog is a blogging platform that allows users to create, read, update, and delete blog posts. It provides a clean and user-friendly interface with essential features for content management. This project uses **Appwrite** as the backend, allowing for easy authentication, database management, and file storage.
 
-Link :- https://techie-blogs.vercel.app/
 
-## 1.1. Features
+## 👀 Table of Contents
+
+- [Features](#features)
+- [Technologies Used](#technologies-used)
+- [Installation](#installation)
+- [Usage](#usage)
+- [Contributing](#contributing)
+- [Steps to Contribute](#steps-to-contribute)
+
+---
+
+## 🦾 Features
 
 - User authentication (Login/Sign-up) via Appwrite
 - Create, edit, and delete blog posts
@@ -12,7 +24,9 @@ Link :- https://techie-blogs.vercel.app/
 - File upload support for images and media
 - Responsive design for both desktop and mobile views
 
-## 1.2. Technologies Used
+---
+
+## 🛠 Technologies Used
 
 - **Frontend**: HTML, CSS, JavaScript, Tailwind css , React
 - **Backend**: Appwrite for user authentication, database, and file storage
@@ -21,15 +35,16 @@ Link :- https://techie-blogs.vercel.app/
 - **Link**: [Click Here](https://techie-blogs.vercel.app/)
 - ![techie-blog](https://github.com/user-attachments/assets/d010c27b-1b1e-4eea-999c-f9d0c9433f86)
 
+---
 
-## 1.3. Installation
+## 🧩 Installation
 
-### 1.3.1. Prerequisites
+### 1. Prerequisites
 
 - Node.js and npm (or yarn) installed on your machine.
 - Appwrite instance running locally or on a cloud server.
 
-### 1.3.2. Steps
+### 2. Steps
 
 1. Clone the repository:
    ```bash
@@ -80,7 +95,7 @@ If you don’t have an Appwrite account, follow these steps:
     ```
 8. The app should now be running at http://localhost:5173 (or another specified port).
 
-### Setting Up Appwrite Keys for Contributors
+### 3. Setting Up Appwrite Keys for Contributors
 To contribute to the TechieBlog project, you need to set up your own Appwrite instance and obtain the required keys. Follow these steps:
 
 1. Create an Appwrite Account
@@ -125,7 +140,9 @@ To contribute to the TechieBlog project, you need to set up your own Appwrite in
     - Select the required scopes (e.g., Database, Storage, Users).
     - Click Create and copy the generated API key.
 
-## Usage
+---
+
+## ⚙ Usage
 Once the app is running, you can:
 
 1. Register an account and log in using Appwrite authentication
@@ -133,11 +150,15 @@ Once the app is running, you can:
 3. Add tags, categories, and images to posts
 Comment on other users' posts
 
-## Contributing
+---
+
+## 🛡 Contributing
 
 Contributions are welcome! Please fork the repository and submit a pull request. Before contributing, ensure that the tests pass and the code adheres to the project's coding standards.
 
-## Steps to contribute:
+---
+
+## 🤝 Steps to Contribute
 1. Fork the repository
 2. Create a new branch (git checkout -b feature/your-feature)
 3. Make your changes and commit them
