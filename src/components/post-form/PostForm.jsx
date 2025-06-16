@@ -5,6 +5,7 @@ import appwriteService from "../../appwrite/config"
 import { useNavigate } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 import { ClipLoader } from 'react-spinners'
+import Loading from '../loaders/Loading'
 
 export default function PostForm({ post }) {
     const [loading, setLoading] = useState(false);

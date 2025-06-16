@@ -8,15 +8,20 @@ import { useForm } from 'react-hook-form'
 import Swal from "sweetalert2";
 import image from '../../src/assets/Signupimg.svg'
 import { motion } from 'framer-motion';
+import Loading from './loaders/Loading';
+
 
 function Signup() {
   const navigate = useNavigate()
   const dispatch = useDispatch()
   const { register, handleSubmit } = useForm()
   const [error, setError] = useState("")
+  const [isLoading, setIsLoading] = useState(false);
+
 
   const create = async (data) => {
     setError("")
+    setIsLoading(true);
     try {
         const userAccount = await authService.createAccount(data)
         if (userAccount) {
@@ -36,10 +41,13 @@ function Signup() {
             title: "Registration Failed!",
             text: error.message || "An error occurred during registration.",
             confirmButtonText: "Try Again",
-        })
+        });
+        
+        }finally {
+          setIsLoading(false);
     }
   }
-
+  if (isLoading) return <Loading />;
   return (
     <div className="font-[sans-serif]">
       <div className="min-h-screen flex flex-col items-center justify-center py-2 px-4">

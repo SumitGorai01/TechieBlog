@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import appwriteService from "../appwrite/config";
+import Loading from './loaders/Loading';
 import { Link } from "react-router-dom";
 import { User, Clock } from "lucide-react";
 import { formatDistanceToNow } from "date-fns";
@@ -7,6 +8,7 @@ import authService from "../appwrite/auth"; // Import the function
 
 function PostCard({ $id, title, featuredImage, $createdAt, userId }) {
   const [authorName, setAuthorName] = useState("Loading...");
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const fetchAuthor = async () => {
@@ -20,6 +22,9 @@ function PostCard({ $id, title, featuredImage, $createdAt, userId }) {
       } catch (error) {
         console.log("Error fetching author:", error);
         setAuthorName("Unknown User");
+      }
+      finally{
+        setIsLoading(false);
       }
     };
 

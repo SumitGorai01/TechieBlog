@@ -8,14 +8,17 @@ import Swal from "sweetalert2";
 import image from '../../src/assets/Computer.svg';
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
+import Loading from './loaders/Loading';
 
 function Login() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { register, handleSubmit } = useForm();
+  const [isLoading, setIsLoading] = useState(false);
 
   const login = async (data) => {
     try {
+      setIsLoading(true);
       const session = await authService.login(data);
 
       if (session) {
@@ -28,6 +31,7 @@ function Login() {
             icon: "success",
             title: "Login Successful!",
             text: "Redirecting to the Dashboard page...",
+
             timer: 3000,
             showConfirmButton: false,
           });
@@ -46,7 +50,7 @@ function Login() {
       });
     }
   };
-
+  if (isLoading) return <Loading />;
   return (
     <div className="font-[sans-serif]">
       <div className="min-h-screen flex flex-col items-center justify-center py-2 px-4">

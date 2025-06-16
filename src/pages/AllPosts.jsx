@@ -31,10 +31,12 @@ function AllPosts() {
           <Loading />
         ) : (
           <div className='max-w-[1500px] mx-auto px-4 sm:px-6 lg:px-4'>
-          <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-5 justify-items-center'>
+            <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-5 justify-items-center'>
               {posts.length === 0 ? (
                 <div className="col-span-full text-center py-10">
-                  <p className="text-xl text-gray-600 dark:text-gray-400">No posts found</p>
+                  <p className="text-xl text-gray-600 dark:text-gray-400">
+                    Oops! Looks like there are no posts yet. Be the first to share something awesome!
+                  </p>
                 </div>
               ) : (
                 posts.map((post) => (

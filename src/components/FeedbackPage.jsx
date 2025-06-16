@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import feedbackImg from "../assets/feedback.svg";
 import { FaStar } from "react-icons/fa";
 
+
 function FeedbackPage() {
   const [formData, setFormData] = useState({
     name: '',

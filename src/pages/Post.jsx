@@ -24,6 +24,7 @@ export default function Post() {
   const [isLiked, setIsLiked] = useState(false);
 
   const [isSaved, setIsSaved] = useState(false)
+  
 
   useEffect(() => {
     if (post && userData) {
@@ -277,7 +278,7 @@ useEffect(() => {
           </div>
 
           <h1 className="text-4xl font-bold text-gray-900 dark:text-gray-100 mb-8">
-            {post.title}
+            {post.title || "Untitled Post"}
           </h1>
 
           <MarkdownDisplay content={post.content} />

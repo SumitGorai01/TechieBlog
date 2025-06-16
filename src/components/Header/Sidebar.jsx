@@ -4,7 +4,17 @@ import { useSelector, useDispatch } from "react-redux";
 import { toggleTheme } from "../../store/themeSlice";
 import DarkModeIcon from "@mui/icons-material/DarkMode";
 import LightModeIcon from "@mui/icons-material/LightMode";
-import { LogIn, UserPlus, Files, FileEdit, HelpCircle, MessageSquare, Info, Phone, Calendar } from "lucide-react";
+import {
+  LogIn,
+  UserPlus,
+  Files,
+  FileEdit,
+  HelpCircle,
+  MessageSquare,
+  Info,
+  Phone,
+  Calendar,
+} from "lucide-react";
 import Logo from "../Logo";
 
 function Sidebar({ isOpen, setIsOpen }) {
@@ -22,7 +32,7 @@ function Sidebar({ isOpen, setIsOpen }) {
     { name: "Contact Us", slug: "/contact-us", active: true, icon: Phone },
   ];
 
-  if (!authStatus) return null; // Hide sidebar if user is not logged in
+  if (!authStatus) return null;
 
   return (
     <aside
@@ -35,7 +45,12 @@ function Sidebar({ isOpen, setIsOpen }) {
       ${isOpen ? "scale-100 opacity-100" : "scale-0 opacity-0"} 
       z-50 rounded-xl`}
     >
-      <h2 className="flex justify-center"><Logo width={50} /></h2>
+      {/* Logo */}
+      <h2 className="flex justify-center mb-4">
+        <Logo width={50} />
+      </h2>
+
+      {/* Nav Items */}
       <ul className="space-y-4">
         {navItems.map(
           (item) =>
@@ -45,13 +60,16 @@ function Sidebar({ isOpen, setIsOpen }) {
                   className={({ isActive }) =>
                     `${
                       isActive ? "bg-yellow-100 dark:bg-gray-600 shadow-md" : ""
-                    } flex items-center gap-2 px-5 py-2 text-orange-600 font-semibold hover:bg-orange-200 rounded-full transition-transform duration-300 hover:scale-105 dark:text-orange-400 dark:hover:bg-gray-700`
+                    } flex items-center justify-center md:justify-start gap-4 px-4 py-2 
+                    rounded-full text-orange-600 dark:text-orange-400 
+                    hover:bg-orange-200 dark:hover:bg-gray-700 
+                    transition-transform duration-300 hover:scale-105`
                   }
                   to={item.slug}
                   onClick={() => setIsOpen(false)}
                 >
-                  <item.icon size={18} />
-                  {item.name}
+                  <item.icon size={20} />
+                  <span className="hidden md:inline">{item.name}</span>
                 </NavLink>
               </li>
             )
@@ -62,7 +80,10 @@ function Sidebar({ isOpen, setIsOpen }) {
       <div className="mt-8 md:hidden">
         <button
           onClick={() => dispatch(toggleTheme())}
-          className="w-full px-2 py-2 text-orange-600 dark:text-orange-400 font-semibold bg-yellow-100 dark:bg-gray-800 hover:bg-orange-200 dark:hover:bg-gray-700 rounded-full shadow-md transition-transform duration-300 hover:scale-105 flex items-center justify-center"
+          className="w-full px-2 py-2 text-orange-600 dark:text-orange-400 font-semibold 
+          bg-yellow-100 dark:bg-gray-800 hover:bg-orange-200 dark:hover:bg-gray-700 
+          rounded-full shadow-md transition-transform duration-300 hover:scale-105 
+          flex items-center justify-center"
         >
           {darkMode ? <LightModeIcon /> : <DarkModeIcon />}
         </button>
