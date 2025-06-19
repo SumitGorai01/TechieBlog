@@ -87,7 +87,7 @@ function Signup() {
                 whileFocus={{ scale: 1.05 }}
                 transition={{ duration: 0.3 }}
               >
-                <label className="text-gray-800 text-sm mb-2 block">Name</label>
+                <label className=" text-sm mb-2 block text-orange-500 font-bold">Name</label>
                 <Input
                   name="name"
                   type="text"
@@ -101,7 +101,7 @@ function Signup() {
                 whileFocus={{ scale: 1.05 }}
                 transition={{ duration: 0.3 }}
               >
-                <label className="text-gray-800 text-sm mb-2 block">
+                <label className=" text-sm mb-2 block text-orange-500 font-bold">
                   Email
                 </label>
                 <Input
@@ -117,7 +117,7 @@ function Signup() {
                 whileFocus={{ scale: 1.05 }}
                 transition={{ duration: 0.3 }}
               >
-                <label className="text-gray-800 text-sm mb-2 block">
+                <label className="text-sm mb-2 block text-orange-500 font-bold">
                   Password
                 </label>
                 <div className="relative">
@@ -147,7 +147,7 @@ function Signup() {
                 />
                 <label
                   htmlFor="remember-me"
-                  className="ml-3 block text-sm text-gray-800"
+                  className="ml-3 block text-sm  text-orange-500 "
                 >
                   I accept the{" "}
                   <Link
@@ -170,7 +170,7 @@ function Signup() {
                   Register
                 </Button>
               </motion.div>
-              <p className="text-sm text-gray-800 mt-6">
+              <p className="text-sm text-orange-500 mt-6 ">
                 Already have an account?{" "}
                 <Link
                   to="/login"

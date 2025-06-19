@@ -111,6 +111,27 @@ function Header() {
         className="lg:hidden p-1 rounded-lg transition-colors"
         onClick={() => setIsMenuOpen(!isMenuOpen)}
         aria-label="Toggle menu"
+
+          {/* Mobile Menu */}
+          {isMenuOpen && (
+            <div className="md:hidden">
+              <div className="mt-4 py-2">
+                <ul className="mt-4 space-y-6 text-lg flex flex-col items-center">
+                {navItems.map((item, index) =>
+  item.active && (
+    <li
+      key={item.name}
+      className={`${index < 3 ? "md:hidden" : ""}`} // Hide the third item on small screens
+    >
+      <NavLink
+        className={({ isActive }) =>
+          `${isActive ? "bg-transparent border-orange-600" : "border-transparent"} 
+          w-full inline-flex items-center gap-2 px-6 py-2 text-orange-400
+          font-semibold border hover:border-orange-500 rounded-lg transition-colors`
+        }
+        to={item.slug}
+        onClick={() => handleNavigation()}
+
       >
         <MenuIcon fontSize="large" className="text-orange-600" />
       </button>

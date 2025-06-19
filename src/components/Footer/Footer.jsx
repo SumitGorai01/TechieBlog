@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Facebook, Linkedin, Instagram, ArrowUp, Mail, MapPin, Phone } from 'lucide-react';
 import Logo from '../Logo';
 import ContributorsLink from '../contributors/contributorsLink';
@@ -9,6 +9,7 @@ import { faArrowUp } from "@fortawesome/free-solid-svg-icons";
 const Footer = () => {
   const [scrollProgress, setScrollProgress] = useState(0);
   const [isVisible, setIsVisible] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -23,6 +24,11 @@ const Footer = () => {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
+  const handleNavigation = (path) => {
+    window.scrollTo(0, 0);
+    navigate(path);
+  };
 
   return (
     <footer className="relative bg-gradient-to-r from-yellow-200 via-orange-200 to-red-200 dark:bg-gradient-to-r dark:from-gray-800 dark:via-gray-900 dark:to-black">
@@ -72,18 +78,22 @@ const Footer = () => {
           <div className="space-y-6">
             <h3 className="text-lg dark:text-gray-200 font-bold">Company</h3>
             <ul className="space-y-4">
-              {['About Us', 'Feedback', 'Events'].map((item) => (
-                <li key={item}>
-                  <Link
-                    to={`/${item.toLowerCase().replace(' ', '-')}`}
-                    className="group dark:hover:text-gray-200 dark:text-gray-400 flex items-center text-gray-600 hover:text-gray-900 relative"
+              {[
+                { name: 'About Us', path: '/about-us' },
+                { name: 'Feedback', path: '/feedback' },
+                { name: 'Events', path: '/events' }
+              ].map((item) => (
+                <li key={item.name}>
+                  <button
+                    onClick={() => handleNavigation(item.path)}
+                    className="group dark:hover:text-gray-200 dark:text-gray-400 flex items-center text-gray-600 hover:text-gray-900 relative w-full text-left"
                   >
                     <span className="w-2 h-2 bg-blue-500 rounded-full mr-3 opacity-0 group-hover:opacity-100 transition-all duration-300 transform group-hover:scale-125" />
                     <span className="relative">
-                      {item}
+                      {item.name}
                       <span className="absolute left-0 bottom-0 w-0 h-0.5 bg-gradient-to-r from-blue-500 to-purple-500 group-hover:w-full transition-all duration-300 ease-out"></span>
                     </span>
-                  </Link>
+                  </button>
                 </li>
               ))}
             </ul>
@@ -93,18 +103,22 @@ const Footer = () => {
           <div className="space-y-6">
             <h3 className="text-lg dark:text-gray-200 font-bold">Support</h3>
             <ul className="space-y-4">
-              {['Account', 'Faq', 'Contact Us'].map((item) => (
-                <li key={item}>
-                  <Link
-                    to={`/${item.toLowerCase().replace(' ', '-')}`}
-                    className="group flex items-center text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-200 relative"
+              {[
+                { name: 'Account', path: '/account' },
+                { name: 'FAQ', path: '/faq' },
+                { name: 'Contact Us', path: '/contact-us' }
+              ].map((item) => (
+                <li key={item.name}>
+                  <button
+                    onClick={() => handleNavigation(item.path)}
+                    className="group flex items-center text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-200 relative w-full text-left"
                   >
                     <span className="w-2 h-2 bg-blue-500 rounded-full mr-3 opacity-0 group-hover:opacity-100 transition-all duration-300 transform group-hover:scale-125" />
                     <span className="relative">
-                      {item}
+                      {item.name}
                       <span className="absolute left-0 bottom-0 w-0 h-0.5 bg-gradient-to-r from-blue-500 to-purple-500 group-hover:w-full transition-all duration-300 ease-out"></span>
                     </span>
-                  </Link>
+                  </button>
                 </li>
               ))}
             </ul>
