@@ -7,17 +7,12 @@ TechieBlog is a blogging platform that allows users to create, read, update, and
 
 ## 👀 Table of Contents
 
-- [👀 Table of Contents](#-table-of-contents)
-- [🦾 Features](#-features)
-- [🛠 Technologies Used:-](#-technologies-used-)
-- [🧩 Installation](#-installation)
-  - [1. Prerequisites](#1-prerequisites)
-  - [2. Steps](#2-steps)
-  - [3. Setting Up Appwrite Keys for Contributors](#3-setting-up-appwrite-keys-for-contributors)
-- [⚙ Usage](#-usage)
-- [🛡 Contributing](#-contributing)
-- [🤝 Steps to Contribute](#-steps-to-contribute)
-- [License](#license)
+- [Features](#features)
+- [Technologies Used](#technologies-used)
+- [Installation](#installation)
+- [Usage](#usage)
+- [Contributing](#contributing)
+- [Steps to Contribute](#steps-to-contribute)
 
 ---
 
@@ -31,8 +26,7 @@ TechieBlog is a blogging platform that allows users to create, read, update, and
 
 ---
 
-
-## 🛠 Technologies Used:-
+## 🛠 Technologies Used
 
 - **Frontend**: HTML, CSS, JavaScript, Tailwind css , React
 - **Backend**: Appwrite for user authentication, database, and file storage
