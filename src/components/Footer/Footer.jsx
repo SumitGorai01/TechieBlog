@@ -104,7 +104,7 @@ const Footer = () => {
             <h3 className="text-lg dark:text-gray-200 font-bold">Support</h3>
             <ul className="space-y-4">
               {[
-                { name: 'Account', path: '/account' },
+                { name: 'Account', path: '/login' },
                 { name: 'FAQ', path: '/faq' },
                 { name: 'Contact Us', path: '/contact-us' }
               ].map((item) => (

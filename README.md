@@ -4,6 +4,31 @@
 </p>
 TechieBlog is a blogging platform that allows users to create, read, update, and delete blog posts. It provides a clean and user-friendly interface with essential features for content management. This project uses **Appwrite** as the backend, allowing for easy authentication, database management, and file storage.
 
+<img src="https://www.animatedimages.org/data/media/562/animated-line-image-0184.gif" width="100%" />
+<table align="center">
+  <thead align="center">
+    <tr>
+      <td><b>🌟 Stars</b></td>
+      <td><b>🍴 Forks</b></td>
+      <td><b>🐛 Issues</b></td>
+      <td><b>🔔 Open PRs</b></td>
+      <td><b>🔕 Closed PRs</b></td>
+      <td><b>🛠️ Languages</b></td>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><img alt="Stars" src="https://img.shields.io/github/stars/SumitGorai01/TechieBlog?style=flat&logo=github"/></td>
+      <td><img alt="Forks" src="https://img.shields.io/github/forks/SumitGorai01/TechieBlog?style=flat&logo=github"/></td>
+      <td><img alt="Issues" src="https://img.shields.io/github/issues/SumitGorai01/TechieBlog?style=flat&logo=github"/></td>
+      <td><img alt="Open PRs" src="https://img.shields.io/github/issues-pr/SumitGorai01/TechieBlog?style=flat&logo=github"/></td>
+      <td><img alt="Closed PRs" src="https://img.shields.io/github/issues-pr-closed/SumitGorai01/TechieBlog?style=flat&logo=github"/></td>
+      <td><img alt="Languages" src="https://img.shields.io/github/languages/count/SumitGorai01/TechieBlog?style=flat&logo=github"/></td>
+    </tr>
+  </tbody>
+</table>
+<img src="https://www.animatedimages.org/data/media/562/animated-line-image-0184.gif" width="100%" />
+
 
 ## 👀 Table of Contents
 
@@ -14,7 +39,7 @@ TechieBlog is a blogging platform that allows users to create, read, update, and
 - [Contributing](#contributing)
 - [Steps to Contribute](#steps-to-contribute)
 
----
+<img src="https://www.animatedimages.org/data/media/562/animated-line-image-0184.gif" width="100%" />
 
 ## 🦾 Features
 
@@ -24,7 +49,7 @@ TechieBlog is a blogging platform that allows users to create, read, update, and
 - File upload support for images and media
 - Responsive design for both desktop and mobile views
 
----
+<img src="https://www.animatedimages.org/data/media/562/animated-line-image-0184.gif" width="100%" />
 
 ## 🛠 Technologies Used
 
@@ -35,7 +60,7 @@ TechieBlog is a blogging platform that allows users to create, read, update, and
 - **Link**: [Click Here](https://techie-blogs.vercel.app/)
 - ![techie-blog](https://github.com/user-attachments/assets/d010c27b-1b1e-4eea-999c-f9d0c9433f86)
 
----
+<img src="https://www.animatedimages.org/data/media/562/animated-line-image-0184.gif" width="100%" />
 
 ## 🧩 Installation
 
@@ -140,7 +165,7 @@ To contribute to the TechieBlog project, you need to set up your own Appwrite in
     - Select the required scopes (e.g., Database, Storage, Users).
     - Click Create and copy the generated API key.
 
----
+<img src="https://www.animatedimages.org/data/media/562/animated-line-image-0184.gif" width="100%" />
 
 ## ⚙ Usage
 Once the app is running, you can:
@@ -150,22 +175,48 @@ Once the app is running, you can:
 3. Add tags, categories, and images to posts
 Comment on other users' posts
 
----
+<img src="https://www.animatedimages.org/data/media/562/animated-line-image-0184.gif" width="100%" />
 
 ## 🛡 Contributing
 
 Contributions are welcome! Please fork the repository and submit a pull request. Before contributing, ensure that the tests pass and the code adheres to the project's coding standards.
 
----
 
-## 🤝 Steps to Contribute
+### 🤝 Steps to Contribute
 1. Fork the repository
 2. Create a new branch (git checkout -b feature/your-feature)
 3. Make your changes and commit them
 4. Push to the branch (git push origin feature/your-feature)
 5. Create a pull request to the main repository
 
+<img src="https://www.animatedimages.org/data/media/562/animated-line-image-0184.gif" width="100%" />
+
+## ❤️ Our Contributors
+
+<a href="https://github.com/SumitGorai01/TechieBlog/graphs/contributors">
+  <img src="https://contributors-img.web.app/image?repo=SumitGorai01/TechieBlog" />
+</a>
+
+<img src="https://www.animatedimages.org/data/media/562/animated-line-image-0184.gif" width="100%" />
+
+## ⭐ Show Your Support
+
+If you found this project helpful, please consider giving it a ⭐️
+
+[![Stargazers repo roster for @SumitGorai01/TechieBlog](https://reporoster.com/stars/dark/SumitGorai01/TechieBlog)](https://github.com/SumitGorai01/TechieBlog/stargazers)
+
+<img src="https://www.animatedimages.org/data/media/562/animated-line-image-0184.gif" width="100%" />
+
+## 🍴 Forkers
+
+[![Forkers repo roster for @SumitGorai01/TechieBlog](https://reporoster.com/forks/dark/SumitGorai01/TechieBlog)](https://github.com/SumitGorai01/TechieBlog/network/members)
+
+<img src="https://www.animatedimages.org/data/media/562/animated-line-image-0184.gif" width="100%" />
+
 ## License
+
 
 Note: This project uses a **modified MIT License** that includes additional restrictions.  
 Please see the [LICENSE](./LICENSE) file for more details.
+
+
