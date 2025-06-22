@@ -21,7 +21,7 @@
     "@reduxjs/toolkit": "^2.3.0",
     "@tinymce/tinymce-react": "^5.1.1",
     "@uiw/react-md-editor": "^4.0.5",
-    "appwrite": "^16.0.2",
+    "appwrite": "^16.1.0",
     "axios": "^1.7.9",
     "caniuse-lite": "^1.0.30001723",
     "data-fns": "^1.1.0",
