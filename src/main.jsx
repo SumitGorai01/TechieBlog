@@ -9,7 +9,7 @@ import { PersistGate } from "redux-persist/integration/react"
 import { persistStore } from "redux-persist"
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 import Loader from './components/loaders/Loading.jsx'
-
+import { ToastContainer } from 'react-toastify';
 // Lazy loading components
 const AuthLayout = lazy(() => import('./components/index.js').then(module => ({ default: module.AuthLayout })));
 const Login = lazy(() => import('./components/index.js').then(module => ({ default: module.Login })));
