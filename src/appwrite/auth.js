@@ -42,7 +42,7 @@ export class AuthService {
             await this.account.createVerification(`${baseLink}/verify-email`);
             
             // ✅ Step 4: Clean Up Session
-            await this.account.deleteSessions();
+            // await this.account.deleteSessions();
 
             return userAccount;
         } catch (error) {

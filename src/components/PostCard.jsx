@@ -33,7 +33,7 @@ function PostCard({ $id, title, featuredImage, $createdAt, userId }) {
 
   return (
     <Link to={`/post/${$id}`} className="block transform transition-all duration-300 hover:scale-[1.02] hover:z-10 w-full">
-      <div className="w-[340px] h-[400px] mx-auto relative group">
+      <div className="w-[320px] h-[400px] mx-auto relative group">
         <div className="bg-white dark:bg-gray-800 rounded-2xl overflow-hidden h-full 
           shadow-md dark:shadow-lg hover:shadow-lg transition-all duration-300 m-2">
           
@@ -72,8 +72,8 @@ function PostCard({ $id, title, featuredImage, $createdAt, userId }) {
         </div>
 
         {/* Hover Effect Bar */}
-        <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-orange-400 to-red-500 
-          transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500"/>
+        <div className="absolute bottom-0 rounded-lg left-0 right-0 h-1 bg-gradient-to-r from-orange-400 to-red-500 
+          transform scale-x-0 group-hover:scale-x-90 transition-transform duration-500"/>
       </div>
     </Link>
   );

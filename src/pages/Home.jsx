@@ -92,7 +92,7 @@ justify-center animate-fade-in transition-colors duration-300"
                 <input
                   type="email"
                   placeholder="youremail@example.com"
-                  className="w-full md:w-auto flex-1 rounded-lg border-gray-300 
+                  className="w-full md:w-auto flex-1 rounded-lg border-gray-400 border
           dark:border-gray-600 shadow-sm focus:ring focus:ring-orange-300 
           dark:focus:ring-orange-500 p-3 bg-white dark:bg-gray-700 
           text-gray-900 dark:text-gray-100 placeholder-gray-500 
