@@ -60,8 +60,10 @@ function FeedbackPage() {
                 <input type='email' name='email' value={formData.email} onChange={handleChange} placeholder='Your email...' className='input-style' />
                 {errors.email && <p className='text-red-500 text-sm'>{errors.email}</p>}
                 
-                <select name='category' value={formData.category} onChange={handleChange} className='input-style dark:text-gray-800'>
-                  <option value='general'>General</option>
+                <select name='category' value={formData.category} onChange={handleChange} className='input-style dark:text-gray-800' style={{ color: "rgba(0, 0, 0, 0.5" }}>
+                  <option value='general'>
+                    General
+                  </option>
                   <option value='bug'>Bug Report</option>
                   <option value='feature'>Feature Request</option>
                 </select>
