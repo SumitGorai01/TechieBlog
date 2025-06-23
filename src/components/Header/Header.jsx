@@ -32,18 +32,18 @@ function Header() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false); // Sidebar is open by default
 
   const navItems = [
-    {
-      name: "Login",
-      slug: "/login",
-      active: !authStatus,
-      icon: LogIn,
-    },
-    {
-      name: "Signup",
-      slug: "/signup",
-      active: !authStatus,
-      icon: UserPlus,
-    },
+    // {
+    //   name: "Login",
+    //   slug: "/login",
+    //   active: !authStatus,
+    //   icon: LogIn,
+    // },
+    // {
+    //   name: "Signup",
+    //   slug: "/signup",
+    //   active: !authStatus,
+    //   icon: UserPlus,
+    // },
     {
       name: "All Posts",
       slug: "/all-posts",
@@ -86,6 +86,20 @@ function Header() {
     //   active: true,
     //   icon: Phone,
     // },
+
+
+     {
+      name: "Login",
+      slug: "/login",
+      active: !authStatus,
+      icon: LogIn,
+    },
+    {
+      name: "Signup",
+      slug: "/signup",
+      active: !authStatus,
+      icon: UserPlus,
+    },
   ];
 
   const handleNavigation = () => {
