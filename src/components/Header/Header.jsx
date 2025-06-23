@@ -56,18 +56,18 @@ function Header() {
       active: authStatus,
       icon: FileEdit,
     },
-    {
-      name: "FAQ",
-      slug: "/faq",
-      active: true,
-      icon: HelpCircle,
-    },
-    {
-      name: "Feedback",
-      slug: "/feedback",
-      active: true,
-      icon: MessageSquare,
-    },
+    // {
+    //   name: "FAQ",
+    //   slug: "/faq",
+    //   active: true,
+    //   icon: HelpCircle,
+    // },
+    // {
+    //   name: "Feedback",
+    //   slug: "/feedback",
+    //   active: true,
+    //   icon: MessageSquare,
+    // },
     {
       name: "About Us",
       slug: "/about-us",
@@ -80,12 +80,12 @@ function Header() {
       active: true,
       icon: Calendar,
     },
-    {
-      name: "Contact Us",
-      slug: "/contact-us",
-      active: true,
-      icon: Phone,
-    },
+    // {
+    //   name: "Contact Us",
+    //   slug: "/contact-us",
+    //   active: true,
+    //   icon: Phone,
+    // },
   ];
 
   const handleNavigation = () => {
