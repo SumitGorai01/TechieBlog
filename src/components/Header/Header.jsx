@@ -10,9 +10,10 @@ import {
   HelpCircle,
   MessageSquare,
   Info,
-  Mail,
   Phone,
   Calendar,
+  Menu,
+  X,
 } from "lucide-react";
 import Logo from "../Logo";
 import Searchbar from "./Searchbar.jsx";
@@ -22,7 +23,6 @@ import DarkModeIcon from "@mui/icons-material/DarkMode";
 import LightModeIcon from "@mui/icons-material/LightMode";
 import { toggleTheme } from "../../store/themeSlice";
 import Sidebar from "./Sidebar.jsx";
-import { Menu, X } from "lucide-react";
 
 function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -32,60 +32,15 @@ function Header() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
   const navItems = [
-    {
-      name: "Login",
-      slug: "/login",
-      active: !authStatus,
-      icon: LogIn,
-    },
-    {
-      name: "Signup",
-      slug: "/signup",
-      active: !authStatus,
-      icon: UserPlus,
-    },
-    {
-      name: "All Posts",
-      slug: "/all-posts",
-      active: authStatus,
-      icon: Files,
-    },
-    {
-      name: "Add Post",
-      slug: "/add-post",
-      active: authStatus,
-      icon: FileEdit,
-    },
-    {
-      name: "FAQ",
-      slug: "/faq",
-      active: true,
-      icon: HelpCircle,
-    },
-    {
-      name: "Feedback",
-      slug: "/feedback",
-      active: true,
-      icon: MessageSquare,
-    },
-    {
-      name: "About Us",
-      slug: "/about-us",
-      active: true,
-      icon: Info,
-    },
-    {
-      name: "Events",
-      slug: "/events",
-      active: true,
-      icon: Calendar,
-    },
-    {
-      name: "Contact Us",
-      slug: "/contact-us",
-      active: true,
-      icon: Phone,
-    },
+    { name: "About Us", slug: "/about-us", active: true, icon: Info },
+    { name: "Events", slug: "/events", active: true, icon: Calendar },
+    { name: "All Posts", slug: "/all-posts", active: authStatus, icon: Files },
+    { name: "Add Post", slug: "/add-post", active: authStatus, icon: FileEdit },
+    { name: "FAQ", slug: "/faq", active: true, icon: HelpCircle },
+    { name: "Feedback", slug: "/feedback", active: true, icon: MessageSquare },
+    { name: "Contact Us", slug: "/contact-us", active: true, icon: Phone },
+    { name: "Login", slug: "/login", active: !authStatus, icon: LogIn },
+    { name: "Signup", slug: "/signup", active: !authStatus, icon: UserPlus },
   ];
 
   const handleNavigation = () => {
@@ -141,10 +96,11 @@ function Header() {
                 <button
                   onClick={() => dispatch(toggleTheme())}
                   className="hidden sm:inline-block px-2 justify-end ml-16 py-2 text-orange-600 dark:text-orange-400 font-semibold bg-yellow-100 dark:bg-gray-800 hover:bg-orange-200 dark:hover:bg-gray-700 rounded-full shadow-md transition-transform duration-300 hover:scale-105"
-
                 >
-                  {darkMode ? <LightModeIcon /> : <DarkModeIcon />}
-                </button>
+                  <span className="absolute left-0 block w-3 h-32 rotate-45 bg-opacity-0 bg-slate-100 group-hover:bg-opacity-35 group-hover:animate-waving-hand dark:hidden"></span>
+                  <item.icon size={18} />
+                  {item.name}
+                </NavLink>
               </li>
               {authStatus && <BasicMenu setIsMenuOpen={setIsMenuOpen}/>}
               {/* Sidebar (Only if user is logged in) */}
@@ -159,19 +115,25 @@ function Header() {
                   {isSidebarOpen ? <X size={28} /> : <Menu size={28} />}
                 </button>
               )}
-            </ul>
+            </div>
+          </nav>
 
-            {/* Mobile Menu Button */}
+          {/* Mobile Header */}
+          <div className="flex items-center justify-between md:hidden">
+            <Link to="/">
+              <Logo width={70} />
+            </Link>
+
             {!authStatus && (
               <button
-                className="p-1 ml-2 transition-colors rounded-lg md:hidden dark:text-white"
+                className="p-1 ml-2 transition-colors rounded-lg dark:text-white"
                 onClick={() => setIsMenuOpen(!isMenuOpen)}
                 aria-label="Toggle menu"
               >
                 <MenuIcon fontSize="large" className="text-orange-600 dark:text-white" />
               </button>
             )}
-          </nav>
+          </div>
 
           {/* Mobile Menu */}
           {isMenuOpen && (
@@ -205,7 +167,7 @@ function Header() {
                   <li className="animate-fade-in-delayed">
                     <button
                       onClick={() => dispatch(toggleTheme())}
-                      className="inline-block px-2 py-2 mr-3 font-semibold text-orange-600 transition-transform duration-300 bg-yellow-100 rounded-full shadow-md dark:text-white dark:bg-white/10 dark:backdrop-blur-md dark:border dark:border-white/20 hover:bg-orange-200 dark:hover:bg-white/20 dark:hover:border-white/30 dark:hover:text-orange-500 hover:scale-105"
+                      className="inline-block px-3 py-2 mr-3 font-semibold text-orange-600 transition-transform duration-300 bg-yellow-100 rounded-full shadow-md dark:text-white dark:bg-white/10 dark:backdrop-blur-md dark:border dark:border-white/20 hover:bg-orange-200 dark:hover:bg-white/20 dark:hover:border-white/30 dark:hover:text-orange-500 hover:scale-105"
                     >
                       {darkMode ? <LightModeIcon /> : <DarkModeIcon />}
                     </button>
@@ -216,6 +178,7 @@ function Header() {
           )}
         </Container>
       </header>
+
       <div className="relative">
         <div className="absolute inset-0 flex items-center">
           <div className="w-full border-t border-gray-400 dark:border-white/10"></div>
