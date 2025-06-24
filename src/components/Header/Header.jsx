@@ -22,14 +22,14 @@ import DarkModeIcon from "@mui/icons-material/DarkMode";
 import LightModeIcon from "@mui/icons-material/LightMode";
 import { toggleTheme } from "../../store/themeSlice";
 import Sidebar from "./Sidebar.jsx";
-import { Menu, X } from "lucide-react"; // Import Menu (☰) and X (✖) icons
+import { Menu, X } from "lucide-react";
 
 function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const authStatus = useSelector((state) => state.auth.status);
   const darkMode = useSelector((state) => state.theme.darkMode);
   const dispatch = useDispatch();
-  const [isSidebarOpen, setIsSidebarOpen] = useState(false); // Sidebar is open by default
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
   const navItems = [
     {
@@ -94,25 +94,24 @@ function Header() {
 
   return (
     <>
-      <header
-        id="sticky-header"
-        className="py-2 px-6 shadow-md bg-gradient-to-r from-yellow-100 via-orange-100 to-red-100 
-  dark:bg-gradient-to-r dark:from-gray-600 dark:via-gray-600 dark:to-gray-600 
-  transition duration-300 animate-slide-down border md:rounded-full md:mx-10 md:my-3  "
-      >
-
+       <header
+      id="sticky-header"
+      className="py-2 px-6 shadow-md bg-gradient-to-r from-yellow-100 via-orange-100 to-red-100 
+      dark:bg-gradient-to-r dark:from-gray-600 dark:via-gray-600 dark:to-gray-600 
+      transition duration-300 animate-slide-down border md:rounded-full md:mx-10 md:my-3"
+    >
         <Container>
-          <nav className="flex items-center justify-between">
-            <div className="flex items-center space-x-4">
+          <nav className="flex justify-between gap-2 items-left">
+            <div className="flex items-center space-x-2">
               <Link to="/">
                 <div className="animate-fade-in">
-                  <Logo width={50} />
+                  <Logo width={70} />
                 </div>
               </Link>
             </div>
 
             {/* Desktop Navigation */}
-            <ul className="hidden md:flex justify-center items-center w-full space-x-4">
+            <ul className="items-center justify-center hidden w-full space-x-8 md:flex">
               {authStatus && <Searchbar />}
               {!authStatus &&
                 navItems.map(
@@ -135,15 +134,14 @@ function Header() {
                       </li>
                     )
                 )}
-
             </ul>
-
             <ul className="flex justify-end items-center space-x-5">
               {" "}
               <li className="animate-fade-in-delayed ">
                 <button
                   onClick={() => dispatch(toggleTheme())}
                   className="hidden sm:inline-block px-2 justify-end ml-16 py-2 text-orange-600 dark:text-orange-400 font-semibold bg-yellow-100 dark:bg-gray-800 hover:bg-orange-200 dark:hover:bg-gray-700 rounded-full shadow-md transition-transform duration-300 hover:scale-105"
+
                 >
                   {darkMode ? <LightModeIcon /> : <DarkModeIcon />}
                 </button>
@@ -152,9 +150,10 @@ function Header() {
               {/* Sidebar (Only if user is logged in) */}
               {authStatus && <Sidebar isOpen={isSidebarOpen} setIsOpen={setIsSidebarOpen} />}
               {/* Header */}
+
               {authStatus && (
                 <button
-                  className="text-orange-600 bg-yellow-100 dark:bg-gray-500 dark:text-orange-300 hover:bg-orange-200 dark:hover:bg-gray-700 p-2 rounded-full transition"
+                  className="text-orange-600 transition bg-yellow-100 rounded-full dark:bg-white/10 dark:text-white dark:backdrop-blur-md dark:border dark:border-white/20 hover:bg-orange-200 dark:hover:bg-white/20 dark:hover:border-white/30 dark:hover:text-orange-500"
                   onClick={() => setIsSidebarOpen(!isSidebarOpen)}
                 >
                   {isSidebarOpen ? <X size={28} /> : <Menu size={28} />}
@@ -165,11 +164,11 @@ function Header() {
             {/* Mobile Menu Button */}
             {!authStatus && (
               <button
-                className="md:hidden p-1 ml-2 rounded-lg transition-colors"
+                className="p-1 ml-2 transition-colors rounded-lg md:hidden dark:text-white"
                 onClick={() => setIsMenuOpen(!isMenuOpen)}
                 aria-label="Toggle menu"
               >
-                <MenuIcon fontSize="large" className="text-orange-600" />
+                <MenuIcon fontSize="large" className="text-orange-600 dark:text-white" />
               </button>
             )}
           </nav>
@@ -179,6 +178,7 @@ function Header() {
             <div className="md:hidden">
               <div className="mt-4 py-2">
                 <ul className="mt-4 space-y-6 text-lg flex flex-col items-center">
+
                   {navItems.map((item, index) =>
                     item.active && (
                       <li
@@ -190,11 +190,12 @@ function Header() {
                             `${isActive ? "bg-orange-300" : ""} 
           w-full inline-flex items-center gap-2 px-6 py-2 text-orange-800 
           font-semibold hover:bg-orange-200 rounded-lg transition-colors`
+
                           }
                           to={item.slug}
                           onClick={() => handleNavigation()}
                         >
-                          <item.icon size={20} />
+                          <item.icon size={20} className="" />
                           {item.name}
                         </NavLink>
                       </li>
@@ -204,7 +205,7 @@ function Header() {
                   <li className="animate-fade-in-delayed">
                     <button
                       onClick={() => dispatch(toggleTheme())}
-                      className="inline-block px-2 mr-3 py-2 text-orange-600 dark:text-orange-400 font-semibold bg-yellow-100 dark:bg-gray-800 hover:bg-orange-200 dark:hover:bg-gray-700 rounded-full shadow-md transition-transform duration-300 hover:scale-105"
+                      className="inline-block px-2 py-2 mr-3 font-semibold text-orange-600 transition-transform duration-300 bg-yellow-100 rounded-full shadow-md dark:text-white dark:bg-white/10 dark:backdrop-blur-md dark:border dark:border-white/20 hover:bg-orange-200 dark:hover:bg-white/20 dark:hover:border-white/30 dark:hover:text-orange-500 hover:scale-105"
                     >
                       {darkMode ? <LightModeIcon /> : <DarkModeIcon />}
                     </button>
@@ -217,7 +218,7 @@ function Header() {
       </header>
       <div className="relative">
         <div className="absolute inset-0 flex items-center">
-          <div className="w-full border-t border-gray-400  dark:border-gray-400"></div>
+          <div className="w-full border-t border-gray-400 dark:border-white/10"></div>
         </div>
       </div>
     </>

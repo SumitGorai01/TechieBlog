@@ -86,7 +86,7 @@ const Events = () => {
                             </motion.p>
                         </div>
 
-                        <div className="mt-auto flex justify-center z-10">
+                        <div className="mt-auto flex justify-center z-10 pad">
                             <motion.a 
                                 href={event.link}
                                 whileHover={{ 

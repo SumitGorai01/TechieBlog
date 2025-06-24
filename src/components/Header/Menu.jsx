@@ -6,7 +6,9 @@ import LogoutBtn from "./LogoutBtn";
 import Avatar from "@mui/material/Avatar";
 
 export default function BasicMenu() {
-  const username = useSelector((state) => state.auth.userData.name);
+  const user = useSelector((state) => state.auth.userData);
+  const username = user?.name || "User";
+  const userId = user?.$id || "";
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const menuRef = useRef(null);
 
@@ -54,7 +56,7 @@ export default function BasicMenu() {
           </div>
           <div className="border-t border-orange-200 dark:border-gray-700 transition duration-300"></div>
           <div>
-            <Link to="/profile">
+            <Link to={`/profile/${userId}`}>
               <div
                 className="flex items-center px-4 py-2 text-gray-800 dark:text-gray-200 hover:bg-orange-200/50 dark:hover:bg-gray-800 transition duration-300 cursor-pointer"
                 onClick={toggleMenu}
