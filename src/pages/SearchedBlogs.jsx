@@ -1,38 +1,40 @@
-import { useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom'
-import { Container, PostCard } from '../components'
-import appwriteService from '../appwrite/config'
-import { PropagateLoader } from 'react-spinners'
+import { useEffect, useState, useCallback } from 'react';
+import { useParams } from 'react-router-dom';
+import { Container, PostCard } from '../components';
+import appwriteService from '../appwrite/config';
+import { PropagateLoader } from 'react-spinners';
 
 function SearchedBlogs() {
-    const { slug } = useParams()
-    const [posts, setPosts] = useState([])
-    const [loading, setLoading] = useState(true)
+    const { slug } = useParams();
+    const [posts, setPosts] = useState([]);
+    const [loading, setLoading] = useState(true);
 
-    const getSearchedBlogs = async () => {
+    const getSearchedBlogs = useCallback(async () => {
         try {
-            const res = await appwriteService.getSearchedPosts(slug)
+            const res = await appwriteService.getSearchedPosts(slug);
             if (res) {
-                setPosts(res.documents)
+                setPosts(res.documents);
             }
         } catch (error) {
-            console.log(error);
+            console.error('Error fetching searched blogs:', error);
         } finally {
-            setLoading(false)
+            setLoading(false);
         }
-    }
+    }, [slug]);
 
     useEffect(() => {
-        getSearchedBlogs()
-    }, [slug, getSearchedBlogs])
+        getSearchedBlogs();
+    }, [slug, getSearchedBlogs]);
 
     return (
         <div className="w-full py-8 min-h-screen bg-gradient-to-b from-yellow-50 via-orange-50 to-red-50 
             dark:from-gray-900 dark:via-gray-800 dark:to-black transition-colors duration-300">
             <div className="max-w-6xl mx-auto px-4">
                 {loading ? (
-                    <div className="h-32 flex flex-col justify-center items-center gap-4">
-                        <p>Did you know waiting makes blogs better?</p>
+                    <div className="min-h-[200px] flex flex-col justify-center items-center gap-4">
+                        <p className="text-lg font-medium text-gray-600 dark:text-gray-400">
+                            Did you know waiting makes blogs better?
+                        </p>
                         <PropagateLoader color="#ff6300" />
                     </div>
                 ) : posts.length ? (
@@ -44,11 +46,14 @@ function SearchedBlogs() {
                         ))}
                     </div>
                 ) : (
-                    <p>No blogs found</p>
+                    <div className="text-center py-16">
+                        <p className="text-xl font-semibold text-gray-700 dark:text-gray-300 mb-2">No blogs found for "{slug}"</p>
+                        <p className="text-sm text-gray-500 dark:text-gray-500">Try searching with a different keyword.</p>
+                    </div>
                 )}
             </div>
         </div>
-    )
+    );
 }
 
-export default SearchedBlogs
+export default SearchedBlogs;

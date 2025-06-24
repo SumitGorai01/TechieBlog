@@ -6,6 +6,24 @@ import { login } from "../store/authSlice";
 import { useDispatch } from "react-redux";
 import { useForm } from "react-hook-form";
 import Swal from "sweetalert2";
+
+import image from '../../src/assets/Signupimg.svg'
+import { motion } from 'framer-motion';
+import Loading from './loaders/Loading';
+
+
+function Signup() {
+  const navigate = useNavigate()
+  const dispatch = useDispatch()
+  const { register, handleSubmit } = useForm()
+  const [error, setError] = useState("")
+  const [isLoading, setIsLoading] = useState(false);
+
+
+  const create = async (data) => {
+    setError("")
+    setIsLoading(true);
+
 import image from "../../src/assets/Signupimg.svg";
 import { motion } from "framer-motion";
 import { Eye, EyeOff } from 'lucide-react';
@@ -19,10 +37,24 @@ function Signup() {
 
   const create = async (data) => {
     setError("");
+
     try {
       const userAccount = await authService.createAccount(data);
       if (userAccount) {
         Swal.fire({
+
+            icon: "error",
+            title: "Registration Failed!",
+            text: error.message || "An error occurred during registration.",
+            confirmButtonText: "Try Again",
+        });
+        
+        }finally {
+          setIsLoading(false);
+    }
+  }
+  if (isLoading) return <Loading />;
+
           icon: "success",
           title: "Account Created Successfully!",
           text: "Please check your email to verify your account before logging in.",
@@ -41,6 +73,7 @@ function Signup() {
       });
     }
   };
+
 
   return (
     <div className="font-[sans-serif]">
