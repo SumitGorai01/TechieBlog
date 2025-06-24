@@ -32,13 +32,16 @@ export class AuthService {
         // Step 3: Store user in DB (optional, but safe to do after session)
         await this.databases.createDocument(
             conf.appwriteDatabaseId,
-            conf.appwriteCollectionId,
+            conf.appwriteUserCollectionId,
             ID.unique(),
             {
                 userId: userAccount.$id,
                 name: name,
+                email,
             }
         );
+
+        console.log("✅ User Saved in Database");
 
         // Step 4: Clean up session
         await this.account.deleteSessions();
