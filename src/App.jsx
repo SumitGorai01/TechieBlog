@@ -1,4 +1,4 @@
-import { Suspense, useEffect, useState } from 'react'
+import { Suspense, useEffect, useState, useRef } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import './App.css'
 import authService from './appwrite/auth'
@@ -15,6 +15,8 @@ function App() {
   const dispatch = useDispatch()
   const authStatus = useSelector((state) => state.auth.status)
   const darkMode = useSelector((state) => state.theme.darkMode)
+  const [isFading, setIsFading] = useState(false);
+  const prevDarkMode = useRef(darkMode);
 
   useEffect(() => {
     authService.getCurrentUser()
@@ -29,6 +31,11 @@ function App() {
   }, [])
 
   useEffect(() => {
+    if (prevDarkMode.current !== darkMode) {
+      setIsFading(true);
+      setTimeout(() => setIsFading(false), 400); // match transition duration
+      prevDarkMode.current = darkMode;
+    }
     if (darkMode) {
       document.documentElement.classList.add('dark');
     } else {
@@ -40,8 +47,7 @@ function App() {
   
     <ErrorBoundary fallback={<SomethingWentWrong />}>
       {!loading ? (
-        
-        <div className='min-h-screen flex flex-wrap content-between bg-gradient-to-b from-yellow-50 via-orange-50 to-red-50 dark:bg-gradient-to-r dark:from-gray-800 dark:via-gray-900 dark:to-black text-gray-900 dark:text-gray-100 transition-colors duration-300'>
+        <div className={`min-h-screen flex flex-wrap content-between bg-gradient-to-b from-yellow-50 via-orange-50 to-red-50 dark:bg-gradient-to-r dark:from-gray-800 dark:via-gray-900 dark:to-black text-gray-900 dark:text-gray-100 transition-colors duration-300 ${isFading ? 'opacity-50 transition-opacity duration-400' : 'opacity-100 transition-opacity duration-400'}`}>
           <div className='w-full flex flex-col min-h-screen'>
             <Header />
             <main className='flex-grow'>
