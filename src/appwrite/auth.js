@@ -1,3 +1,5 @@
+/* eslint-disable no-unused-vars */
+/* eslint-disable no-useless-catch */
 import conf from "../conf/conf";
 import { Client, Account, Databases, ID, Query } from "appwrite";
 
@@ -22,14 +24,14 @@ export class AuthService {
         const userAccount = await this.account.create(ID.unique(), email, password, name);
         console.log("User Account Created:", userAccount);
 
-        // ⚠️ Step 1: Create a session *BEFORE* sending verification
+        //  Create a session *BEFORE* sending verification
         const session = await this.account.createEmailPasswordSession(email, password);
         console.log("Temporary Session Created:", session);
 
-        // Step 2: Send verification email (now session is active)
+        // Send verification email (now session is active)
         await this.account.createVerification(`${baseLink}/verify-email`);
 
-        // Step 3: Store user in DB (optional, but safe to do after session)
+        // Store user in DB (optional, but safe to do after session)
         await this.databases.createDocument(
             conf.appwriteDatabaseId,
             conf.appwriteUserCollectionId,
@@ -43,7 +45,7 @@ export class AuthService {
         );
 
 
-        // Step 4: Clean up session
+        // Clean up session
         await this.account.deleteSessions();
 
         return userAccount;
@@ -57,6 +59,8 @@ export class AuthService {
         throw error;
     }
 }
+
+    
 
     async login({ email, password }) {
         try {
