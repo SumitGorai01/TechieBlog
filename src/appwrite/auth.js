@@ -38,10 +38,10 @@ export class AuthService {
                 userId: userAccount.$id,
                 name: name,
                 email,
+                createdAt: new Date().toISOString()
             }
         );
 
-        console.log("✅ User Saved in Database");
 
         // Step 4: Clean up session
         await this.account.deleteSessions();
