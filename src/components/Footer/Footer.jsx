@@ -63,7 +63,6 @@ const Footer = () => {
           </div>
 
 
-
           {/* Quick Links Section */}
           <div className="space-y-6">
             <h3 className="text-lg dark:text-gray-200 font-bold">Company</h3>
@@ -148,7 +147,6 @@ const Footer = () => {
         </div>
 
 
-
         {/* Divider with Animation */}
         <div className="relative mt-2">
           <div className="absolute inset-0 flex items-center">
@@ -196,5 +194,4 @@ const Footer = () => {
     </footer>
   );
 };
-
 export default Footer;
