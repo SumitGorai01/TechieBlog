@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { formatDistanceToNow } from "date-fns";
-import { Send } from "lucide-react";
+import { Send, Edit2, Trash2, X, Check } from "lucide-react";
 import Swal from 'sweetalert2';
 
 import commentService from "../appwrite/comment";
@@ -14,6 +14,13 @@ export default function Comments({ post, userData }) {
   const [commentsPage, setCommentsPage] = useState(0);
   const [hasMoreComments, setHasMoreComments] = useState(true);
   const [triggerFetching, setTriggerFetching] = useState(false);
+  
+  // New states for CRUD operations
+  const [editingCommentId, setEditingCommentId] = useState(null);
+  const [editingCommentText, setEditingCommentText] = useState("");
+  const [isUpdating, setIsUpdating] = useState(false);
+  const [isDeleting, setIsDeleting] = useState(null);
+  
   const COMMENTS_PER_PAGE = 10;
 
   const fetchComments = async () => {
@@ -76,6 +83,87 @@ export default function Comments({ post, userData }) {
       Swal.fire('Error', 'Failed to post comment', 'error');
     } finally {
       setIsSubmitting(false);
+    }
+  };
+
+  // Handle Edit Comment
+  const handleEditComment = (comment) => {
+    setEditingCommentId(comment.$id);
+    setEditingCommentText(comment.commentBody);
+  };
+
+  const handleCancelEdit = () => {
+    setEditingCommentId(null);
+    setEditingCommentText("");
+  };
+
+  const handleUpdateComment = async (commentId) => {
+    if (!editingCommentText.trim()) return;
+
+    setIsUpdating(true);
+    try {
+      await commentService.updateComment(commentId, {
+        commentBody: editingCommentText.trim()
+      });
+
+      // Update the comment in the local state
+      setComments(prev => 
+        prev.map(comment => 
+          comment.$id === commentId 
+            ? { ...comment, commentBody: editingCommentText.trim() }
+            : comment
+        )
+      );
+
+      setEditingCommentId(null);
+      setEditingCommentText("");
+      
+      Swal.fire({
+        title: 'Success!',
+        text: 'Comment updated successfully',
+        icon: 'success',
+        timer: 1500,
+        showConfirmButton: false,
+      });
+    } catch (err) {
+      Swal.fire('Error', 'Failed to update comment', 'error');
+    } finally {
+      setIsUpdating(false);
+    }
+  };
+
+  // Handle Delete Comment
+  const handleDeleteComment = async (commentId) => {
+    const result = await Swal.fire({
+      title: 'Are you sure?',
+      text: "You won't be able to revert this!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#ef4444',
+      cancelButtonColor: '#6b7280',
+      confirmButtonText: 'Yes, delete it!'
+    });
+
+    if (result.isConfirmed) {
+      setIsDeleting(commentId);
+      try {
+        await commentService.deleteComment(commentId, post.$id);
+        
+        // Remove the comment from local state
+        setComments(prev => prev.filter(comment => comment.$id !== commentId));
+        
+        Swal.fire({
+          title: 'Deleted!',
+          text: 'Comment has been deleted.',
+          icon: 'success',
+          timer: 1500,
+          showConfirmButton: false,
+        });
+      } catch (err) {
+        Swal.fire('Error', 'Failed to delete comment', 'error');
+      } finally {
+        setIsDeleting(null);
+      }
     }
   };
 
@@ -184,17 +272,85 @@ export default function Comments({ post, userData }) {
               )}
             </div>
             <div className="flex-1">
-              <div className="flex items-center gap-2 mb-1">
-                <span className="font-medium text-gray-900 dark:text-gray-100 text-sm sm:text-base">
-                  {comment.user?.name || 'Unknown User'}
-                </span>
-                <span className="text-[10px] sm:text-xs text-gray-500 dark:text-gray-400">
-                  {formatDistanceToNow(new Date(comment.$createdAt), { addSuffix: true })}
-                </span>
+              <div className="flex items-center justify-between mb-1">
+                <div className="flex items-center gap-2">
+                  <span className="font-medium text-gray-900 dark:text-gray-100 text-sm sm:text-base">
+                    {comment.user?.name || 'Unknown User'}
+                  </span>
+                  <span className="text-[10px] sm:text-xs text-gray-500 dark:text-gray-400">
+                    {formatDistanceToNow(new Date(comment.$createdAt), { addSuffix: true })}
+                  </span>
+                </div>
+                
+                {/* Action buttons - only show for comment owner */}
+                {userData && comment.commentBy === userData.$id && (
+                  <div className="flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
+                    <button
+                      onClick={() => handleEditComment(comment)}
+                      disabled={editingCommentId !== null}
+                      className="p-1 text-gray-400 hover:text-blue-500 dark:hover:text-blue-400 transition-colors disabled:opacity-50"
+                      title="Edit comment"
+                    >
+                      <Edit2 size={14} />
+                    </button>
+                    <button
+                      onClick={() => handleDeleteComment(comment.$id)}
+                      disabled={isDeleting === comment.$id}
+                      className="p-1 text-gray-400 hover:text-red-500 dark:hover:text-red-400 transition-colors disabled:opacity-50"
+                      title="Delete comment"
+                    >
+                      {isDeleting === comment.$id ? (
+                        <div className="w-3.5 h-3.5 animate-spin rounded-full border-2 border-red-500 border-t-transparent" />
+                      ) : (
+                        <Trash2 size={14} />
+                      )}
+                    </button>
+                  </div>
+                )}
               </div>
-              <p className="text-gray-700 dark:text-gray-300 text-sm sm:text-base text-left leading-relaxed">
-                {comment.commentBody}
-              </p>
+              
+              {/* Comment content - either text or edit form */}
+              {editingCommentId === comment.$id ? (
+                <div className="mt-2">
+                  <textarea
+                    value={editingCommentText}
+                    onChange={(e) => setEditingCommentText(e.target.value)}
+                    className="w-full px-3 py-2 rounded-lg border border-gray-200 dark:border-gray-700 
+                      bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 
+                      focus:ring-1 focus:ring-orange-500 focus:border-transparent
+                      text-sm sm:text-base min-h-[60px] resize-y"
+                    rows="2"
+                  />
+                  <div className="flex justify-end gap-2 mt-2">
+                    <button
+                      onClick={handleCancelEdit}
+                      disabled={isUpdating}
+                      className="px-3 py-1.5 text-xs font-medium text-gray-600 dark:text-gray-300 
+                        hover:bg-gray-100 dark:hover:bg-gray-700 rounded-md transition-colors"
+                    >
+                      Cancel
+                    </button>
+                    <button
+                      onClick={() => handleUpdateComment(comment.$id)}
+                      disabled={isUpdating || !editingCommentText.trim()}
+                      className="px-3 py-1.5 text-xs font-medium bg-orange-500 hover:bg-orange-600 
+                        text-white rounded-md transition-colors disabled:opacity-50 disabled:cursor-not-allowed
+                        flex items-center gap-1"
+                    >
+                      {isUpdating ? (
+                        <div className="w-3 h-3 animate-spin rounded-full border-2 border-white border-t-transparent" />
+                      ) : (
+                        <Check size={12} />
+                      )}
+                      Save
+                    </button>
+                  </div>
+                </div>
+              ) : (
+                <p className="text-gray-700 dark:text-gray-300 text-sm sm:text-base text-left leading-relaxed">
+                  {comment.commentBody}
+                </p>
+              )}
             </div>
           </div>
         ))}
@@ -227,4 +383,4 @@ export default function Comments({ post, userData }) {
       </div>
     </section>
   );
-} 
+}

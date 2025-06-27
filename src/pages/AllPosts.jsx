@@ -23,7 +23,7 @@ function AllPosts() {
 
     fetchPosts();
   }, []);
-
+console.log("posts",posts);
   return (
     <div className='w-full py-4 md:py-5 min-h-screen bg-gradient-to-b from-yellow-50 via-orange-50 to-red-50 dark:bg-gradient-to-r dark:from-gray-800 dark:via-gray-900 dark:to-black transition-colors duration-300'>
       <Container>
