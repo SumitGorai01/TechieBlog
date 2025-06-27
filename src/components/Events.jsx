@@ -1,5 +1,4 @@
 
-
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
@@ -70,6 +69,7 @@ const Events = () => {
                             <p className="text-gray-700 dark:text-gray-300 leading-relaxed">{event.description}</p>
                         </div>
 
+
                         <div className="flex justify-center">
                             <motion.a
                                 href={event.link}
@@ -105,6 +105,5 @@ const Events = () => {
         </div>
     );
 };
-
 export default Events;
 
