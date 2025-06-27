@@ -148,7 +148,6 @@ const Footer = () => {
         </div>
 
 
-        
 
         {/* Divider with Animation */}
         <div className="relative mt-2">
@@ -199,4 +198,3 @@ const Footer = () => {
 };
 
 export default Footer;
-

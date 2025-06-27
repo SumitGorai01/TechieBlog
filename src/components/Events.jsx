@@ -74,7 +74,6 @@ const Events = () => {
                         <div className="flex justify-center">
                             <motion.a
 
-                     
                                 href={event.link}
                                 whileHover={{ scale: 1.05 }}
                                 whileTap={{ scale: 0.95 }}
@@ -108,9 +107,6 @@ const Events = () => {
         </div>
     );
 };
-
-
-
 
 export default Events;
 
