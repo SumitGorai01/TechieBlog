@@ -49,11 +49,15 @@ function Header() {
 
   return (
     <>
-      <header className="py-5 transition duration-300  rounded-md shadow-md backdrop-blur-md bg-gradient-to-r from-yellow-100 via-orange-100 to-red-100 dark:bg-gradient-to-r dark:from-gray-800 dark:via-gray-900 dark:to-gray-800 dark:backdrop-blur-xl dark:border dark:border-white/10 dark:shadow-xl animate-slide-down dark:md:rounded-none dark:md:mx-0 dark:md:my-0 dark:py-4">
-        <Container >
-          {/* Desktop Header */}
-          <nav className="hidden md:flex items-center space-x-2">
-            <div className=" flex items-center w-[100px]">
+       <header
+      id="sticky-header"
+      className="py-2 px-6 shadow-md bg-gradient-to-r from-yellow-100 via-orange-100 to-red-100 
+      dark:bg-gradient-to-r dark:from-gray-600 dark:via-gray-600 dark:to-gray-600 
+      transition duration-300 animate-slide-down border md:rounded-full md:mx-10 md:my-3"
+    >
+        <Container>
+          <nav className="flex justify-between gap-2 items-left">
+            <div className="flex items-center space-x-2">
               <Link to="/">
                 <div className="animate-fade-in">
                   <Logo width={70} />
@@ -61,63 +65,48 @@ function Header() {
               </Link>
             </div>
 
-<div className="flex flex-nowrap flex-grow items-baseline justify-center space-x-4 min-w-0">
-  {authStatus && <Searchbar />}
-  <ul className="flex flex-wrap items-baseline justify-center space-x-3 min-w-0">
-    {!authStatus &&
-      navItems
-        .filter((item) => item.name !== "Login" && item.name !== "Signup")
-        .map(
-          (item) =>
-            item.active && (
-              <li key={item.name} className="animate-fade-in-delayed">
-                <NavLink
-                  className={({ isActive }) =>
-                    `${
-                      isActive
-                        ? "bg-yellow-100 dark:bg-white/10 dark:text-white shadow-md"
-                        : ""
-                    } relative group inline-flex items-center gap-1 px-3 py-2 text-orange-600 font-bold hover:bg-orange-200 rounded-md transition-all duration-300 hover:scale-105 dark:text-gray-300 dark:hover:text-orange-500 dark:hover:bg-white/10 dark:font-medium dark:px-4 dark:py-2 dark:rounded-md`
-                  }
-                  to={item.slug}
-                  onClick={handleNavigation}
+            {/* Desktop Navigation */}
+            <ul className="items-center justify-center hidden w-full space-x-8 md:flex">
+              {authStatus && <Searchbar />}
+              {!authStatus &&
+                navItems.map(
+                  (item) =>
+                    item.active && (
+                      <li key={item.name} className="animate-fade-in-delayed">
+                        <NavLink
+                          className={({ isActive }) =>
+                            `${isActive &&
+                            "bg-yellow-100 dark:bg-gray-600 shadow-md "
+                            } relative group overflow-hidden inline-flex items-center gap-2 px-5 py-2 text-orange-600 font-semibold hover:bg-orange-200 rounded-full transition-transform duration-300 hover:scale-105 dark:text-orange-400 dark:hover:bg-gray-700`
+                          }
+                          to={item.slug}
+                          onClick={() => handleNavigation()}
+                        >
+                          <span className="absolute block rotate-45 bg-slate-100 h-32 w-3 left-0 bg-opacity-0 group-hover:bg-opacity-35 group-hover:animate-waving-hand"></span>
+                          <item.icon size={18} />
+                          {item.name}
+                        </NavLink>
+                      </li>
+                    )
+                )}
+            </ul>
+            <ul className="flex justify-end items-center space-x-5">
+              {" "}
+              <li className="animate-fade-in-delayed ">
+                <button
+                  onClick={() => dispatch(toggleTheme())}
+                  className="hidden sm:inline-block px-2 justify-end ml-16 py-2 text-orange-600 dark:text-orange-400 font-semibold bg-yellow-100 dark:bg-gray-800 hover:bg-orange-200 dark:hover:bg-gray-700 rounded-full shadow-md transition-transform duration-300 hover:scale-105"
                 >
                   <span className="absolute left-0 block w-3 h-32 rotate-45 bg-opacity-0 bg-slate-100 group-hover:bg-opacity-35 group-hover:animate-waving-hand dark:hidden"></span>
                   <item.icon size={18} />
                   {item.name}
                 </NavLink>
               </li>
-            )
-        )}
-  </ul>
-</div>
+              {authStatus && <BasicMenu setIsMenuOpen={setIsMenuOpen}/>}
+              {/* Sidebar (Only if user is logged in) */}
+              {authStatus && <Sidebar isOpen={isSidebarOpen} setIsOpen={setIsSidebarOpen} />}
+              {/* Header */}
 
-
-
-            <div className="flex-1 flex items-center justify-end space-x-4">
-              <button
-                onClick={() => dispatch(toggleTheme())}
-                className="hidden px-2 py-2 font-semibold text-orange-600 transition-transform duration-300 bg-yellow-100 rounded-full shadow-md sm:inline-block dark:text-white dark:bg-white/10 dark:backdrop-blur-md dark:border dark:border-white/20 hover:bg-orange-200 dark:hover:bg-white/20 dark:hover:border-white/30 dark:hover:text-orange-500 hover:scale-105"
-              >
-                {darkMode ? <LightModeIcon /> : <DarkModeIcon />}
-              </button>
-
-              {!authStatus &&
-                navItems
-                  .filter((item) => item.name === "Login" || item.name === "Signup")
-                  .map((item) => (
-                    <NavLink
-                      key={item.name}
-                      to={item.slug}
-                      className="flex items-center gap-2 px-4 py-2 font-bold text-orange-600 transition bg-yellow-100 rounded-md dark:text-gray-300 dark:bg-white/10 dark:hover:text-orange-500 dark:hover:bg-white/20 hover:bg-orange-200"
-                    >
-                      <item.icon size={18} />
-                      {item.name}
-                    </NavLink>
-                  ))}
-
-              {authStatus && <BasicMenu />}
-              {authStatus && <Sidebar isOpen={isSidebarOpen} />}
               {authStatus && (
                 <button
                   className="text-orange-600 transition bg-yellow-100 rounded-full dark:bg-white/10 dark:text-white dark:backdrop-blur-md dark:border dark:border-white/20 hover:bg-orange-200 dark:hover:bg-white/20 dark:hover:border-white/30 dark:hover:text-orange-500"
@@ -149,25 +138,30 @@ function Header() {
           {/* Mobile Menu */}
           {isMenuOpen && (
             <div className="md:hidden">
-              <div className="py-2 mt-4">
-                <ul className="flex flex-col items-left mt-4 space-y-6 text-lg">
-                  {navItems.map(
-                    (item) =>
-                      item.active && (
-                        <li key={item.name}>
-                          <NavLink
-                            className={({ isActive }) =>
-                              `${isActive ? "bg-transparent border-orange-600 dark:border-white dark:text-white" : "border-transparent"
-                              } w-full inline-flex items-center gap-2 px-6 py-2 text-orange-400 dark:text-gray-300 font-semibold border hover:border-orange-500 dark:hover:border-white dark:hover:text-orange-500 rounded-lg transition-colors`
-                            }
-                            to={item.slug}
-                            onClick={handleNavigation}
-                          >
-                            <item.icon size={20} />
-                            {item.name}
-                          </NavLink>
-                        </li>
-                      )
+              <div className="mt-4 py-2">
+                <ul className="mt-4 space-y-6 text-lg flex flex-col items-center">
+
+                  {navItems.map((item, index) =>
+                    item.active && (
+                      <li
+                        key={item.name}
+                        className={`${index < 3 ? "md:hidden" : ""}`} // Hide the third item on small screens
+                      >
+                        <NavLink
+                          className={({ isActive }) =>
+                            `${isActive ? "bg-orange-300" : ""} 
+          w-full inline-flex items-center gap-2 px-6 py-2 text-orange-800 
+          font-semibold hover:bg-orange-200 rounded-lg transition-colors`
+
+                          }
+                          to={item.slug}
+                          onClick={() => handleNavigation()}
+                        >
+                          <item.icon size={20} className="" />
+                          {item.name}
+                        </NavLink>
+                      </li>
+                    )
                   )}
 
                   <li className="animate-fade-in-delayed">
