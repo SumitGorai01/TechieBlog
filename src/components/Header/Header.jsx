@@ -61,39 +61,39 @@ function Header() {
               </Link>
             </div>
 
-<div className="flex flex-nowrap flex-grow items-baseline justify-center space-x-4 min-w-0">
-  {authStatus && <Searchbar />}
-  <ul className="flex flex-wrap items-baseline justify-center space-x-3 min-w-0">
-    {!authStatus &&
-      navItems
-        .filter((item) => item.name !== "Login" && item.name !== "Signup")
-        .map(
-          (item) =>
-            item.active && (
-              <li key={item.name} className="animate-fade-in-delayed">
-                <NavLink
-                  className={({ isActive }) =>
-                    `${
-                      isActive
-                        ? "bg-yellow-100 dark:bg-white/10 dark:text-white shadow-md"
-                        : ""
-                    } relative group inline-flex items-center gap-1 px-3 py-2 text-orange-600 font-bold hover:bg-orange-200 rounded-md transition-all duration-300 hover:scale-105 dark:text-gray-300 dark:hover:text-orange-500 dark:hover:bg-white/10 dark:font-medium dark:px-4 dark:py-2 dark:rounded-md`
-                  }
-                  to={item.slug}
-                  onClick={handleNavigation}
-                >
-                  <span className="absolute left-0 block w-3 h-32 rotate-45 bg-opacity-0 bg-slate-100 group-hover:bg-opacity-35 group-hover:animate-waving-hand dark:hidden"></span>
-                  <item.icon size={18} />
-                  {item.name}
-                </NavLink>
-              </li>
-            )
-        )}
-  </ul>
-</div>
-
-
-
+            <div className="flex flex-nowrap flex-grow items-baseline justify-center space-x-4 min-w-0">
+              {authStatus && <Searchbar />}
+              <ul className="flex flex-wrap items-baseline justify-center space-x-3 min-w-0">
+                {!authStatus &&
+                  navItems
+                    .filter((item) => item.name !== "Login" && item.name !== "Signup")
+                    .map(
+                      (item) =>
+                        item.active && (
+                          <li key={item.name} className="animate-fade-in-delayed">
+                          <NavLink
+                            key={item.name}
+                            to={item.slug}
+                            onClick={handleNavigation}
+                            className={({ isActive }) =>
+                              `
+                                relative inline-flex items-center gap-2 px-4 py-2 rounded-md
+                                font-semibold text-orange-600 dark:text-gray-200
+                                transition-all duration-300 ease-in-out
+                                hover:scale-105 shimmer-hover
+                                hover:bg-orange-50 dark:hover:bg-white/10
+                                ${isActive ? "shimmer-hover-active bg-orange-50 dark:bg-white/10" : ""}
+                              `
+                            }
+                          >
+                            <item.icon size={18} />
+                            {item.name}
+                          </NavLink>
+                          </li>
+                        )
+                    )}
+              </ul>
+            </div>
             <div className="flex-1 flex items-center justify-end space-x-4">
               <button
                 onClick={() => dispatch(toggleTheme())}
@@ -109,7 +109,16 @@ function Header() {
                     <NavLink
                       key={item.name}
                       to={item.slug}
-                      className="flex items-center gap-2 px-4 py-2 font-bold text-orange-600 transition bg-yellow-100 rounded-md dark:text-gray-300 dark:bg-white/10 dark:hover:text-orange-500 dark:hover:bg-white/20 hover:bg-orange-200"
+                      className={({ isActive }) =>
+                        `
+                          relative inline-flex items-center gap-2 px-4 py-2 rounded-md
+                          font-semibold text-orange-600 dark:text-gray-200
+                          transition-all duration-300 ease-in-out
+                          hover:scale-105 shimmer-hover
+                          hover:bg-orange-50 dark:hover:bg-white/10
+                          ${isActive ? "shimmer-hover-active bg-orange-50 dark:bg-white/10" : ""}
+                        `
+                      }
                     >
                       <item.icon size={18} />
                       {item.name}
