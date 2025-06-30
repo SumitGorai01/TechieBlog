@@ -42,12 +42,12 @@ const Footer = () => {
               Bridging the gap between knowledge and action, TechieBlog fuels tech enthusiasts and developers with insights to thrive.
             </p>
             <div className="flex justify-center md:justify-start space-x-4">
-              <a href="#" className="group">
+              <a href="https://facebook.com" className="group">
                 <div className="bg-white p-2 rounded-lg shadow-md border border-gray-300 group-hover:border-[#1876f2] group-hover:shadow-lg transition-all duration-300 transform group-hover:-translate-y-1 group-hover:scale-105 dark:bg-gray-800 dark:border-gray-700">
                   <Facebook className="w-5 h-5 text-gray-600 group-hover:text-[#1876f2] dark:text-gray-400 transition-colors duration-300" />
                 </div>
               </a>
-              <a href="#" className="group">
+              <a href="https://twitter.com" className="group">
                 <div className="bg-white p-2 rounded-lg shadow-md border border-gray-300 group-hover:border-[#0F1419] group-hover:shadow-lg transition-all duration-300 transform group-hover:-translate-y-1 group-hover:scale-105 dark:bg-gray-800 dark:border-gray-700">
                   {/* Updated Twitter (X) Icon */}
                   <svg
@@ -60,13 +60,13 @@ const Footer = () => {
                   </svg>
                 </div>
               </a>
-              <a href="#" className="group">
+              <a href="https://linkedin.com" className="group">
                 <div className="bg-white p-2 rounded-lg shadow-md border border-gray-300 group-hover:border-[#0077B5] group-hover:shadow-lg 
                 transition-all duration-300 transform group-hover:-translate-y-1 group-hover:scale-105 dark:border-gray-700 dark:bg-gray-800">
                   <Linkedin className="w-5 h-5 text-gray-600 group-hover:text-[#0077B5] dark:text-gray-400 transition-colors duration-300" />
                 </div>
               </a>
-              <a href="#" className="group">
+              <a href="https://instagram.com" className="group">
                 <div className="bg-white p-2 rounded-lg shadow-md border border-gray-300 group-hover:border-[#E1306C] group-hover:shadow-lg transition-all duration-300 transform group-hover:-translate-y-1 group-hover:scale-105 dark:bg-gray-800 dark:border-gray-700">
                   <Instagram className="w-5 h-5 text-gray-600 group-hover:text-[#E1306C] dark:text-gray-400 transition-colors duration-300" />
                 </div>
