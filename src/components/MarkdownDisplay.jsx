@@ -20,6 +20,7 @@ export default function MarkdownDisplay({ content }) {
                         whiteSpace: 'pre-wrap',
                     }} />) : (
                         <MDEditor.Markdown source={content} style={{
+                            color: 'rgb(209, 213, 219)', // text-gray-300
                             marginLeft: 'auto', // mx-auto
                             marginRight: 'auto', // mx-auto
                             width: '100%', // w-full
