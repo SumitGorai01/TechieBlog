@@ -9,7 +9,7 @@ import { ErrorBoundary } from 'react-error-boundary'
 import SomethingWentWrong from './components/errors/SomethingWentWrong.jsx'
 import Loading from './components/loaders/Loading.jsx'
 import MobileNavbar from './components/Header/MobileNavbar.jsx'
-
+import { ToastContainer } from 'react-toastify';
 function App() {
   const [loading, setLoading] = useState(true)
   const dispatch = useDispatch()
@@ -44,12 +44,14 @@ function App() {
   }, [darkMode]);
 
   return (
+  
     <ErrorBoundary fallback={<SomethingWentWrong />}>
       {!loading ? (
         <div className={`min-h-screen flex flex-wrap content-between bg-gradient-to-b from-yellow-50 via-orange-50 to-red-50 dark:bg-gradient-to-r dark:from-gray-800 dark:via-gray-900 dark:to-black text-gray-900 dark:text-gray-100 transition-colors duration-300 ${isFading ? 'opacity-50 transition-opacity duration-400' : 'opacity-100 transition-opacity duration-400'}`}>
           <div className='w-full flex flex-col min-h-screen'>
             <Header />
             <main className='flex-grow'>
+               
               {/* <span className='mt-48 pt-48 text-2xl'><br />
             Welcome To TechieBlog</span>  */}
               <Suspense fallback={<Loading />}>
@@ -59,7 +61,9 @@ function App() {
             <Footer />
             {authStatus && <MobileNavbar />}
           </div>
+           <ToastContainer position="top-right" autoClose={3000} />
         </div>
+        
       ) : <Loading />}
     </ErrorBoundary>
   )
