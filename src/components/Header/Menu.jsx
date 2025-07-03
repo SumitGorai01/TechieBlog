@@ -1,53 +1,37 @@
-/* eslint-disable no-unused-vars */
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
+
 import { Link } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
-import { Settings, User, Moon } from "lucide-react";
+import { useSelector } from "react-redux";
+import { Settings, User } from "lucide-react";
 import LogoutBtn from "./LogoutBtn";
 import Avatar from "@mui/material/Avatar";
-import { toggleTheme } from "../../store/themeSlice";
-
-// const ThemeToggle = () => {
-//   const dispatch = useDispatch();
-//   const isDarkMode = useSelector((state) => state.theme.darkMode);
-
-//   return (
-//     <button
-//       onClick={() => dispatch(toggleTheme())}
-//       className={`
-//         relative inline-flex items-center justify-center
-//         w-12 h-6 rounded-full transition-colors duration-200 ease-in-out
-//         focus:outline-none focus:ring-2 focus:ring-orange-400 focus:ring-offset-2
-//         ${isDarkMode ? "bg-orange-700" : "bg-orange-200"}
-//       `}
-//       aria-label="Toggle theme"
-//     >
-//       <span
-//         className={`
-//           absolute left-1 transform transition-transform duration-200
-//           ${isDarkMode ? "translate-x-6" : "translate-x-0"}
-//         `}
-//       ></span>
-//       <span
-//         className={`
-//           absolute w-4 h-4 rounded-full transition-colors duration-200
-//           ${isDarkMode ? "bg-gray-900 left-7" : "bg-white left-1"}
-//         `}
-//       />
-//     </button>
-//   );
-// };
 
 export default function BasicMenu() {
   const user = useSelector((state) => state.auth.userData);
   const username = user?.name || "User";
   const userId = user?.$id || "";
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const menuRef = useRef(null);
 
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
 
+  // Close menu if click occurs outside of the menu
+  useEffect(() => {
+    function handleClickOutside(event) {
+      if (menuRef.current && !menuRef.current.contains(event.target)) {
+        setIsMenuOpen(false);
+      }
+    }
+
+    document.addEventListener("mousedown", handleClickOutside);
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
+
   return (
-    <div className="relative ml-3 md:ml-0 animate-fade-in">
+    <div ref={menuRef} className="relative ml-3 md:ml-0 animate-fade-in">
       <button onClick={toggleMenu} className="p-0 min-w-auto">
         <Avatar
           sx={{
@@ -82,15 +66,7 @@ export default function BasicMenu() {
                 Profile
               </div>
             </Link>
-            {/* Theme Toggle Section */}
-            {/* <div className="flex items-center justify-between px-4 py-2 text-gray-800 dark:text-gray-200 hover:bg-orange-200/50 dark:hover:bg-gray-800 transition duration-300">
-              <div className="flex items-center">
-                { Using Moon icon as a static indicator }
-                <Moon size={18} className="mr-3" />
-                Dark mode
-              </div>
-              <ThemeToggle />
-            </div> */}
+            {/* Future theme toggle section can go here */}
             <Link to="/settings">
               <div
                 className="flex items-center px-4 py-2 text-gray-800 dark:text-gray-200 hover:bg-orange-200/50 dark:hover:bg-gray-800 transition duration-300 cursor-pointer"

@@ -49,11 +49,15 @@ function Header() {
 
   return (
     <>
-      <header className="py-5 transition duration-300  rounded-md shadow-md backdrop-blur-md bg-gradient-to-r from-yellow-100 via-orange-100 to-red-100 dark:bg-gradient-to-r dark:from-gray-800 dark:via-gray-900 dark:to-gray-800 dark:backdrop-blur-xl dark:border dark:border-white/10 dark:shadow-xl animate-slide-down dark:md:rounded-none dark:md:mx-0 dark:md:my-0 dark:py-4">
-        <Container >
-          {/* Desktop Header */}
-          <nav className="hidden md:flex items-center space-x-2">
-            <div className=" flex items-center w-[100px]">
+       <header
+      id="sticky-header"
+      className="py-2 px-6 shadow-md bg-gradient-to-r from-yellow-100 via-orange-100 to-red-100 
+      dark:bg-gradient-to-r dark:from-gray-600 dark:via-gray-600 dark:to-gray-600 
+      transition duration-300 animate-slide-down border md:rounded-full md:mx-10 md:my-3"
+    >
+        <Container>
+          <nav className="flex justify-between gap-2 items-left">
+            <div className="flex items-center space-x-2">
               <Link to="/">
                 <div className="animate-fade-in">
                   <Logo width={70} />
@@ -124,9 +128,7 @@ function Header() {
                       {item.name}
                     </NavLink>
                   ))}
-
-              {authStatus && <BasicMenu />}
-              {authStatus && <Sidebar isOpen={isSidebarOpen} />}
+                  
               {authStatus && (
                 <button
                   className="text-orange-600 transition bg-yellow-100 rounded-full dark:bg-white/10 dark:text-white dark:backdrop-blur-md dark:border dark:border-white/20 hover:bg-orange-200 dark:hover:bg-white/20 dark:hover:border-white/30 dark:hover:text-orange-500"
@@ -158,25 +160,30 @@ function Header() {
           {/* Mobile Menu */}
           {isMenuOpen && (
             <div className="md:hidden">
-              <div className="py-2 mt-4">
-                <ul className="flex flex-col items-left mt-4 space-y-6 text-lg">
-                  {navItems.map(
-                    (item) =>
-                      item.active && (
-                        <li key={item.name}>
-                          <NavLink
-                            className={({ isActive }) =>
-                              `${isActive ? "bg-transparent border-orange-600 dark:border-white dark:text-white" : "border-transparent"
-                              } w-full inline-flex items-center gap-2 px-6 py-2 text-orange-400 dark:text-gray-300 font-semibold border hover:border-orange-500 dark:hover:border-white dark:hover:text-orange-500 rounded-lg transition-colors`
-                            }
-                            to={item.slug}
-                            onClick={handleNavigation}
-                          >
-                            <item.icon size={20} />
-                            {item.name}
-                          </NavLink>
-                        </li>
-                      )
+              <div className="mt-4 py-2">
+                <ul className="mt-4 space-y-6 text-lg flex flex-col items-center">
+
+                  {navItems.map((item, index) =>
+                    item.active && (
+                      <li
+                        key={item.name}
+                        className={`${index < 3 ? "md:hidden" : ""}`} // Hide the third item on small screens
+                      >
+                        <NavLink
+                          className={({ isActive }) =>
+                            `${isActive ? "bg-orange-300" : ""} 
+          w-full inline-flex items-center gap-2 px-6 py-2 text-orange-800 
+          font-semibold hover:bg-orange-200 rounded-lg transition-colors`
+
+                          }
+                          to={item.slug}
+                          onClick={() => handleNavigation()}
+                        >
+                          <item.icon size={20} className="" />
+                          {item.name}
+                        </NavLink>
+                      </li>
+                    )
                   )}
 
                   <li className="animate-fade-in-delayed">
