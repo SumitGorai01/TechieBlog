@@ -92,7 +92,7 @@ return (
 
               <div className="mb-8">
                 <h3 className="text-orange-600 text-3xl font-bold">Create Account</h3>
-                <p className="text-gray-500 text-sm mt-4 leading-relaxed">
+                <p className="text-sm mt-4 leading-relaxed">
                   Enter your details and start your journey with us.
                 </p>
               </div>
@@ -133,7 +133,7 @@ return (
               </div>
 
               <motion.div whileFocus={{ scale: 1.05 }} transition={{ duration: 0.3 }}>
-                <label className="text-gray-800 text-sm mb-2 block">Confirm Password</label>
+                <label className="text-sm mb-2 block">Confirm Password</label>
                 <Input
                   name="confirmPassword"
                   type="password"
@@ -149,7 +149,7 @@ return (
                 )}
               </motion.div>
 
-              <div className="flex items-center text-sm text-gray-700">
+              <div className="flex items-center text-sm">
                 <input
                   id="remember-me"
                   name="remember-me"
