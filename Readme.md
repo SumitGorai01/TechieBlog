@@ -131,18 +131,15 @@ If you don’t have an Appwrite account, follow these steps:
 Docker Setup✅
 
 Run the application in a containerized environment using Docker.
-
 Prerequisites Docker desktop installed
 
 1 Build the Docker Image and run all this command in terminal:-
+docker build . -t techieblog
 
-docker build . -t my-crypto
+2 Run the Container:-
+docker run -p 5173:5173 your-app-name
 
-2 Run the Container
-
-docker run -p 3000:3000 your-app-name
-
-Replace 3000:3000 with : as needed.
+Replace 5173:5173 with : as needed.
 
 ### 3. Setting Up Appwrite Keys for Contributors
 To contribute to the TechieBlog project, you need to set up your own Appwrite instance and obtain the required keys. Follow these steps:
@@ -151,7 +148,6 @@ To contribute to the TechieBlog project, you need to set up your own Appwrite in
     - Go to the Appwrite website.
     - Click on Sign Up and create a new account.
     - Verify your email address to activate your account.
-
 
 
 2. Create a New Project
