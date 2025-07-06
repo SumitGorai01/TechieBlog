@@ -82,7 +82,7 @@ function FeedbackPage() {
                 </div>
                 {errors.rating && <p className='text-red-500 text-sm'>{errors.rating}</p>}
 
-                <button type='submit' className='w-full bg-gradient-to-r from-orange-500 to-amber-500 hover:from-orange-600 hover:to-amber-600 text-white font-bold py-2 px-4 rounded-md focus:outline-none focus:ring-2 focus:ring-orange-400 shadow-md'>
+                <button type='submit' className='w-full bg-gradient-to-r from-orange-500 to-amber-500 hover:from-orange-600 hover:to-Hex text-white font-bold py-2 px-4 rounded-md focus:outline-none focus:ring-2 focus:ring-orange-400 shadow-md'>
                   Submit
                 </button>
               </form>
