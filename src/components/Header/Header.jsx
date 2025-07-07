@@ -14,6 +14,7 @@ import {
   Calendar,
   Menu,
   X,
+  Bookmark,
 } from "lucide-react";
 import Logo from "../Logo";
 import Searchbar from "./Searchbar.jsx";
@@ -41,6 +42,7 @@ function Header() {
     { name: "Contact Us", slug: "/contact-us", active: true, icon: Phone },
     { name: "Login", slug: "/login", active: !authStatus, icon: LogIn },
     { name: "Signup", slug: "/signup", active: !authStatus, icon: UserPlus },
+    { name: "Saved Blogs", slug: "/saved-blogs", active: authStatus, icon: Bookmark },
   ];
 
   const handleNavigation = () => {
@@ -96,6 +98,15 @@ function Header() {
                           </li>
                         )
                     )}
+                <li>
+                  <Link
+                    to="/saved-blogs"
+                    className="flex items-center gap-2 px-4 py-2 rounded-lg hover:bg-orange-100 dark:hover:bg-orange-900 transition-colors duration-200 text-orange-600 dark:text-orange-400"
+                  >
+                    <Bookmark className="w-5 h-5" />
+                    Saved Blogs
+                  </Link>
+                </li>
               </ul>
             </div>
             <div className="flex-1 flex items-center justify-end space-x-4">

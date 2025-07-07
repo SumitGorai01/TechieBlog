@@ -4,7 +4,7 @@ import { useSelector } from "react-redux";
 // import parse from "html-react-parser";
 import Swal from 'sweetalert2';
 import { format, formatDistanceToNow } from "date-fns";
-import { ArrowLeft, Calendar, Clock, Share2, User, Heart, Send } from "lucide-react";
+import { ArrowLeft, Calendar, Clock, Share2, User, Heart, Send, Bookmark } from "lucide-react";
 
 import appwriteService from "../appwrite/config";
 import authService from "../appwrite/auth";
@@ -12,6 +12,16 @@ import { Container } from "../components";
 import Loading from "../components/loaders/Loading";
 import MarkdownDisplay from "../components/MarkdownDisplay";
 import Comments from "./Comments";
+
+function getWordCount(text) {
+  if (!text) return 0;
+  return text.trim().split(/\s+/).length;
+}
+
+function getReadTime(wordCount) {
+  const wordsPerMinute = 200;
+  return Math.max(1, Math.round(wordCount / wordsPerMinute));
+}
 
 export default function Post() {
   const [post, setPost] = useState(null);
@@ -24,6 +34,7 @@ export default function Post() {
   const [isLiked, setIsLiked] = useState(false);
 
   const [isSaved, setIsSaved] = useState(false)
+  const [isSavedLocal, setIsSavedLocal] = useState(false);
 
   useEffect(() => {
     if (post && userData) {
@@ -132,10 +143,27 @@ useEffect(() => {
   getsaveForLater(userData.$id);
 }, [userData?.$id, post?.$id]); // Ensure effect runs only when IDs are available
 
-  
-  
-  
-  
+  useEffect(() => {
+    // Check if this post is saved in localStorage (for non-logged-in users)
+    if (post && post.$id) {
+      const saved = JSON.parse(localStorage.getItem("savedBlogs") || "[]");
+      setIsSavedLocal(saved.includes(post.$id));
+    }
+  }, [post]);
+
+  const handleSaveLocal = (e) => {
+    e.preventDefault();
+    if (!post?.$id) return;
+    let saved = JSON.parse(localStorage.getItem("savedBlogs") || "[]");
+    if (saved.includes(post.$id)) {
+      saved = saved.filter((id) => id !== post.$id);
+      setIsSavedLocal(false);
+    } else {
+      saved.push(post.$id);
+      setIsSavedLocal(true);
+    }
+    localStorage.setItem("savedBlogs", JSON.stringify(saved));
+  };
 
   const deletePost = async () => {
     try {
@@ -203,6 +231,8 @@ useEffect(() => {
 
   if (!post) return <Loading />;
 
+  const wordCount = getWordCount(post.content);
+  const readTime = getReadTime(wordCount);
   const isAuthor = userData?.$id === post.userId;
 
   return (
@@ -216,14 +246,21 @@ useEffect(() => {
           Back to Posts
         </button>
 
-        <article className="max-w-4xl mx-auto">
+        <article className="max-w-4xl mx-auto relative">
           <img
             src={appwriteService.getFilePreview(post.featuredImage)}
             alt={post.title}
             className="w-full h-[300px] object-contain bg-gray-100 dark:bg-gray-800 rounded-xl mb-4"
           />
-
-          <div className="flex justify-between items-center mb-6">
+          {/* Save/Bookmark Icon for all users */}
+          <button
+            onClick={handleSaveLocal}
+            aria-label={isSavedLocal ? "Remove from Saved" : "Save for Later"}
+            className={`absolute top-4 right-4 z-20 p-2 rounded-full bg-white/80 dark:bg-gray-900/80 shadow-md hover:bg-orange-100 dark:hover:bg-orange-900 transition-colors ${isSavedLocal ? "text-orange-500" : "text-gray-400"}`}
+          >
+            <Bookmark className={`w-7 h-7 ${isSavedLocal ? "fill-orange-500" : "fill-none"}`} />
+          </button>
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-6 gap-2">
             <div className="flex flex-wrap items-center gap-3 text-sm text-gray-600 dark:text-gray-400">
               <div className="flex items-center gap-2">
                 <User className="w-4 h-4" />
@@ -239,6 +276,11 @@ useEffect(() => {
                 <Clock className="w-4 h-4" />
                 <span>Updated {formatDistanceToNow(new Date(post.$updatedAt), { addSuffix: true })}</span>
               </div>
+            </div>
+            {/* Read Time & Word Count */}
+            <div className="flex items-center gap-3 text-xs text-gray-500 dark:text-gray-400 mt-2">
+              <span className="flex items-center gap-1"><Clock className="w-4 h-4" /> {readTime} min read</span>
+              <span className="flex items-center gap-1">· ✍️ {wordCount} words</span>
             </div>
             <button
               onClick={sharePost}
