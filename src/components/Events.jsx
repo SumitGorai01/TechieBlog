@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
+import { Bookmark } from 'lucide-react';
 
 const Events = () => {
     const events = [
@@ -19,6 +20,24 @@ const Events = () => {
             link: "/register"
         },
     ];
+
+    const [savedEvents, setSavedEvents] = React.useState(() => {
+        return JSON.parse(localStorage.getItem('savedEvents') || '[]');
+    });
+
+    const handleSaveEvent = (eventId, e) => {
+        e.preventDefault();
+        let updated = [...savedEvents];
+        if (updated.includes(eventId)) {
+            updated = updated.filter(id => id !== eventId);
+        } else {
+            updated.push(eventId);
+        }
+        setSavedEvents(updated);
+        localStorage.setItem('savedEvents', JSON.stringify(updated));
+    };
+
+    const isEventSaved = (eventId) => savedEvents.includes(eventId);
 
     const cardVariants = {
         hidden: { opacity: 0, scale: 0.8, y: 50 },
@@ -61,6 +80,15 @@ const Events = () => {
                     transition={{ duration: 0.3, ease: "easeOut" }}
                     className="group relative flex flex-col p-6 w-full sm:w-96 border-2 border-orange-300 dark:border-gray-700 rounded-xl shadow-xl bg-white dark:bg-gray-800 hover:border-orange-300 dark:hover:border-orange-500 transition-all duration-300 overflow-hidden"
                 >
+                    {/* Save/Bookmark Icon */}
+                    <button
+                        onClick={(e) => handleSaveEvent(event.title, e)}
+                        aria-label={isEventSaved(event.title) ? "Remove from Saved Events" : "Save Event for Later"}
+                        className={`absolute top-4 right-4 z-20 p-2 rounded-full bg-white/80 dark:bg-gray-900/80 shadow-md hover:bg-orange-100 dark:hover:bg-orange-900 transition-colors ${isEventSaved(event.title) ? "text-orange-500" : "text-gray-400"}`}
+                    >
+                        <Bookmark className={`w-6 h-6 ${isEventSaved(event.title) ? "fill-orange-500" : "fill-none"}`} />
+                    </button>
+
                     {/* theme-consistent hover overlay */}
                     <div className="absolute inset-0 bg-orange-100/20 dark:bg-orange-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
 
