@@ -51,12 +51,11 @@ function Header() {
 
   return (
     <>
-       <header
-      id="sticky-header"
-      className="py-2 px-6 shadow-md bg-gradient-to-r from-yellow-100 via-orange-100 to-red-100 
-      dark:bg-gradient-to-r dark:from-gray-600 dark:via-gray-600 dark:to-gray-600 
-      transition duration-300 animate-slide-down border md:rounded-full md:mx-10 md:my-3"
-    >
+      <header
+        id="sticky-header"
+        className="w-[95%] mx-auto py-2 px-6 shadow-md bg-gradient-to-r from-yellow-100 via-orange-100 to-red-100 dark:bg-gradient-to-r dark:from-gray-600 dark:via-gray-600 dark:to-gray-600 transition duration-300 animate-slide-down border rounded-full md:my-3"
+>
+
         <Container>
           <nav className="flex justify-between gap-2 items-left">
             <div className="flex items-center space-x-2">
@@ -77,12 +76,12 @@ function Header() {
                       (item) =>
                         item.active && (
                           <li key={item.name} className="animate-fade-in-delayed">
-                          <NavLink
-                            key={item.name}
-                            to={item.slug}
-                            onClick={handleNavigation}
-                            className={({ isActive }) =>
-                              `
+                            <NavLink
+                              key={item.name}
+                              to={item.slug}
+                              onClick={handleNavigation}
+                              className={({ isActive }) =>
+                                `
                                 relative inline-flex items-center gap-2 px-4 py-2 rounded-md
                                 font-semibold text-orange-600 dark:text-gray-200
                                 transition-all duration-300 ease-in-out
@@ -90,11 +89,11 @@ function Header() {
                                 hover:bg-orange-50 dark:hover:bg-white/10
                                 ${isActive ? "shimmer-hover-active bg-orange-50 dark:bg-white/10" : ""}
                               `
-                            }
-                          >
-                            <item.icon size={18} />
-                            {item.name}
-                          </NavLink>
+                              }
+                            >
+                              <item.icon size={18} />
+                              {item.name}
+                            </NavLink>
                           </li>
                         )
                     )}
@@ -139,7 +138,7 @@ function Header() {
                       {item.name}
                     </NavLink>
                   ))}
-                  
+
               {authStatus && (
                 <button
                   className="text-orange-600 transition bg-yellow-100 rounded-full dark:bg-white/10 dark:text-white dark:backdrop-blur-md dark:border dark:border-white/20 hover:bg-orange-200 dark:hover:bg-white/20 dark:hover:border-white/30 dark:hover:text-orange-500"
