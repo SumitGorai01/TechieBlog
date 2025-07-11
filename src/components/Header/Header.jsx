@@ -52,10 +52,11 @@ function Header() {
 
   return (
     <>
-      <header
-        id="sticky-header"
-        className="w-[95%] mx-auto py-2 px-6 shadow-md bg-gradient-to-r from-yellow-100 via-orange-100 to-red-100 dark:bg-gradient-to-r dark:from-gray-600 dark:via-gray-600 dark:to-gray-600 transition duration-300 animate-slide-down border rounded-full md:my-3"
+    <header
+  id="sticky-header"
+  className="w-full px-0 py-3 shadow-sm bg-white/80 dark:bg-gray-800/70 backdrop-blur-md border-y border-gray-200 dark:border-white/10 transition duration-300 animate-slide-down"
 >
+
 
         <Container>
           <nav className="flex justify-between gap-2 items-left">
@@ -100,22 +101,25 @@ function Header() {
                     )}
                 <li>
                   <Link
-                    to="/saved-blogs"
-                    className="flex items-center gap-2 px-4 py-2 rounded-lg hover:bg-orange-100 dark:hover:bg-orange-900 transition-colors duration-200 text-orange-600 dark:text-orange-400"
-                  >
-                    <Bookmark className="w-5 h-5" />
-                    Saved Blogs
-                  </Link>
+  to="/saved-blogs"
+  className="inline-flex items-center gap-2 px-4 py-2 rounded-lg font-medium text-orange-600 dark:text-orange-300 bg-orange-50 dark:bg-orange-900/20 hover:bg-orange-100 dark:hover:bg-orange-800/30 transition"
+>
+  <Bookmark className="w-5 h-5" />
+  Saved Blogs
+</Link>
+
                 </li>
               </ul>
             </div>
             <div className="flex-1 flex items-center justify-end space-x-4">
-              <button
-                onClick={() => dispatch(toggleTheme())}
-                className="hidden px-2 py-2 font-semibold text-orange-600 transition-transform duration-300 bg-yellow-100 rounded-full shadow-md sm:inline-block dark:text-white dark:bg-white/10 dark:backdrop-blur-md dark:border dark:border-white/20 hover:bg-orange-200 dark:hover:bg-white/20 dark:hover:border-white/30 dark:hover:text-orange-500 hover:scale-105"
-              >
-                {darkMode ? <LightModeIcon /> : <DarkModeIcon />}
-              </button>
+             <button
+  onClick={() => dispatch(toggleTheme())}
+  className="hidden sm:inline-flex items-center justify-center w-10 h-10 text-orange-500 dark:text-white bg-white dark:bg-black/20 border dark:border-white/20 rounded-full hover:scale-105 hover:bg-orange-100 dark:hover:bg-white/10 transition"
+  title="Toggle Dark Mode"
+>
+  {darkMode ? <LightModeIcon fontSize="small" /> : <DarkModeIcon fontSize="small" />}
+</button>
+
 
               {!authStatus &&
                 navItems
@@ -124,16 +128,11 @@ function Header() {
                     <NavLink
                       key={item.name}
                       to={item.slug}
-                      className={({ isActive }) =>
-                        `
-                          relative inline-flex items-center gap-2 px-4 py-2 rounded-md
-                          font-semibold text-orange-600 dark:text-gray-200
-                          transition-all duration-300 ease-in-out
-                          hover:scale-105 shimmer-hover
-                          hover:bg-orange-50 dark:hover:bg-white/10
-                          ${isActive ? "shimmer-hover-active bg-orange-50 dark:bg-white/10" : ""}
-                        `
-                      }
+                     className={({ isActive }) =>
+  `inline-flex items-center gap-2 px-4 py-2 rounded-full font-semibold transition duration-200
+   ${isActive ? "bg-orange-100 text-orange-600 dark:bg-orange-400/20 dark:text-orange-300" : "text-orange-600 dark:text-orange-300 hover:bg-orange-50 dark:hover:bg-white/10"}`
+}
+
                     >
                       <item.icon size={18} />
                       {item.name}
@@ -182,10 +181,8 @@ function Header() {
                       >
                         <NavLink
                           className={({ isActive }) =>
-                            `${isActive ? "bg-orange-300" : ""} 
-          w-full inline-flex items-center gap-2 px-6 py-2 text-orange-800 
-          font-semibold hover:bg-orange-200 rounded-lg transition-colors`
-
+  `inline-flex items-center gap-2 px-4 py-2 rounded-lg font-medium transition-all duration-200
+   ${isActive ? "bg-orange-100 text-orange-700 dark:bg-orange-500/10 dark:text-orange-300" : "text-gray-700 dark:text-gray-200 hover:bg-orange-50 dark:hover:bg-white/10 hover:text-orange-600 dark:hover:text-orange-300"}`
                           }
                           to={item.slug}
                           onClick={() => handleNavigation()}
