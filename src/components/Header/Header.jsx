@@ -99,13 +99,22 @@ function Header() {
                         )
                     )}
                 <li>
-                  <Link
-  to="/saved-blogs"
-  className="inline-flex items-center gap-2 px-4 py-2 rounded-lg font-medium text-orange-600 dark:text-orange-300 bg-orange-50 dark:bg-orange-900/20 hover:bg-orange-100 dark:hover:bg-orange-800/30 transition"
->
-  <Bookmark className="w-5 h-5" />
-  Saved Blogs
-</Link>
+                  <NavLink
+                    to="/saved-blogs"
+                    className={({ isActive }) =>
+                      `
+                      relative inline-flex items-center gap-2 px-4 py-2 rounded-md
+                      font-semibold text-orange-600 dark:text-gray-200
+                      transition-all duration-300 ease-in-out
+                      hover:scale-105 shimmer-hover
+                      hover:bg-orange-50 dark:hover:bg-white/10
+                      ${isActive ? "shimmer-hover-active bg-orange-50 dark:bg-white/10" : ""}
+                    `
+                    }
+                  >
+                    <Bookmark className="w-5 h-5" />
+                    Saved Blogs
+                  </NavLink>
 
                 </li>
               </ul>
