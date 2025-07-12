@@ -42,8 +42,74 @@ export default function BasicMenu() {
             border: "2px solid white",
     boxShadow: "0 0 0 2px #facc15",
     transition: "transform 0.3s ease-in-out",
-    '&:hover',
-      transform: 'scale(1.1)'
+    '&:hover'
+      transform: 'scale(1.1)',
+
+      .techie-blog {
+  padding: 40px;
+  text-align: center;
+}
+
+.techie-blog h2 {
+  font-size: 2.5em;
+  margin-bottom: 10px;
+}
+
+.techie-blog p {
+  font-size: 1.2em;
+  margin-bottom: 20px;
+}
+
+.blog-posts {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.blog-card {
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  margin: 10px;
+  padding: 20px;
+  width: 300px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s;
+}
+
+.blog-card:hover {
+  transform: scale(1.05);
+}
+
+.blog-card img {
+  max-width: 100%;
+  border-radius: 8px;
+}
+
+.blog-card h3 {
+  font-size: 1.5em;
+  margin: 10px 0;
+}
+
+.blog-card p {
+  font-size: 1em;
+  color: #555;
+}
+
+.read-more {
+  display: inline-block;
+  margin-top: 10px;
+  padding: 10px 15px;
+  background-color: #007bff;
+  color: white;
+  text-decoration: none;
+  border-radius: 5px;
+}
+
+.read-more:hover {
+  background-color: #0056b3;
+}
+
           }}
         >
           {username.charAt(0).toUpperCase()}
