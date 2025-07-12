@@ -160,7 +160,6 @@ const Footer = () => {
                   <div className="footer-section">
                   <p>&copy; 2023 TechieBlog. All rights reserved.</p>
                   </div>
-
                 </span>
               </li>
             </ul>
