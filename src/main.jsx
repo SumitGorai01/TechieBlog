@@ -209,3 +209,4 @@ ReactDOM.createRoot(document.getElementById('root')).render(
         </Provider>
     </React.StrictMode>,
 );
+<Route path="saved" element={<SavedBlogs />} />
