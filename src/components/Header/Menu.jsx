@@ -30,6 +30,84 @@ export default function BasicMenu() {
     };
   }, []);
 
+  <section className="techie-blog">
+
+      <h2>Techie Blog</h2>
+
+      <p>Your go-to source for the latest in technology and programming.</p>
+
+      <div className="blog-posts">
+
+        {blogPosts.map((post, index) => (
+
+          <div className="blog-card" key={index}>
+
+            <img src={post.image} alt={post.title} />
+
+            <h3>{post.title}</h3>
+
+            <p>{post.excerpt}</p>
+
+            <a href={post.link} className="read-more">Read More</a>
+
+          </div>
+
+        ))}
+
+      </div>
+
+    </section>
+
+  );
+
+};
+
+
+
+export default TechieBlog;
+
+import React from 'react';
+import './TechieBlog.css'; // Optional: Import a CSS file for styling
+
+const TechieBlog = () => {
+  const blogPosts = [
+    {
+      title: 'Understanding React Hooks',
+      excerpt: 'Learn how to use React Hooks to manage state and side effects in your components.',
+      image: 'https://via.placeholder.com/300',
+      link: '/blog/react-hooks',
+    },
+    {
+      title: 'JavaScript ES6 Features',
+      excerpt: 'Explore the new features introduced in ES6 and how they can improve your code.',
+      image: 'https://via.placeholder.com/300',
+      link: '/blog/es6-features',
+    },
+    {
+      title: 'CSS Grid vs Flexbox',
+      excerpt: 'A comprehensive comparison of CSS Grid and Flexbox for layout design.',
+      image: 'https://via.placeholder.com/300',
+      link: '/blog/css-grid-vs-flexbox',
+    },
+  ];
+
+  return (
+    <section className="techie-blog">
+      <h2>Techie Blog</h2>
+      <p>Your go-to source for the latest in technology and programming.</p>
+      <div className="blog-posts">
+        {blogPosts.map((post, index) => (
+          <div className="blog-card" key={index}>
+            <img src={post.image} alt={post.title} />
+            <h3>{post.title}</h3>
+            <p>{post.excerpt}</p>
+            <a href={post.link} className="read-more">Read More</a>
+          </div>
+        ))}
+      </div>
+    </section>
+  );
+
   return (
     <div ref={menuRef} className="relative ml-3 md:ml-0 animate-fade-in">
       <button onClick={toggleMenu} className="p-0 min-w-auto">
