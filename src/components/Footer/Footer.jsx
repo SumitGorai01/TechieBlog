@@ -41,6 +41,12 @@ const Footer = () => {
             <p className="text-gray-600 dark:text-gray-400">
               Bridging the gap between knowledge and action, TechieBlog fuels tech enthusiasts and developers with insights to thrive.
             </p>
+            <div className="footer-section">
+               <h4>Contact Us</h4>
+                <p>Email: support@techieblog.com</p>
+                <p>Phone: +1 (234) 567-890</p>
+            </div>
+
             <div className="flex justify-center md:justify-start space-x-4">
               <a href="https://facebook.com" className="group">
                 <div className="bg-white p-2 rounded-lg shadow-md border border-gray-300 group-hover:border-[#1876f2] group-hover:shadow-lg transition-all duration-300 transform group-hover:-translate-y-1 group-hover:scale-105 dark:bg-gray-800 dark:border-gray-700">
@@ -81,7 +87,8 @@ const Footer = () => {
               {[
                 { name: 'About Us', path: '/about-us' },
                 { name: 'Feedback', path: '/feedback' },
-                { name: 'Events', path: '/events' }
+                { name: 'Events', path: '/events' },
+                { name: 'Privacy Policy', path:'/privacypolicy'}
               ].map((item) => (
                 <li key={item.name}>
                   <button
@@ -95,6 +102,7 @@ const Footer = () => {
                     </span>
                   </button>
                 </li>
+
               ))}
             </ul>
           </div>
@@ -149,6 +157,10 @@ const Footer = () => {
                     support@techieblog.com
                     <span className="absolute left-0 bottom-0 w-0 h-0.5 bg-gradient-to-r from-blue-500 to-purple-500 group-hover:w-full transition-all duration-300 ease-out"></span>
                   </a>
+                  <div className="footer-section">
+                  <p>&copy; 2023 TechieBlog. All rights reserved.</p>
+                  </div>
+
                 </span>
               </li>
             </ul>
