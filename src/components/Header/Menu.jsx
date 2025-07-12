@@ -106,9 +106,7 @@ const TechieBlog = () => {
         ))}
       </div>
     </section>
-  );
 
-  return (
     <div ref={menuRef} className="relative ml-3 md:ml-0 animate-fade-in">
       <button onClick={toggleMenu} className="p-0 min-w-auto">
         <Avatar
