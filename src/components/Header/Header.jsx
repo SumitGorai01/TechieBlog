@@ -14,6 +14,7 @@ import {
   Calendar,
   Menu,
   X,
+  Bookmark,
 } from "lucide-react";
 import Logo from "../Logo";
 import Searchbar from "./Searchbar.jsx";
@@ -41,6 +42,7 @@ function Header() {
     { name: "Contact Us", slug: "/contact-us", active: true, icon: Phone },
     { name: "Login", slug: "/login", active: !authStatus, icon: LogIn },
     { name: "Signup", slug: "/signup", active: !authStatus, icon: UserPlus },
+    { name: "Saved Blogs", slug: "/saved-blogs", active: authStatus, icon: Bookmark },
   ];
 
   const handleNavigation = () => {
@@ -49,11 +51,15 @@ function Header() {
 
   return (
     <>
-      <header className="py-5 transition duration-300  rounded-md shadow-md backdrop-blur-md bg-gradient-to-r from-yellow-100 via-orange-100 to-red-100 dark:bg-gradient-to-r dark:from-gray-800 dark:via-gray-900 dark:to-gray-800 dark:backdrop-blur-xl dark:border dark:border-white/10 dark:shadow-xl animate-slide-down dark:md:rounded-none dark:md:mx-0 dark:md:my-0 dark:py-4">
-        <Container >
-          {/* Desktop Header */}
-          <nav className="hidden md:flex items-center space-x-2">
-            <div className=" flex items-center w-[100px]">
+    <header
+  id="sticky-header"
+  className="w-full px-0 py-3 shadow-sm bg-white/80 dark:bg-gray-800/70 backdrop-blur-md border-y border-gray-200 dark:border-white/10 transition duration-300 animate-slide-down"
+>
+
+
+        <Container>
+          <nav className="flex justify-between gap-2 items-left">
+            <div className="flex items-center space-x-2">
               <Link to="/">
                 <div className="animate-fade-in">
                   <Logo width={70} />
@@ -71,12 +77,12 @@ function Header() {
                       (item) =>
                         item.active && (
                           <li key={item.name} className="animate-fade-in-delayed">
-                          <NavLink
-                            key={item.name}
-                            to={item.slug}
-                            onClick={handleNavigation}
-                            className={({ isActive }) =>
-                              `
+                            <NavLink
+                              key={item.name}
+                              to={item.slug}
+                              onClick={handleNavigation}
+                              className={({ isActive }) =>
+                                `
                                 relative inline-flex items-center gap-2 px-4 py-2 rounded-md
                                 font-semibold text-orange-600 dark:text-gray-200
                                 transition-all duration-300 ease-in-out
@@ -84,23 +90,44 @@ function Header() {
                                 hover:bg-orange-50 dark:hover:bg-white/10
                                 ${isActive ? "shimmer-hover-active bg-orange-50 dark:bg-white/10" : ""}
                               `
-                            }
-                          >
-                            <item.icon size={18} />
-                            {item.name}
-                          </NavLink>
+                              }
+                            >
+                              <item.icon size={18} />
+                              {item.name}
+                            </NavLink>
                           </li>
                         )
                     )}
+                <li>
+                  <NavLink
+                    to="/saved-blogs"
+                    className={({ isActive }) =>
+                      `
+                      relative inline-flex items-center gap-2 px-4 py-2 rounded-md
+                      font-semibold text-orange-600 dark:text-gray-200
+                      transition-all duration-300 ease-in-out
+                      hover:scale-105 shimmer-hover
+                      hover:bg-orange-50 dark:hover:bg-white/10
+                      ${isActive ? "shimmer-hover-active bg-orange-50 dark:bg-white/10" : ""}
+                    `
+                    }
+                  >
+                    <Bookmark className="w-5 h-5" />
+                    Saved Blogs
+                  </NavLink>
+
+                </li>
               </ul>
             </div>
             <div className="flex-1 flex items-center justify-end space-x-4">
-              <button
-                onClick={() => dispatch(toggleTheme())}
-                className="hidden px-2 py-2 font-semibold text-orange-600 transition-transform duration-300 bg-yellow-100 rounded-full shadow-md sm:inline-block dark:text-white dark:bg-white/10 dark:backdrop-blur-md dark:border dark:border-white/20 hover:bg-orange-200 dark:hover:bg-white/20 dark:hover:border-white/30 dark:hover:text-orange-500 hover:scale-105"
-              >
-                {darkMode ? <LightModeIcon /> : <DarkModeIcon />}
-              </button>
+             <button
+  onClick={() => dispatch(toggleTheme())}
+  className="hidden sm:inline-flex items-center justify-center w-10 h-10 text-orange-500 dark:text-white bg-white dark:bg-black/20 border dark:border-white/20 rounded-full hover:scale-105 hover:bg-orange-100 dark:hover:bg-white/10 transition"
+  title="Toggle Dark Mode"
+>
+  {darkMode ? <LightModeIcon fontSize="small" /> : <DarkModeIcon fontSize="small" />}
+</button>
+
 
               {!authStatus &&
                 navItems
@@ -109,24 +136,17 @@ function Header() {
                     <NavLink
                       key={item.name}
                       to={item.slug}
-                      className={({ isActive }) =>
-                        `
-                          relative inline-flex items-center gap-2 px-4 py-2 rounded-md
-                          font-semibold text-orange-600 dark:text-gray-200
-                          transition-all duration-300 ease-in-out
-                          hover:scale-105 shimmer-hover
-                          hover:bg-orange-50 dark:hover:bg-white/10
-                          ${isActive ? "shimmer-hover-active bg-orange-50 dark:bg-white/10" : ""}
-                        `
-                      }
+                     className={({ isActive }) =>
+  `inline-flex items-center gap-2 px-4 py-2 rounded-full font-semibold transition duration-200
+   ${isActive ? "bg-orange-100 text-orange-600 dark:bg-orange-400/20 dark:text-orange-300" : "text-orange-600 dark:text-orange-300 hover:bg-orange-50 dark:hover:bg-white/10"}`
+}
+
                     >
                       <item.icon size={18} />
                       {item.name}
                     </NavLink>
                   ))}
 
-              {authStatus && <BasicMenu />}
-              {authStatus && <Sidebar isOpen={isSidebarOpen} />}
               {authStatus && (
                 <button
                   className="text-orange-600 transition bg-yellow-100 rounded-full dark:bg-white/10 dark:text-white dark:backdrop-blur-md dark:border dark:border-white/20 hover:bg-orange-200 dark:hover:bg-white/20 dark:hover:border-white/30 dark:hover:text-orange-500"
@@ -158,25 +178,28 @@ function Header() {
           {/* Mobile Menu */}
           {isMenuOpen && (
             <div className="md:hidden">
-              <div className="py-2 mt-4">
-                <ul className="flex flex-col items-left mt-4 space-y-6 text-lg">
-                  {navItems.map(
-                    (item) =>
-                      item.active && (
-                        <li key={item.name}>
-                          <NavLink
-                            className={({ isActive }) =>
-                              `${isActive ? "bg-transparent border-orange-600 dark:border-white dark:text-white" : "border-transparent"
-                              } w-full inline-flex items-center gap-2 px-6 py-2 text-orange-400 dark:text-gray-300 font-semibold border hover:border-orange-500 dark:hover:border-white dark:hover:text-orange-500 rounded-lg transition-colors`
-                            }
-                            to={item.slug}
-                            onClick={handleNavigation}
-                          >
-                            <item.icon size={20} />
-                            {item.name}
-                          </NavLink>
-                        </li>
-                      )
+              <div className="mt-4 py-2">
+                <ul className="mt-4 space-y-6 text-lg flex flex-col items-center">
+
+                  {navItems.map((item, index) =>
+                    item.active && (
+                      <li
+                        key={item.name}
+                        className={`${index < 3 ? "md:hidden" : ""}`} // Hide the third item on small screens
+                      >
+                        <NavLink
+                          className={({ isActive }) =>
+  `inline-flex items-center gap-2 px-4 py-2 rounded-lg font-medium transition-all duration-200
+   ${isActive ? "bg-orange-100 text-orange-700 dark:bg-orange-500/10 dark:text-orange-300" : "text-gray-700 dark:text-gray-200 hover:bg-orange-50 dark:hover:bg-white/10 hover:text-orange-600 dark:hover:text-orange-300"}`
+                          }
+                          to={item.slug}
+                          onClick={() => handleNavigation()}
+                        >
+                          <item.icon size={20} className="" />
+                          {item.name}
+                        </NavLink>
+                      </li>
+                    )
                   )}
 
                   <li className="animate-fade-in-delayed">
