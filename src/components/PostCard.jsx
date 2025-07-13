@@ -4,8 +4,7 @@ import { Link } from "react-router-dom";
 import { User, Clock, Bookmark } from "lucide-react";
 import { formatDistanceToNow } from "date-fns";
 import authService from "../appwrite/auth"; // Import the function
-import { Account } from "appwrite";
-import { getPostMetadata } from '../utils/postMeta';
+
 function getWordCount(text) {
   if (!text) return 0;
   return text.trim().split(/\s+/).length;
@@ -20,43 +19,41 @@ function PostCard({ $id, title, featuredImage, $createdAt, userId, content }) {
   const [authorName, setAuthorName] = useState("Loading...");
   const [isSaved, setIsSaved] = useState(false);
 
- 
+  useEffect(() => {
+    const fetchAuthor = async () => {
+      try {
+        if (userId) {
+          console.log("Fetching author name for user ID:", userId);
+          
+          const name = await authService.getUserNameById(userId);
+        
+          setAuthorName(name);
+        }
+      } catch (error) {
+        console.log("Error fetching author:", error);
+        setAuthorName("Unknown User");
+      }
+    };
 
-useEffect(() => {
-  const fetchAuthorAndSavedStatus = async () => {
-    try {
-      if (userId) {
-        const name = await authService.getUserNameById(userId);
-        setAuthorName(name);
-      }
+    fetchAuthor();
 
-      const account = new Account(appwriteService.client);
-      const user = await account.get();
-      const savedPosts = await appwriteService.getsaveForLater(user.$id);
-      setIsSaved(savedPosts.includes($id));
-    } catch (error) {
-      console.log("Error in useEffect:", error);
-      setAuthorName("Unknown User");
-    }
-  };
+    // Check if this post is saved in localStorage
+    const saved = JSON.parse(localStorage.getItem("savedBlogs") || "[]");
+    setIsSaved(saved.includes($id));
+  }, [userId, $id]);
 
-  fetchAuthorAndSavedStatus(); 
-}, [userId, $id]);
-
-
-
-  const handleSave = async (e) => {
-  e.preventDefault();
-  try {
-    const account = new Account(appwriteService.client);
-    const user = await account.get();
-
-    await appwriteService.saveForLater(user.$id, $id);
-    setIsSaved((prev) => !prev);
-  } catch (error) {
-    console.log("Error saving post:", error);
-  }
-};
+  const handleSave = (e) => {
+    e.preventDefault();
+    let saved = JSON.parse(localStorage.getItem("savedBlogs") || "[]");
+    if (saved.includes($id)) {
+      saved = saved.filter((id) => id !== $id);
+      setIsSaved(false);
+    } else {
+      saved.push($id);
+      setIsSaved(true);
+    }
+    localStorage.setItem("savedBlogs", JSON.stringify(saved));
+  };
 
   const wordCount = getWordCount(content);
   const readTime = getReadTime(wordCount);
