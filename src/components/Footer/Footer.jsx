@@ -43,16 +43,16 @@ const Footer = () => {
             </p>
             <div className="flex justify-center md:justify-start space-x-4">
               <a href="https://facebook.com" className="group">
-                <div className="bg-white p-2 rounded-lg shadow-md border border-gray-300 group-hover:border-[#1876f2] group-hover:shadow-lg transition-all duration-300 transform group-hover:-translate-y-1 group-hover:scale-105 dark:bg-gray-800 dark:border-gray-700">
-                  <Facebook className="w-5 h-5 text-gray-600 group-hover:text-[#1876f2] dark:text-gray-400 transition-colors duration-300" />
+                <div className="bg-white p-2 rounded-lg shadow-md border border-gray-300 group-hover:border-[#f97316] group-hover:shadow-lg transition-all duration-300 transform group-hover:-translate-y-1 group-hover:scale-105 dark:bg-gray-800 dark:border-gray-700">
+                  <Facebook className="w-5 h-5 text-gray-600 group-hover:text-[#f97316] dark:text-gray-400 transition-colors duration-300" />
                 </div>
               </a>
               <a href="https://twitter.com" className="group">
-                <div className="bg-white p-2 rounded-lg shadow-md border border-gray-300 group-hover:border-[#0F1419] group-hover:shadow-lg transition-all duration-300 transform group-hover:-translate-y-1 group-hover:scale-105 dark:bg-gray-800 dark:border-gray-700">
+                <div className="bg-white p-2 rounded-lg shadow-md border border-gray-300 group-hover:border-[#f97316] group-hover:shadow-lg transition-all duration-300 transform group-hover:-translate-y-1 group-hover:scale-105 dark:bg-gray-800 dark:border-gray-700">
                   {/* Updated Twitter (X) Icon */}
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
-                    className="w-5 h-5 text-gray-600 group-hover:text-[#0F1419] transition-colors duration-300"
+                    className="w-5 h-5 text-gray-600 group-hover:text-[#f97316] transition-colors duration-300"
                     viewBox="0 0 24 24"
                     fill="currentColor"
                   >
@@ -61,14 +61,14 @@ const Footer = () => {
                 </div>
               </a>
               <a href="https://linkedin.com" className="group">
-                <div className="bg-white p-2 rounded-lg shadow-md border border-gray-300 group-hover:border-[#0077B5] group-hover:shadow-lg 
+                <div className="bg-white p-2 rounded-lg shadow-md border border-gray-300 group-hover:border-[#f97316] group-hover:shadow-lg 
                 transition-all duration-300 transform group-hover:-translate-y-1 group-hover:scale-105 dark:border-gray-700 dark:bg-gray-800">
-                  <Linkedin className="w-5 h-5 text-gray-600 group-hover:text-[#0077B5] dark:text-gray-400 transition-colors duration-300" />
+                  <Linkedin className="w-5 h-5 text-gray-600 group-hover:text-[#f97316] dark:text-gray-400 transition-colors duration-300" />
                 </div>
               </a>
               <a href="https://instagram.com" className="group">
-                <div className="bg-white p-2 rounded-lg shadow-md border border-gray-300 group-hover:border-[#E1306C] group-hover:shadow-lg transition-all duration-300 transform group-hover:-translate-y-1 group-hover:scale-105 dark:bg-gray-800 dark:border-gray-700">
-                  <Instagram className="w-5 h-5 text-gray-600 group-hover:text-[#E1306C] dark:text-gray-400 transition-colors duration-300" />
+                <div className="bg-white p-2 rounded-lg shadow-md border border-gray-300 group-hover:border-[#f97316] group-hover:shadow-lg transition-all duration-300 transform group-hover:-translate-y-1 group-hover:scale-105 dark:bg-gray-800 dark:border-gray-700">
+                  <Instagram className="w-5 h-5 text-gray-600 group-hover:text-[#f97316] dark:text-gray-400 transition-colors duration-300" />
                 </div>
               </a>
             </div>
