@@ -9,8 +9,8 @@ import { PersistGate } from "redux-persist/integration/react"
 import { persistStore } from "redux-persist"
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 import Loader from './components/loaders/Loading.jsx'
-
-// Lazy loading components
+const AddEventPage = lazy(() => import('./components/AddEvent.jsx'));
+const ShowEvents = lazy(() => import("./pages/EventPage.jsx"));
 const AuthLayout = lazy(() => import('./components/index.js').then(module => ({ default: module.AuthLayout })));
 const Login = lazy(() => import('./components/index.js').then(module => ({ default: module.Login })));
 const Error404 = lazy(() => import('./components/errors/Error404.jsx'));
@@ -187,6 +187,10 @@ const router = createBrowserRouter([
                 path: "/terms",
                 element: <Terms />,
             },
+  {
+    path: "/events",
+    element: <ShowEvents />
+  },
         ],
     },
 ]);

@@ -2,6 +2,8 @@ import React, { useState, useCallback } from 'react';
 import { ChevronUp, ChevronDown, Calendar, Clock, MapPin, Users, FileText, Info } from 'lucide-react';
 import { toast } from 'sonner';
 import { z } from 'zod';
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom'; 
 
 // Event validation schema
 const EventSchema = z.object({
@@ -24,7 +26,7 @@ const AddEvent = () => {
     });
     const [errors, setErrors] = useState({});
     const [isExpanded, setIsExpanded] = useState(false);
-
+const navigate = useNavigate();
     const handleChange = useCallback((e) => {
         const { name, value } = e.target;
         setEventDetails(prev => ({ ...prev, [name]: value }));
@@ -40,7 +42,8 @@ const AddEvent = () => {
         try {
             // Validate entire form
             const validatedData = EventSchema.parse(eventDetails);
-            
+            console.log("Submitting event:", validatedData);
+
             const response = await axios.post('http://localhost:5000/api/events', validatedData);
             
             toast.success('Event successfully submitted!', {
@@ -58,6 +61,9 @@ const AddEvent = () => {
                 description: ''
             });
             setErrors({});
+            setTimeout(() => {
+  navigate('/events');
+}, 1000);
         } catch (error) {
             if (error instanceof z.ZodError) {
                 // Handle validation errors
