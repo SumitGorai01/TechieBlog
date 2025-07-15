@@ -11,6 +11,11 @@ import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 import Loader from './components/loaders/Loading.jsx'
 const AddEventPage = lazy(() => import('./components/AddEvent.jsx'));
 const ShowEvents = lazy(() => import("./pages/EventPage.jsx"));
+
+import { ToastContainer } from 'react-toastify';
+import SavedBlogs from './pages/SavedBlogs.jsx';
+// Lazy loading components
+
 const AuthLayout = lazy(() => import('./components/index.js').then(module => ({ default: module.AuthLayout })));
 const Login = lazy(() => import('./components/index.js').then(module => ({ default: module.Login })));
 const Error404 = lazy(() => import('./components/errors/Error404.jsx'));
@@ -132,7 +137,7 @@ const router = createBrowserRouter([
                     </AuthLayout>
                 )
             }, {
-                path: "/profile",
+                path: "/profile/:userId",
                 element: (
                     <AuthLayout authentication>
                         <Profile />
@@ -178,6 +183,10 @@ const router = createBrowserRouter([
             {
                 path: "/contact-us",
                 element: <ContactUs />
+            },
+            {
+                path: "/saved-blogs",
+                element: <SavedBlogs />,
             },
             {
                 path: "*",

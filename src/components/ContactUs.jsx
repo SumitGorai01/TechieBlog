@@ -37,8 +37,8 @@ const ContactUs = () => {
             <h2 class="text-gray-800 text-base font-bold dark:text-white">Socials</h2>
 
             <ul class="flex mt-4 space-x-4">
-              <li class="bg-[#e6e6e6cf] h-10 w-10 rounded-full flex items-center justify-center shrink-0">
-                <a href="javascript:void(0)">
+              <li class="bg-[#e6e6e6cf] h-10 w-10 rounded-full flex items-center justify-center shrink-0 hover:scale-110 transition-transform duration-300 cursor-pointer">
+                <a href="https://facebook.com" target="_blank" rel="noopener noreferrer">
                   <svg xmlns="http://www.w3.org/2000/svg" width="20px" height="20px" fill='#007bff'
                     viewBox="0 0 24 24">
                     <path
@@ -47,8 +47,15 @@ const ContactUs = () => {
                   </svg>
                 </a>
               </li>
-              <li class="bg-[#e6e6e6cf] h-10 w-10 rounded-full flex items-center justify-center shrink-0">
-                <a href="javascript:void(0)">
+              <li class="bg-[#e6e6e6cf] h-10 w-10 rounded-full flex items-center justify-center shrink-0 hover:scale-110 transition-transform duration-300 cursor-pointer">
+                <a href="https://x.com" target="_blank" rel="noopener noreferrer">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="20px" height="20px" fill="#007bff" viewBox="0 0 120 120">
+                    <path d="M92.74 20H108L74.29 56.53L113 100H84.38L60.1 72.42L32 100H16L52.97 61.3L16 20h29.13l22.35 25.12L92.74 20zM87 94h7L36 26h-7l58 68z"/>
+                  </svg>
+                </a>
+              </li>
+              <li class="bg-[#e6e6e6cf] h-10 w-10 rounded-full flex items-center justify-center shrink-0 hover:scale-110 transition-transform duration-300 cursor-pointer">
+                <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer">
                   <svg xmlns="http://www.w3.org/2000/svg" width="20px" height="20px" fill='#007bff'
                     viewBox="0 0 511 512">
                     <path
@@ -57,8 +64,8 @@ const ContactUs = () => {
                   </svg>
                 </a>
               </li>
-              <li class="bg-[#e6e6e6cf] h-10 w-10 rounded-full flex items-center justify-center shrink-0">
-                <a href="javascript:void(0)">
+              <li class="bg-[#e6e6e6cf] h-10 w-10 rounded-full flex items-center justify-center shrink-0 hover:scale-110 transition-transform duration-300 cursor-pointer">
+                <a href="https://www.instagram.com" target="_blank" rel="noopener noreferrer">
                   <svg xmlns="http://www.w3.org/2000/svg" width="20px" height="20px" fill='#007bff'
                     viewBox="0 0 24 24">
                     <path

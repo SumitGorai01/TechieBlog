@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Facebook, Linkedin, Instagram, ArrowUp, Mail, MapPin, Phone } from 'lucide-react';
 import Logo from '../Logo';
 import ContributorsLink from '../contributors/contributorsLink';
@@ -9,6 +9,7 @@ import { faArrowUp } from "@fortawesome/free-solid-svg-icons";
 const Footer = () => {
   const [scrollProgress, setScrollProgress] = useState(0);
   const [isVisible, setIsVisible] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -24,6 +25,11 @@ const Footer = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  const handleNavigation = (path) => {
+    window.scrollTo(0, 0);
+    navigate(path);
+  };
+
   return (
     <footer className="relative bg-gradient-to-r from-yellow-200 via-orange-200 to-red-200 dark:bg-gradient-to-r dark:from-gray-800 dark:via-gray-900 dark:to-black">
               
@@ -36,17 +42,17 @@ const Footer = () => {
               Bridging the gap between knowledge and action, TechieBlog fuels tech enthusiasts and developers with insights to thrive.
             </p>
             <div className="flex justify-center md:justify-start space-x-4">
-              <a href="#" className="group">
-                <div className="bg-white p-2 rounded-lg shadow-md border border-gray-300 group-hover:border-[#1876f2] group-hover:shadow-lg transition-all duration-300 transform group-hover:-translate-y-1 group-hover:scale-105 dark:bg-gray-800 dark:border-gray-700">
-                  <Facebook className="w-5 h-5 text-gray-600 group-hover:text-[#1876f2] dark:text-gray-400 transition-colors duration-300" />
+              <a href="https://facebook.com" className="group">
+                <div className="bg-white p-2 rounded-lg shadow-md border border-gray-300 group-hover:border-[#f97316] group-hover:shadow-lg transition-all duration-300 transform group-hover:-translate-y-1 group-hover:scale-105 dark:bg-gray-800 dark:border-gray-700">
+                  <Facebook className="w-5 h-5 text-gray-600 group-hover:text-[#f97316] dark:text-gray-400 transition-colors duration-300" />
                 </div>
               </a>
-              <a href="#" className="group">
-                <div className="bg-white p-2 rounded-lg shadow-md border border-gray-300 group-hover:border-[#0F1419] group-hover:shadow-lg transition-all duration-300 transform group-hover:-translate-y-1 group-hover:scale-105 dark:bg-gray-800 dark:border-gray-700">
+              <a href="https://twitter.com" className="group">
+                <div className="bg-white p-2 rounded-lg shadow-md border border-gray-300 group-hover:border-[#f97316] group-hover:shadow-lg transition-all duration-300 transform group-hover:-translate-y-1 group-hover:scale-105 dark:bg-gray-800 dark:border-gray-700">
                   {/* Updated Twitter (X) Icon */}
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
-                    className="w-5 h-5 text-gray-600 group-hover:text-[#0F1419] transition-colors duration-300"
+                    className="w-5 h-5 text-gray-600 group-hover:text-[#f97316] transition-colors duration-300"
                     viewBox="0 0 24 24"
                     fill="currentColor"
                   >
@@ -54,15 +60,15 @@ const Footer = () => {
                   </svg>
                 </div>
               </a>
-              <a href="#" className="group">
-                <div className="bg-white p-2 rounded-lg shadow-md border border-gray-300 group-hover:border-[#0077B5] group-hover:shadow-lg 
+              <a href="https://linkedin.com" className="group">
+                <div className="bg-white p-2 rounded-lg shadow-md border border-gray-300 group-hover:border-[#f97316] group-hover:shadow-lg 
                 transition-all duration-300 transform group-hover:-translate-y-1 group-hover:scale-105 dark:border-gray-700 dark:bg-gray-800">
-                  <Linkedin className="w-5 h-5 text-gray-600 group-hover:text-[#0077B5] dark:text-gray-400 transition-colors duration-300" />
+                  <Linkedin className="w-5 h-5 text-gray-600 group-hover:text-[#f97316] dark:text-gray-400 transition-colors duration-300" />
                 </div>
               </a>
-              <a href="#" className="group">
-                <div className="bg-white p-2 rounded-lg shadow-md border border-gray-300 group-hover:border-[#E1306C] group-hover:shadow-lg transition-all duration-300 transform group-hover:-translate-y-1 group-hover:scale-105 dark:bg-gray-800 dark:border-gray-700">
-                  <Instagram className="w-5 h-5 text-gray-600 group-hover:text-[#E1306C] dark:text-gray-400 transition-colors duration-300" />
+              <a href="https://instagram.com" className="group">
+                <div className="bg-white p-2 rounded-lg shadow-md border border-gray-300 group-hover:border-[#f97316] group-hover:shadow-lg transition-all duration-300 transform group-hover:-translate-y-1 group-hover:scale-105 dark:bg-gray-800 dark:border-gray-700">
+                  <Instagram className="w-5 h-5 text-gray-600 group-hover:text-[#f97316] dark:text-gray-400 transition-colors duration-300" />
                 </div>
               </a>
             </div>
@@ -72,18 +78,22 @@ const Footer = () => {
           <div className="space-y-6">
             <h3 className="text-lg dark:text-gray-200 font-bold">Company</h3>
             <ul className="space-y-4">
-              {['About Us', 'Feedback', 'Events'].map((item) => (
-                <li key={item}>
-                  <Link
-                    to={`/${item.toLowerCase().replace(' ', '-')}`}
-                    className="group dark:hover:text-gray-200 dark:text-gray-400 flex items-center text-gray-600 hover:text-gray-900 relative"
+              {[
+                { name: 'About Us', path: '/about-us' },
+                { name: 'Feedback', path: '/feedback' },
+                { name: 'Events', path: '/events' }
+              ].map((item) => (
+                <li key={item.name}>
+                  <button
+                    onClick={() => handleNavigation(item.path)}
+                    className="group dark:hover:text-gray-200 dark:text-gray-400 flex items-center text-gray-600 hover:text-gray-900 relative w-full text-left"
                   >
                     <span className="w-2 h-2 bg-blue-500 rounded-full mr-3 opacity-0 group-hover:opacity-100 transition-all duration-300 transform group-hover:scale-125" />
                     <span className="relative">
-                      {item}
+                      {item.name}
                       <span className="absolute left-0 bottom-0 w-0 h-0.5 bg-gradient-to-r from-blue-500 to-purple-500 group-hover:w-full transition-all duration-300 ease-out"></span>
                     </span>
-                  </Link>
+                  </button>
                 </li>
               ))}
             </ul>
@@ -93,18 +103,22 @@ const Footer = () => {
           <div className="space-y-6">
             <h3 className="text-lg dark:text-gray-200 font-bold">Support</h3>
             <ul className="space-y-4">
-              {['Account', 'Faq', 'Contact Us'].map((item) => (
-                <li key={item}>
-                  <Link
-                    to={`/${item.toLowerCase().replace(' ', '-')}`}
-                    className="group flex items-center text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-200 relative"
+              {[
+                { name: 'Account', path: '/login' },
+                { name: 'FAQ', path: '/faq' },
+                { name: 'Contact Us', path: '/contact-us' }
+              ].map((item) => (
+                <li key={item.name}>
+                  <button
+                    onClick={() => handleNavigation(item.path)}
+                    className="group flex items-center text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-200 relative w-full text-left"
                   >
                     <span className="w-2 h-2 bg-blue-500 rounded-full mr-3 opacity-0 group-hover:opacity-100 transition-all duration-300 transform group-hover:scale-125" />
                     <span className="relative">
-                      {item}
+                      {item.name}
                       <span className="absolute left-0 bottom-0 w-0 h-0.5 bg-gradient-to-r from-blue-500 to-purple-500 group-hover:w-full transition-all duration-300 ease-out"></span>
                     </span>
-                  </Link>
+                  </button>
                 </li>
               ))}
             </ul>
@@ -131,7 +145,7 @@ const Footer = () => {
               <li className="group flex items-center justify-center md:justify-start space-x-3 text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-200 transition-colors duration-300">
                 <Mail className="w-5 h-5 text-blue-500 dark:text-blue-400 group-hover:scale-110 group-hover:rotate-12 transition-all duration-300" />
                 <span className="relative">
-                  <a href="mailto:support@techieblog.com" className="hover:underline">
+                  <a href="mailto:support@techieblog.com" >
                     support@techieblog.com
                     <span className="absolute left-0 bottom-0 w-0 h-0.5 bg-gradient-to-r from-blue-500 to-purple-500 group-hover:w-full transition-all duration-300 ease-out"></span>
                   </a>
@@ -161,10 +175,13 @@ const Footer = () => {
         <div className="mt-5">
           <p className="text-center text-gray-600 dark:text-gray-400 hover:text-gray-800 dark:hover:text-gray-200 transition-colors duration-300">
             © Copyright {new Date().getFullYear()}. All Rights Reserved by 
-            <span className="relative ml-1 font-semibold group cursor-pointer">
+            <Link
+              to="/"
+              className="relative ml-1 font-semibold group cursor-pointer"
+            >
               TechieBlog
               <span className="absolute left-0 bottom-0 w-0 h-0.5 bg-gradient-to-r from-orange-500 to-red-500 group-hover:w-full transition-all duration-300 ease-out"></span>
-            </span>.
+            </Link>.
           </p>
         </div>
       </div>

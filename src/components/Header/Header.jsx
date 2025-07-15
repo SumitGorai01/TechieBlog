@@ -10,9 +10,11 @@ import {
   HelpCircle,
   MessageSquare,
   Info,
-  Mail,
   Phone,
   Calendar,
+  Menu,
+  X,
+  Bookmark,
 } from "lucide-react";
 import Logo from "../Logo";
 import Searchbar from "./Searchbar.jsx";
@@ -22,83 +24,38 @@ import DarkModeIcon from "@mui/icons-material/DarkMode";
 import LightModeIcon from "@mui/icons-material/LightMode";
 import { toggleTheme } from "../../store/themeSlice";
 import Sidebar from "./Sidebar.jsx";
-import { Menu, X } from "lucide-react"; // Import Menu (☰) and X (✖) icons
+
 
 function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const authStatus = useSelector((state) => state.auth.status);
   const darkMode = useSelector((state) => state.theme.darkMode);
   const dispatch = useDispatch();
-  const [isSidebarOpen, setIsSidebarOpen] = useState(false); // Sidebar is open by default
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
   const navItems = [
-    {
-      name: "Login",
-      slug: "/login",
-      active: !authStatus,
-      icon: LogIn,
-    },
-    {
-      name: "Signup",
-      slug: "/signup",
-      active: !authStatus,
-      icon: UserPlus,
-    },
-    {
-      name: "All Posts",
-      slug: "/all-posts",
-      active: authStatus,
-      icon: Files,
-    },
-    {
-      name: "Add Post",
-      slug: "/add-post",
-      active: authStatus,
-      icon: FileEdit,
-    },
-    {
-      name: "FAQ",
-      slug: "/faq",
-      active: true,
-      icon: HelpCircle,
-    },
-    {
-      name: "Feedback",
-      slug: "/feedback",
-      active: true,
-      icon: MessageSquare,
-    },
-    {
-      name: "About Us",
-      slug: "/about-us",
-      active: true,
-      icon: Info,
-    },
-    {
-      name: "Events",
-      slug: "/events",
-      active: true,
-      icon: Calendar,
-    },
-    {
-      name: "Contact Us",
-      slug: "/contact-us",
-      active: true,
-      icon: Phone,
-    },
+    { name: "About Us", slug: "/about-us", active: true, icon: Info },
+    { name: "Events", slug: "/events", active: true, icon: Calendar },
+    { name: "All Posts", slug: "/all-posts", active: authStatus, icon: Files },
+    { name: "Add Post", slug: "/add-post", active: authStatus, icon: FileEdit },
+    { name: "FAQ", slug: "/faq", active: true, icon: HelpCircle },
+    { name: "Feedback", slug: "/feedback", active: true, icon: MessageSquare },
+    { name: "Contact Us", slug: "/contact-us", active: true, icon: Phone },
+    { name: "Login", slug: "/login", active: !authStatus, icon: LogIn },
+    { name: "Signup", slug: "/signup", active: !authStatus, icon: UserPlus },
+    { name: "Saved Blogs", slug: "/saved-blogs", active: authStatus, icon: Bookmark },
   ];
 
   const handleNavigation = () => {
     setIsMenuOpen(false);
   };
 
+  
   return (
     <>
       <header
   id="sticky-header"
-  className="py-2 px-6 shadow-md bg-gradient-to-r from-yellow-100 via-orange-100 to-red-100 
-  dark:bg-gradient-to-r dark:from-gray-600 dark:via-gray-600 dark:to-gray-600 
-  transition duration-300 animate-slide-down border md:rounded-full md:mx-10 md:my-3  "
+  className="w-[95%] mx-auto py-2 px-6 shadow-md bg-gradient-to-r from-yellow-100 via-orange-100 to-red-100 dark:bg-gradient-to-r dark:from-gray-600 dark:via-gray-600 dark:to-gray-600 transition duration-300 animate-slide-down border rounded-full md:my-3"
 >
 
         <Container>
@@ -226,3 +183,4 @@ function Header() {
 }
 
 export default Header;
+

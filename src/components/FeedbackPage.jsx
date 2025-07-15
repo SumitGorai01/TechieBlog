@@ -59,8 +59,10 @@ function FeedbackPage() {
                 <input type='email' name='email' value={formData.email} onChange={handleChange} placeholder='Your email...' className='input-style' />
                 {errors.email && <p className='text-red-500 text-sm'>{errors.email}</p>}
                 
-                <select name='category' value={formData.category} onChange={handleChange} className='input-style dark:text-gray-800'>
-                  <option value='general'>General</option>
+                <select name='category' value={formData.category} onChange={handleChange} className='input-style dark:text-gray-800' style={{ color: "rgba(0, 0, 0, 0.5" }}>
+                  <option value='general'>
+                    General
+                  </option>
                   <option value='bug'>Bug Report</option>
                   <option value='feature'>Feature Request</option>
                 </select>
@@ -80,7 +82,7 @@ function FeedbackPage() {
                 </div>
                 {errors.rating && <p className='text-red-500 text-sm'>{errors.rating}</p>}
 
-                <button type='submit' className='w-full bg-gradient-to-r from-orange-500 to-amber-500 hover:from-orange-600 hover:to-amber-600 text-white font-bold py-2 px-4 rounded-md focus:outline-none focus:ring-2 focus:ring-orange-400 shadow-md'>
+                <button type='submit' className='w-full bg-gradient-to-r from-orange-500 to-amber-500 hover:from-orange-600 hover:to-Hex text-white font-bold py-2 px-4 rounded-md focus:outline-none focus:ring-2 focus:ring-orange-400 shadow-md'>
                   Submit
                 </button>
               </form>

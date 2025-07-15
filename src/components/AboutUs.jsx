@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Rocket, Users, BookOpen, Megaphone, HeartHandshake, Mail, Twitter, Facebook, Instagram , X} from 'lucide-react';
+import { Rocket, Users, BookOpen, Megaphone, HeartHandshake, Mail} from 'lucide-react';
 
 const AboutUs = () => {
     const containerVariants = {
@@ -178,7 +178,7 @@ const AboutUs = () => {
                 initial={{ opacity: 0 }}
                 whileInView={{ opacity: 1 }}
                 viewport={{ once: true }}
-                className="bg-gradient-to-r from-orange-400 via-orange-500 to-orange-600 dark:from-orange-900 dark:via-orange-800 dark:to-orange-900 py-20 relative overflow-hidden"
+                className="bg-gradient-to-r bg-white dark:bg-grey-800 py-20 relative overflow-hidden"
             >
                 {/* Add subtle background pattern */}
                 <div className="absolute inset-0 bg-grid-white/[0.1] pointer-events-none" />
@@ -187,7 +187,7 @@ const AboutUs = () => {
                     <motion.h2
                         initial={{ y: 20, opacity: 0 }}
                         whileInView={{ y: 0, opacity: 1 }}
-                        className="text-3xl font-bold text-white mb-6"
+                        className="text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-orange-500 to-rose-500 dark:from-orange-400 dark:to-rose-400"
                     >
                         Join Our Tech Community
                     </motion.h2>
@@ -195,35 +195,18 @@ const AboutUs = () => {
                         initial={{ opacity: 0 }}
                         whileInView={{ opacity: 1 }}
                         transition={{ delay: 0.2 }}
-                        className="text-lg text-orange-50 mb-8 max-w-2xl mx-auto"
+                        className="text-lg text-gray-600 dark:text-gray-300 leading-relaxed"
                     >
-                        Stay updated with the latest tech trends and join discussions with like-minded professionals
+                        Stay updated with the latest tech trends and join discussions with like-minded professionals.
                     </motion.p>
-                    <motion.div
-                        className="flex justify-center space-x-6"
-                        variants={containerVariants}
-                        initial="hidden"
-                        whileInView="visible"
+                    <motion.p
+                        initial={{ opacity: 0 }}
+                        whileInView={{ opacity: 1 }}
+                        transition={{ delay: 0.2 }}
+                        className="text-lg text-gray-600 dark:text-gray-300 leading-relaxed"
                     >
-                        {[
-                            { icon:  X, link: 'https://twitter.com' },
-                            { icon: Facebook, link: 'https://facebook.com' },
-                            { icon: Instagram, link: 'https://instagram.com' },
-                        ].map((item, index) => (
-                            <motion.a
-                                key={index}
-                                variants={itemVariants}
-                                href={item.link}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="p-3 bg-white/10 backdrop-blur-sm rounded-full hover:bg-white/20 transition-all duration-300 shadow-lg hover:shadow-orange-300/20"
-                                whileHover={{ scale: 1.1 }}
-                                whileTap={{ scale: 0.9 }}
-                            >
-                                <item.icon className="w-6 h-6 text-white" />
-                            </motion.a>
-                        ))}
-                    </motion.div>
+                        Follow our socials below!
+                    </motion.p>
                 </div>
             </motion.section>
         </div>

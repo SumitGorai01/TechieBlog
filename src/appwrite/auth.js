@@ -1,5 +1,7 @@
+/* eslint-disable no-unused-vars */
+/* eslint-disable no-useless-catch */
 import conf from "../conf/conf";
-import { Client, Account, Databases, ID ,Query } from "appwrite";
+import { Client, Account, Databases, ID, Query } from "appwrite";
 
 const baseLink = import.meta.env.VITE_BASE_LINK;
 
@@ -14,10 +16,10 @@ export class AuthService {
             .setProject(conf.appwriteProjectId);
 
         this.account = new Account(this.client);
-        this.databases = new Databases(this.client); // ✅ Initialize Databases SDK
+        this.databases = new Databases(this.client);
     }
 
-    async createAccount({ email, password, name }) {
+  async createAccount({ email, password, name }) {
         try {
             // ✅ Step 1: Create User in Authentication
             const userAccount = await this.account.create(ID.unique(), email, password, name);
@@ -56,142 +58,92 @@ export class AuthService {
         }
     }
 
-    async updateVerification({id, secret}) {
+    
+
+    async login({ email, password }) {
+        try {
+            const session = await this.account.createEmailPasswordSession(email, password);
+            const user = await this.account.get();
+
+            if (!user.emailVerification) {
+                await this.account.deleteSessions();
+                throw new Error("Please verify your email before logging in.");
+            }
+
+            return user;
+        } catch (error) {
+            try {
+                await this.account.deleteSessions();
+            } catch (sessionError) {
+                console.error("Error cleaning session:", sessionError);
+            }
+
+            if (error.code === 401) {
+                throw new Error("Invalid email or password");
+            }
+
+            throw error;
+        }
+    }
+
+    async createSession({ email, password }) {
+        try {
+            return await this.account.createEmailPasswordSession(email, password);
+        } catch (error) {
+            throw error;
+        }
+    }
+
+    async createVerification() {
+        try {
+            return await this.account.createVerification(`${baseLink}/verify-email`);
+        } catch (error) {
+            throw error;
+        }
+    }
+
+    async updateVerification({ id, secret }) {
         try {
             return await this.account.updateVerification(id, secret);
         } catch (error) {
             throw error;
         }
     }
-    
-    async createSession({email, password}){
-        try{
-            const session = await this.account.createEmailPasswordSession(email, password);
-            return session;
-        }catch(error){
-            throw error;
-        }
-    }
 
-    
-    async createVerification(){
-        try{
-            const link = await this.account.createVerification(`${baseLink}/verify-email`)
-            return link;
-        }catch(error){
-            throw error;
-        }
-    }
-    
-    async login({email, password}) {
-        try {
-            // First create session
-            const session = await this.account.createEmailPasswordSession(email, password);
-            console.log(session);
-            // Get user details
-            const user = await this.account.get();
-            console.log(user);
-
-            // Check if email is verified
-            if (!user.emailVerification) {
-                // Delete the session since email isn't verified
-                await this.account.deleteSessions();
-                throw new Error('Please verify your email before logging in. Check your inbox for the verification link.');
-            }
-            
-            return user;
-        } catch (error) {
-            // Clean up any session if there was an error
-            try {
-                await this.account.deleteSessions();
-            } catch (sessionError) {
-                console.log("Error cleaning up session:", sessionError);
-            }
-
-            if (error.code === 401) {
-                throw new Error('Invalid email or password');
-            }
-            throw error;
-        }
-    }
-
-    async getCurrentUser(){
+    async getCurrentUser() {
         try {
             return await this.account.get();
         } catch (error) {
             console.log("Appwrite service :: getCurrentUser :: error", error);
-        }
-        
-        return null;
-    }
-
-    async getUserById(userId){
-        try {
-            return await this.account.get(userId);
-        } catch (error) {
-            console.log("Appwrite service :: getUserById :: error", error);
+            return null;
         }
     }
 
-    async logout(){
+    async getUserById(userId) {
         try {
-            await this.account.deleteSessions();
-        } catch (error) {
-            console.log("Appwrite service :: logout :: error", error);
-        }
-    }
-
-    // New methods for password reset functionality
-    async resetPassword(email) {
-        try {
-            const response = await this.account.createRecovery(
-                email,
-                `${window.location.origin}/reset-password`  // This URL should match your reset password route
+            const response = await this.databases.listDocuments(
+                conf.appwriteDatabaseId,
+                conf.appwriteUserCollectionId,
+                [Query.equal("userId", userId)]
             );
-            return response;
+
+            return response.documents[0] || null;
         } catch (error) {
-            console.log("Appwrite service :: resetPassword :: error", error);
-            throw error;
+            console.error("Appwrite service :: getUserById :: error", error);
+            return null;
         }
     }
 
-    async completeReset(userId, secret, newPassword, confirmPassword) {
-        try {
-            const response = await this.account.updateRecovery(
-                userId,
-                secret,
-                newPassword,
-                confirmPassword
-            );
-            return response;
-        } catch (error) {
-            console.log("Appwrite service :: completeReset :: error", error);
-            throw error;
-        }
-    }
-    
-    async changePassword(oldPassword, newPassword) {
-        try {
-            return this.account.updatePassword(
-                newPassword, 
-                oldPassword
-            );
-        } catch (error) {
-            console.log("Appwrite service :: changePassword :: error", error);
-            throw error;
-            
-        }
-    }
     async getUserNameById(userId) {
         try {
             const response = await this.databases.listDocuments(
-                conf.appwriteDatabaseId, // Your database ID
-                conf.appwriteUserCollectionId, // Your users collection ID
-                [Query.equal("userId", userId)] // Corrected syntax
+                conf.appwriteDatabaseId,
+                conf.appwriteUserCollectionId,
+                [Query.equal("userId", userId)]
             );
-    
+
             if (response.documents.length > 0) {
-                return response.documents[0].name; // Assuming 'name' field exists
+                return response.documents[0].name;
             } else {
                 return "Unknown User";
             }
@@ -200,9 +152,50 @@ export class AuthService {
             return "Unknown User";
         }
     }
-    
+
+    async logout() {
+        try {
+            await this.account.deleteSessions();
+        } catch (error) {
+            console.error("Appwrite service :: logout :: error", error);
+        }
+    }
+
+    async resetPassword(email) {
+        try {
+            return await this.account.createRecovery(
+                email,
+                `${window.location.origin}/reset-password`
+            );
+        } catch (error) {
+            console.error("Appwrite service :: resetPassword :: error", error);
+            throw error;
+        }
+    }
+
+    async completeReset(userId, secret, newPassword, confirmPassword) {
+        try {
+            return await this.account.updateRecovery(
+                userId,
+                secret,
+                newPassword,
+                confirmPassword
+            );
+        } catch (error) {
+            console.error("Appwrite service :: completeReset :: error", error);
+            throw error;
+        }
+    }
+
+    async changePassword(oldPassword, newPassword) {
+        try {
+            return await this.account.updatePassword(newPassword, oldPassword);
+        } catch (error) {
+            console.error("Appwrite service :: changePassword :: error", error);
+            throw error;
+        }
+    }
 }
 
 const authService = new AuthService();
-
 export default authService;

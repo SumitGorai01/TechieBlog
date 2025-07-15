@@ -6,29 +6,29 @@ import appwriteService from "./config";
 import appwriteAuthService from "./auth";
 
 
-export class Service{
+export class Service {
     client = new Client();
     database;
     bucket;
 
-    constructor(){
+    constructor() {
         this.client.setEndpoint(conf.appwriteUrl)
-                    .setProject(conf.appwriteProjectId);
+            .setProject(conf.appwriteProjectId);
 
         this.database = new Databases(this.client);
         this.bucket = new Storage(this.client);
     }
 
-    async createComment(data){
-        try{
+    async createComment(data) {
+        try {
             console.log(data);
-            
+
             const comment = await this.database.createDocument(
                 conf.appwriteDatabaseId,
                 conf.appwriteCommentCollectionId,
                 ID.unique(),
                 data
-            )
+            );
 
             const post = await appwriteService.getPost(data.article);
             let comments = post.comments || [];
@@ -43,8 +43,8 @@ export class Service{
 
             console.log(updatedPost);
             return comment;
-        }catch(error){
-            console.log("Appwrite service : : createPost :: error ", error);
+        } catch (error) {
+            console.log("Appwrite service :: createComment :: error", error);
         }
     }
 
@@ -83,7 +83,7 @@ export class Service{
                 total: comments.total
             };
         } catch (error) {
-            console.log("Appwrite service :: getComments :: error ", error);
+            console.log("Appwrite service :: getComments :: error", error);
             throw error;
         }
     }
@@ -105,11 +105,54 @@ export class Service{
                 }
             };
         } catch (error) {
-            console.log("Appwrite service :: getComment :: error ", error);
+            console.log("Appwrite service :: getComment :: error", error);
+            throw error;
+        }
+    }
+
+    async updateComment(commentId, updatedData) {
+        try {
+            const updatedComment = await this.database.updateDocument(
+                conf.appwriteDatabaseId,
+                conf.appwriteCommentCollectionId,
+                commentId,
+                updatedData
+            );
+            return updatedComment;
+        } catch (error) {
+            console.log("Appwrite service :: updateComment :: error", error);
+            throw error;
+        }
+    }
+
+    async deleteComment(commentId, articleId) {
+        try {
+            // Delete the comment
+            await this.database.deleteDocument(
+                conf.appwriteDatabaseId,
+                conf.appwriteCommentCollectionId,
+                commentId
+            );
+
+            // Remove the comment ID from the related article's comment list
+            const post = await appwriteService.getPost(articleId);
+            const updatedComments = (post.comments || []).filter(id => id !== commentId);
+
+            await this.database.updateDocument(
+                conf.appwriteDatabaseId,
+                conf.appwriteCollectionId,
+                articleId,
+                { comments: updatedComments }
+            );
+
+            return true;
+        } catch (error) {
+            console.log("Appwrite service :: deleteComment :: error", error);
             throw error;
         }
     }
 }
+
 
 const service = new Service()
 export default service
