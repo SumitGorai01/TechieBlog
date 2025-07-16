@@ -19,7 +19,7 @@ export class AuthService {
         this.databases = new Databases(this.client);
     }
 
-  async createAccount({ email, password, name }) {
+  async createAccount({ email, password, name, bio = "", social = {} }) {
         try {
             // ✅ Step 1: Create User in Authentication
             const userAccount = await this.account.create(ID.unique(), email, password, name);
@@ -32,7 +32,9 @@ export class AuthService {
                 ID.unique(), // Use unique ID for the document
                 {
                     userId: userAccount.$id, // Store the User ID
-                    name: name,                    
+                    name: name,
+                    bio: bio,
+                    social: social,
                 }
             );
             console.log("User Data Stored in Database:", userData);
@@ -192,6 +194,54 @@ export class AuthService {
             return await this.account.updatePassword(newPassword, oldPassword);
         } catch (error) {
             console.error("Appwrite service :: changePassword :: error", error);
+            throw error;
+        }
+    }
+
+    // User Bio
+    async updateUserBio(userId, bio) {
+        try {
+            // Find the user's document
+            const response = await this.databases.listDocuments(
+                conf.appwriteDatabaseId,
+                conf.appwriteUserCollectionId,
+                [Query.equal("userId", userId)]
+            );
+            const userDoc = response.documents[0];
+            if (!userDoc) throw new Error("User not found");
+            // Update the bio field
+            return await this.databases.updateDocument(
+                conf.appwriteDatabaseId,
+                conf.appwriteUserCollectionId,
+                userDoc.$id,
+                { bio }
+            );
+        } catch (error) {
+            console.error("Error updating user bio:", error);
+            throw error;
+        }
+    }
+
+    // User Socials
+    async updateUserSocial(userId, social) {
+        try {
+            // Find the user's document
+            const response = await this.databases.listDocuments(
+                conf.appwriteDatabaseId,
+                conf.appwriteUserCollectionId,
+                [Query.equal("userId", userId)]
+            );
+            const userDoc = response.documents[0];
+            if (!userDoc) throw new Error("User not found");
+            // Update the social field
+            return await this.databases.updateDocument(
+                conf.appwriteDatabaseId,
+                conf.appwriteUserCollectionId,
+                userDoc.$id,
+                { social }
+            );
+        } catch (error) {
+            console.error("Error updating user social:", error);
             throw error;
         }
     }
