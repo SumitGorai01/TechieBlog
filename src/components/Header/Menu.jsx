@@ -58,7 +58,7 @@ export default function BasicMenu() {
 
     </section>
 
-  );
+
 
 };
 
@@ -116,10 +116,14 @@ const TechieBlog = () => {
             height: 44,
             fontSize: 18,
             border: "2px solid white",
-    boxShadow: "0 0 0 2px #facc15",
-    transition: "transform 0.3s ease-in-out",
-    '&:hover'
-      transform: 'scale(1.1)',
+    const styles = {
+  boxShadow: "0 0 2px #acc15c",
+  transition: "transform 0.3s ease-in-out",
+  '&:hover': {
+    transform: 'scale(1.1)'
+  }
+}
+
 
       .techie-blog {
   padding: 40px;
