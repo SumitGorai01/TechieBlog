@@ -91,7 +91,7 @@ const navigate = useNavigate();
                 });
                 console.error('Event submission error:', error);
             }
-=======
+          }
   const [eventDetails, setEventDetails] = useState({
     title: '',
     date: '',
@@ -293,5 +293,5 @@ const navigate = useNavigate();
     </div>
   );
 };
-
+}
 export default AddEvent;
