@@ -36,14 +36,17 @@ const Footer = () => {
       <div className="max-w-7xl mx-auto px-6 py-10">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-12 text-center md:text-left">
           {/* Brand Section */}
-          <div className="space-y-6">
-            <Logo />
+          <div className="space-y-6 ">
+           <div className="ml-12">
+            <Logo/>
+           </div>
+            
             <p className="text-gray-600 dark:text-gray-400">
               Bridging the gap between knowledge and action, TechieBlog fuels tech enthusiasts and developers with insights to thrive.
             </p>
-            <div className="flex justify-center md:justify-start space-x-4">
+            <div className="flex justify-center md:justify-start space-x-4 space-y-6">
               <a href="https://facebook.com" className="group">
-                <div className="bg-white p-2 rounded-lg shadow-md border border-gray-300 group-hover:border-[#f97316] group-hover:shadow-lg transition-all duration-300 transform group-hover:-translate-y-1 group-hover:scale-105 dark:bg-gray-800 dark:border-gray-700">
+                <div className="bg-white p-2 rounded-lg shadow-md border border-gray-300 group-hover:border-[#f97316] group-hover:shadow-lg transition-all duration-300 transform group-hover:-translate-y-1 group-hover:scale-105 dark:bg-gray-800 dark:border-gray-700 mt-6">
                   <Facebook className="w-5 h-5 text-gray-600 group-hover:text-[#f97316] dark:text-gray-400 transition-colors duration-300" />
                 </div>
               </a>
@@ -75,7 +78,7 @@ const Footer = () => {
           </div>
 
           {/* Quick Links Section */}
-          <div className="space-y-6">
+          <div className="space-y-6 ml-12 ">
             <h3 className="text-lg dark:text-gray-200 font-bold">Company</h3>
             <ul className="space-y-4">
               {[
@@ -100,7 +103,7 @@ const Footer = () => {
           </div>
 
           {/* Support Section */}
-          <div className="space-y-6">
+          <div className="space-y-6 ml-6">
             <h3 className="text-lg dark:text-gray-200 font-bold">Support</h3>
             <ul className="space-y-4">
               {[
@@ -152,9 +155,9 @@ const Footer = () => {
                 </span>
               </li>
             </ul>
-            <div className="mt-3">
+            <div className="mt-3 mr-16">
               <h3 className="text-lg font-bold dark:text-gray-200">Contributors</h3>
-              <ContributorsLink classes="w-10 h-10 hover:scale-110 transition-transform duration-300" />
+              <ContributorsLink classes="w-10 h-10 hover:scale-110 transition-transform duration-300 " />
             </div>
           </div>
         </div>
@@ -162,18 +165,18 @@ const Footer = () => {
         {/* Divider with Animation */}
         <div className="relative mt-2">
           <div className="absolute inset-0 flex items-center">
-            <div className="w-full border-t border-gray-400 dark:border-gray-400"></div>
+            <div className="w-full border-t border-gray-400 dark:border-gray-400 mt-12"></div>
           </div>
           <div className="relative flex justify-center">
-            <div className="bg-gradient-to-r from-yellow-200 via-orange-200 to-red-200 px-4 dark:from-gray-800">
+            {/* <div className="bg-gradient-to-r from-yellow-200 via-orange-200 to-red-200 px-4 dark:from-gray-800">
               <Logo className="h-8 w-auto hover:scale-105 transition-transform duration-300" />
-            </div>
+            </div> */}
           </div>
         </div>
 
         {/* Copyright Section */}
         <div className="mt-5">
-          <p className="text-center text-gray-600 dark:text-gray-400 hover:text-gray-800 dark:hover:text-gray-200 transition-colors duration-300">
+          <p className="text-center text-gray-600 dark:text-gray-400 hover:text-gray-800 dark:hover:text-gray-200 transition-colors duration-300 mt-16">
             © Copyright {new Date().getFullYear()}. All Rights Reserved by 
             <Link
               to="/"
