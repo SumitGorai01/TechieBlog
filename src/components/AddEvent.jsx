@@ -3,8 +3,13 @@ import { ChevronUp, ChevronDown, Calendar, Clock, MapPin, Users, FileText, Info 
 import { toast } from 'react-toastify';
 
 import { z } from 'zod';
+
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom'; 
+
 import eventService from '../appwrite/event';
 import authService from '../appwrite/auth';
+
 
 const EventSchema = z.object({
   title: z.string().min(5, "Title must be at least 5 characters"),
@@ -16,6 +21,77 @@ const EventSchema = z.object({
 });
 
 const AddEvent = () => {
+
+    const [eventDetails, setEventDetails] = useState({
+        title: '',
+        date: '',
+        time: '',
+        location: '',
+        eligibility: '',
+        description: ''
+    });
+    const [errors, setErrors] = useState({});
+    const [isExpanded, setIsExpanded] = useState(false);
+const navigate = useNavigate();
+    const handleChange = useCallback((e) => {
+        const { name, value } = e.target;
+        setEventDetails(prev => ({ ...prev, [name]: value }));
+        // Clear specific field error when user starts typing
+        if (errors[name]) {
+            setErrors(prev => ({ ...prev, [name]: undefined }));
+        }
+    }, [errors]);
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        
+        try {
+            // Validate entire form
+            const validatedData = EventSchema.parse(eventDetails);
+            console.log("Submitting event:", validatedData);
+
+            const response = await axios.post('http://localhost:5000/api/events', validatedData);
+            
+            toast.success('Event successfully submitted!', {
+                description: `${validatedData.title} has been added`,
+                duration: 3000
+            });
+
+            // Reset form
+            setEventDetails({
+                title: '',
+                date: '',
+                time: '',
+                location: '',
+                eligibility: '',
+                description: ''
+            });
+            setErrors({});
+            setTimeout(() => {
+  navigate('/events');
+}, 1000);
+        } catch (error) {
+            if (error instanceof z.ZodError) {
+                // Handle validation errors
+                const formErrors = error.flatten().fieldErrors;
+                setErrors(formErrors);
+                
+                // Toast first error
+                const firstError = Object.values(formErrors)[0]?.[0];
+                if (firstError) {
+                    toast.error('Validation Error', {
+                        description: firstError,
+                        duration: 3000
+                    });
+                }
+            } else {
+                toast.error('Submission Failed', {
+                    description: 'Please check your network connection',
+                    duration: 3000
+                });
+                console.error('Event submission error:', error);
+            }
+          }
   const [eventDetails, setEventDetails] = useState({
     title: '',
     date: '',
@@ -77,6 +153,7 @@ const AddEvent = () => {
         const firstError = Object.values(formErrors)[0]?.[0];
         if (firstError) {
           toast.error('Validation Error', { description: firstError });
+
         }
       } else {
         toast.error('Submission Failed', {
@@ -216,5 +293,5 @@ const AddEvent = () => {
     </div>
   );
 };
-
+}
 export default AddEvent;
