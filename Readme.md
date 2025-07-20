@@ -137,7 +137,7 @@ Prerequisites Docker desktop installed
 docker build . -t techieblog
 
 2 Run the Container:-
-docker run -p 5173:5173 your-app-name
+docker run -d -p 5173:5173 my-nodejs-app
 
 Replace 5173:5173 with : as needed.
 
