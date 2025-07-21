@@ -54,7 +54,7 @@ function Contributors() {
                     className="p-2 border-2 border-gray-300 rounded-md w-80 bg-white text-gray-900 dark:bg-gray-700 dark:text-gray-100"
                 />
             </div>
-            <div className="grid grid-cols-2 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+            <div className="grid grid-cols-2 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 mt-20">
                 {filteredData.map((item) => (
                     <a
                         key={item.id}
