@@ -43,7 +43,7 @@ function Contributors() {
                     colors={['#f97316', '#ea580c', '#FFB800', '#FF3D00']} // Orange theme colors
                 />
             )}
-            <h1 className='text-4xl font-bold mb-6 text-orange-600 dark:text-gray-100' style={{ textShadow: '2px 2px 4px rgba(0, 0, 0, 0.8)' }}>Contributors</h1>
+            <h1 className='text-5xl font-extrabold mb-6 text-center text-orange-500 dark:text-orange-500 animate-bounce hover:scale-110 transition-transform duration-300 drop-shadow-lg'>Contributors</h1>
             <p className="text-lg mb-8 text-center mx-auto" style={{ maxWidth: '412px' }}>Meet the brilliant minds who brought this project to life!</p>
             <div className="flex justify-center mb-8">
                 <input
