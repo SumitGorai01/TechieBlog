@@ -31,6 +31,7 @@ const Footer = () => {
   };
 
   return (
+
     <>
       <footer className="relative bg-gradient-to-r from-yellow-200 via-orange-200 to-red-200 dark:bg-gradient-to-r dark:from-gray-800 dark:via-gray-900 dark:to-black pb-20">
 
@@ -77,6 +78,48 @@ const Footer = () => {
                   </div>
                 </a>
               </div>
+
+    <footer className="relative bg-gradient-to-r from-yellow-200 via-orange-200 to-red-200 dark:bg-gradient-to-r dark:from-gray-800 dark:via-gray-900 dark:to-black">
+              
+      <div className="max-w-7xl mx-auto px-6 py-10">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-12 text-center md:text-left">
+          {/* Brand Section */}
+          <div className="space-y-6">
+            <Logo />
+            <p className="text-gray-600 dark:text-gray-400">
+              Bridging the gap between knowledge and action, TechieBlog fuels tech enthusiasts and developers with insights to thrive.
+            </p>
+            <div className="flex justify-center md:justify-start space-x-4">
+              <a href="https://facebook.com" className="group">
+                <div className="bg-white p-2 rounded-lg shadow-md border border-gray-300 group-hover:border-[#f97316] group-hover:shadow-lg transition-all duration-300 transform group-hover:-translate-y-1 group-hover:scale-105 dark:bg-gray-800 dark:border-gray-700">
+                  <Facebook className="w-5 h-5 text-gray-600 group-hover:text-[#f97316] dark:text-gray-400 transition-colors duration-300" />
+                </div>
+              </a>
+              <a href="https://twitter.com" className="group">
+                <div className="bg-white p-2 rounded-lg shadow-md border border-gray-300 group-hover:border-[#f97316] group-hover:shadow-lg transition-all duration-300 transform group-hover:-translate-y-1 group-hover:scale-105 dark:bg-gray-800 dark:border-gray-700">
+                  {/* Updated Twitter (X) Icon */}
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="w-5 h-5 text-gray-600 group-hover:text-[#f97316] transition-colors duration-300"
+                    viewBox="0 0 24 24"
+                    fill="currentColor"
+                  >
+                    <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+                  </svg>
+                </div>
+              </a>
+              <a href="https://linkedin.com" className="group">
+                <div className="bg-white p-2 rounded-lg shadow-md border border-gray-300 group-hover:border-[#f97316] group-hover:shadow-lg 
+                transition-all duration-300 transform group-hover:-translate-y-1 group-hover:scale-105 dark:border-gray-700 dark:bg-gray-800">
+                  <Linkedin className="w-5 h-5 text-gray-600 group-hover:text-[#f97316] dark:text-gray-400 transition-colors duration-300" />
+                </div>
+              </a>
+              <a href="https://instagram.com" className="group">
+                <div className="bg-white p-2 rounded-lg shadow-md border border-gray-300 group-hover:border-[#f97316] group-hover:shadow-lg transition-all duration-300 transform group-hover:-translate-y-1 group-hover:scale-105 dark:bg-gray-800 dark:border-gray-700">
+                  <Instagram className="w-5 h-5 text-gray-600 group-hover:text-[#f97316] dark:text-gray-400 transition-colors duration-300" />
+                </div>
+              </a>
+
             </div>
 
             {/* Quick Links */}
