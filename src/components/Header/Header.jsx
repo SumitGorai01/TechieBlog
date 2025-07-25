@@ -1,10 +1,10 @@
+// Header.jsx
 import { useState } from "react";
 import { Container } from "../index";
 import { Link, NavLink } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import {
   LogIn,
-  UserPlus,
   Files,
   FileEdit,
   HelpCircle,
@@ -25,13 +25,13 @@ import LightModeIcon from "@mui/icons-material/LightMode";
 import { toggleTheme } from "../../store/themeSlice";
 import Sidebar from "./Sidebar.jsx";
 
-
 function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+
   const authStatus = useSelector((state) => state.auth.status);
   const darkMode = useSelector((state) => state.theme.darkMode);
   const dispatch = useDispatch();
-  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
   const navItems = [
     { name: "About Us", slug: "/about-us", active: true, icon: Info },
@@ -41,146 +41,141 @@ function Header() {
     { name: "FAQ", slug: "/faq", active: true, icon: HelpCircle },
     { name: "Feedback", slug: "/feedback", active: true, icon: MessageSquare },
     { name: "Contact Us", slug: "/contact-us", active: true, icon: Phone },
-    { name: "Login", slug: "/login", active: !authStatus, icon: LogIn },
-    { name: "Signup", slug: "/signup", active: !authStatus, icon: UserPlus },
     { name: "Saved Blogs", slug: "/saved-blogs", active: authStatus, icon: Bookmark },
+    { name: "Login", slug: "/login", active: !authStatus, icon: LogIn },
   ];
 
   const handleNavigation = () => {
     setIsMenuOpen(false);
   };
 
-  
   return (
-    <>
-      <header
-  id="sticky-header"
-  className="w-[95%] mx-auto py-2 px-6 shadow-md bg-gradient-to-r from-yellow-100 via-orange-100 to-red-100 dark:bg-gradient-to-r dark:from-gray-600 dark:via-gray-600 dark:to-gray-600 transition duration-300 animate-slide-down border rounded-full md:my-3"
->
-
-        <Container>
-          <nav className="flex items-center justify-between">
-            <div className="flex items-center space-x-4">
-              <Link to="/">
-                <div className="animate-fade-in">
-                  <Logo width={50} />
-                </div>
-              </Link>
-            </div>
-
-            {/* Desktop Navigation */}
-            <ul className="hidden md:flex justify-center items-center w-full space-x-4">
-              {authStatus && <Searchbar />}
-              {!authStatus &&
-                navItems.map(
-                  (item) =>
-                    item.active && (
-                      <li key={item.name} className="animate-fade-in-delayed">
-                        <NavLink
-                          className={({ isActive }) =>
-                            `${
-                              isActive &&
-                              "bg-yellow-100 dark:bg-gray-600 shadow-md "
-                            } relative group overflow-hidden inline-flex items-center gap-2 px-5 py-2 text-orange-600 font-semibold hover:bg-orange-200 rounded-full transition-transform duration-300 hover:scale-105 dark:text-orange-400 dark:hover:bg-gray-700`
-                          }
-                          to={item.slug}
-                          onClick={() => handleNavigation()}
-                        >
-                        <span className="absolute block rotate-45 bg-slate-100 h-32 w-3 left-0 bg-opacity-0 group-hover:bg-opacity-35 group-hover:animate-waving-hand"></span>
-                          <item.icon size={18} />
-                          {item.name}
-                        </NavLink>
-                      </li>
-                    )
-                )}
-
+    <header id="sticky-header" className="w-full py-3 px-4 bg-[#fffaf3] dark:bg-[#1f1f1f] border-b transition-all duration-300">
+      <Container>
+        <nav className="flex items-center justify-between gap-6">
+          {/* Left: Logo */}
+          <div className="flex-shrink-0">
+            <Link to="/">
+              <Logo width={50} />
+            </Link>
+          </div>
+          {authStatus && <Searchbar />}
+          {/* Center: Nav Items (only when not logged in) */}
+          {!authStatus && (
+            <ul className="hidden md:flex flex-grow justify-center items-center gap-6">
+              {navItems
+                .filter((item) => item.active && item.name !== "Login")
+                .map((item) => (
+                  <li key={item.name}>
+                    <NavLink
+                      to={item.slug}
+                      onClick={handleNavigation}
+                      className={({ isActive }) =>
+                        `${isActive ? "bg-orange-50 dark:bg-gray-700 shadow-sm" : ""}
+                         inline-flex items-center gap-2 px-4 py-2 rounded-xl font-medium
+                         text-orange-600 dark:text-orange-300 hover:bg-orange-100 
+                         dark:hover:bg-gray-600 transition`
+                      }
+                    >
+                      <item.icon size={18} />
+                      {item.name}
+                    </NavLink>
+                  </li>
+                ))}
             </ul>
+          )}
 
-            <ul className="flex justify-end items-center space-x-5">
-              {" "}
-              <li className="animate-fade-in-delayed ">
-              <button 
-                onClick={() => dispatch(toggleTheme())}
-                className="hidden sm:inline-block px-2 justify-end ml-16 py-2 text-orange-600 dark:text-orange-400 font-semibold bg-yellow-100 dark:bg-gray-800 hover:bg-orange-200 dark:hover:bg-gray-700 rounded-full shadow-md transition-transform duration-300 hover:scale-105"
+          {/* Right: Theme Toggle + Auth Actions */}
+          <div className="flex items-center gap-3">
+            {/* Theme Toggle */}
+            <button
+              onClick={() => dispatch(toggleTheme())}
+              className="p-2 border rounded-full text-orange-600 dark:text-orange-300 hover:bg-orange-100 dark:hover:bg-gray-600 transition"
+              aria-label="Toggle Theme"
+            >
+              {darkMode ? <LightModeIcon /> : <DarkModeIcon />}
+            </button>
+
+            {/* Login (only visible when not logged in) */}
+            {!authStatus && (
+              <NavLink
+                to="/login"
+                className={({ isActive }) =>
+                  `${isActive ? "bg-orange-100" : ""}
+                   inline-flex items-center gap-2 px-4 py-2 rounded-xl font-medium
+                   text-orange-600 dark:text-orange-300 hover:bg-orange-100 
+                   dark:hover:bg-gray-600 transition`
+                }
               >
-                {darkMode ? <LightModeIcon /> : <DarkModeIcon />}
-              </button>
-              </li>
-              {authStatus && <BasicMenu />}
-              {/* Sidebar (Only if user is logged in) */}
-              {authStatus && <Sidebar isOpen={isSidebarOpen} />}
-              {/* Header */}
-              {authStatus && (
-                <button
-                  className="text-orange-600 bg-yellow-100 dark:bg-gray-500 dark:text-orange-300 hover:bg-orange-200 dark:hover:bg-gray-700 p-2 rounded-full transition"
-                  onClick={() => setIsSidebarOpen(!isSidebarOpen)}
-                >
-                  {isSidebarOpen ? <X size={28} /> : <Menu size={28} />}
-                </button>
-              )}
-            </ul>
+                <LogIn size={18} />
+                Login
+              </NavLink>
+            )}
 
-            {/* Mobile Menu Button */}
+            {/* Sidebar + Menu (visible when logged in) */}
+            {authStatus && (
+              <>
+                <BasicMenu />
+                <Sidebar isOpen={isSidebarOpen} />
+                <button
+                  onClick={() => setIsSidebarOpen(!isSidebarOpen)}
+                  className="p-2 rounded-full text-orange-600 bg-orange-100 dark:bg-gray-600 dark:text-orange-300 hover:bg-orange-200 transition"
+                  aria-label="Toggle Sidebar"
+                >
+                  {isSidebarOpen ? <X size={24} /> : <Menu size={24} />}
+                </button>
+              </>
+            )}
+
+            {/* Mobile Hamburger (only visible when not logged in) */}
             {!authStatus && (
               <button
-                className="md:hidden p-1 ml-2 rounded-lg transition-colors"
                 onClick={() => setIsMenuOpen(!isMenuOpen)}
-                aria-label="Toggle menu"
+                className="md:hidden p-2 ml-2 text-orange-600"
+                aria-label="Toggle Menu"
               >
-                <MenuIcon fontSize="large" className="text-orange-600" />
+                <MenuIcon fontSize="large" />
               </button>
             )}
-          </nav>
+          </div>
+        </nav>
 
-          {/* Mobile Menu */}
-          {isMenuOpen && (
-            <div className="md:hidden">
-              <div className="mt-4 py-2">
-                <ul className="mt-4 space-y-6 text-lg flex flex-col items-center">
-                {navItems.map((item, index) =>
-  item.active && (
-    <li
-      key={item.name}
-      className={`${index < 3 ? "md:hidden" : ""}`} // Hide the third item on small screens
-    >
-      <NavLink
-        className={({ isActive }) =>
-          `${isActive ? "bg-orange-300" : ""} 
-          w-full inline-flex items-center gap-2 px-6 py-2 text-orange-800 
-          font-semibold hover:bg-orange-200 rounded-lg transition-colors`
-        }
-        to={item.slug}
-        onClick={() => handleNavigation()}
-      >
-        <item.icon size={20} />
-        {item.name}
-      </NavLink>
-    </li>
-  )
-)}
-
-                  <li className="animate-fade-in-delayed">
-                    <button
-                      onClick={() => dispatch(toggleTheme())}
-                      className="inline-block px-2 mr-3 py-2 text-orange-600 dark:text-orange-400 font-semibold bg-yellow-100 dark:bg-gray-800 hover:bg-orange-200 dark:hover:bg-gray-700 rounded-full shadow-md transition-transform duration-300 hover:scale-105"
+        {/* Mobile Menu */}
+        {!authStatus && isMenuOpen && (
+          <div className="md:hidden mt-4">
+            <ul className="flex flex-col items-center gap-4 text-lg">
+              {navItems
+                .filter((item) => item.active)
+                .map((item) => (
+                  <li key={item.name}>
+                    <NavLink
+                      to={item.slug}
+                      onClick={handleNavigation}
+                      className={({ isActive }) =>
+                        `${isActive ? "bg-orange-200" : ""}
+                         inline-flex items-center gap-2 px-5 py-2 rounded-xl 
+                         text-orange-800 font-medium hover:bg-orange-100 transition`
+                      }
                     >
-                      {darkMode ? <LightModeIcon /> : <DarkModeIcon />}
-                    </button>
+                      <item.icon size={20} />
+                      {item.name}
+                    </NavLink>
                   </li>
-                </ul>
-              </div>
-            </div>
-          )}
-        </Container>
-      </header>
-      <div className="relative">
-        <div className="absolute inset-0 flex items-center">
-          <div className="w-full border-t border-gray-400  dark:border-gray-400"></div>
-        </div>
-      </div>
-    </>
+                ))}
+              <li>
+                <button
+                  onClick={() => dispatch(toggleTheme())}
+                  className="p-2 rounded-full bg-orange-100 dark:bg-gray-800 text-orange-600 dark:text-orange-300 hover:bg-orange-200 transition"
+                >
+                  {darkMode ? <LightModeIcon /> : <DarkModeIcon />}
+                </button>
+              </li>
+            </ul>
+          </div>
+        )}
+      </Container>
+    </header>
   );
 }
 
 export default Header;
-
