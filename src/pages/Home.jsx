@@ -244,21 +244,6 @@ function Home() {
             )}
           </Container>
         </div>
-
-        <div className="mt-16 animate-fade-in-delayed">
-          <h2 className="text-3xl font-bold text-gray-900 dark:text-gray-100">
-            Join the Community
-          </h2>
-          <p className="mt-2 text-gray-700 dark:text-gray-300">
-            Share your knowledge, write posts, and connect with like-minded tech
-            enthusiasts.
-          </p>
-          <button
-            className="px-8 py-3 mt-6 font-semibold text-white transition-colors duration-300 bg-orange-600 rounded-lg shadow-md dark:bg-orange-500 hover:bg-orange-700 dark:hover:bg-orange-600"
-          >
-            Get Started
-          </button>
-        </div>
       </div>
     </div>
   );

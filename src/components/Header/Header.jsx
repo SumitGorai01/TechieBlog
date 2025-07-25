@@ -2,7 +2,6 @@ import { useState } from "react";
 import { Container } from "../index";
 import { Link, NavLink } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-
 import {
   LogIn,
   UserPlus,
@@ -25,6 +24,7 @@ import DarkModeIcon from "@mui/icons-material/DarkMode";
 import LightModeIcon from "@mui/icons-material/LightMode";
 import { toggleTheme } from "../../store/themeSlice";
 import Sidebar from "./Sidebar.jsx";
+
 
 function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -50,163 +50,119 @@ function Header() {
     setIsMenuOpen(false);
   };
 
+  
   return (
     <>
-    <header
+      <header
   id="sticky-header"
-  className="w-full px-0 py-3 shadow-sm bg-white/80 dark:bg-gray-800/70 backdrop-blur-md border-y border-gray-200 dark:border-white/10 transition duration-300 animate-slide-down"
+  className="w-[95%] mx-auto py-2 px-6 shadow-md bg-gradient-to-r from-yellow-100 via-orange-100 to-red-100 dark:bg-gradient-to-r dark:from-gray-600 dark:via-gray-600 dark:to-gray-600 transition duration-300 animate-slide-down border rounded-full md:my-3"
 >
 
-
         <Container>
-          <nav className="flex justify-between gap-2 items-left">
-            <div className="flex items-center space-x-2">
+          <nav className="flex items-center justify-between">
+            <div className="flex items-center space-x-4">
               <Link to="/">
                 <div className="animate-fade-in">
-                  <Logo width={70} />
+                  <Logo width={50} />
                 </div>
               </Link>
             </div>
 
-            <div className="flex flex-nowrap flex-grow items-baseline justify-center space-x-4 min-w-0">
+            {/* Desktop Navigation */}
+            <ul className="hidden md:flex justify-center items-center w-full space-x-4">
               {authStatus && <Searchbar />}
-              <ul className="flex flex-wrap items-baseline justify-center space-x-3 min-w-0">
-                {!authStatus &&
-                  navItems
-                    .filter((item) => item.name !== "Login" && item.name !== "Signup")
-                    .map(
-                      (item) =>
-                        item.active && (
-                          <li key={item.name} className="animate-fade-in-delayed">
-                            <NavLink
-                              key={item.name}
-                              to={item.slug}
-                              onClick={handleNavigation}
-                              className={({ isActive }) =>
-                                `
-                                relative inline-flex items-center gap-2 px-4 py-2 rounded-md
-                                font-semibold text-orange-600 dark:text-gray-200
-                                transition-all duration-300 ease-in-out
-                                hover:scale-105 shimmer-hover
-                                hover:bg-orange-50 dark:hover:bg-white/10
-                                ${isActive ? "shimmer-hover-active bg-orange-50 dark:bg-white/10" : ""}
-                              `
-                              }
-                            >
-                              <item.icon size={18} />
-                              {item.name}
-                            </NavLink>
-                          </li>
-                        )
-                    )}
-                <li>
-                  <NavLink
-                    to="/saved-blogs"
-                    className={({ isActive }) =>
-                      `
-                      relative inline-flex items-center gap-2 px-4 py-2 rounded-md
-                      font-semibold text-orange-600 dark:text-gray-200
-                      transition-all duration-300 ease-in-out
-                      hover:scale-105 shimmer-hover
-                      hover:bg-orange-50 dark:hover:bg-white/10
-                      ${isActive ? "shimmer-hover-active bg-orange-50 dark:bg-white/10" : ""}
-                    `
-                    }
-                  >
-                    <Bookmark className="w-5 h-5" />
-                    Saved Blogs
-                  </NavLink>
-
-                </li>
-              </ul>
-            </div>
-            <div className="flex-1 flex items-center justify-end space-x-4">
-             <button
-  onClick={() => dispatch(toggleTheme())}
-  className="hidden sm:inline-flex items-center justify-center w-10 h-10 text-orange-500 dark:text-white bg-white dark:bg-black/20 border dark:border-white/20 rounded-full hover:scale-105 hover:bg-orange-100 dark:hover:bg-white/10 transition"
-  title="Toggle Dark Mode"
->
-  {darkMode ? <LightModeIcon fontSize="small" /> : <DarkModeIcon fontSize="small" />}
-</button>
-
-
               {!authStatus &&
-                navItems
-                  .filter((item) => item.name === "Login" || item.name === "Signup")
-                  .map((item) => (
-                    <NavLink
-                      key={item.name}
-                      to={item.slug}
-                     className={({ isActive }) =>
-  `inline-flex items-center gap-2 px-4 py-2 rounded-full font-semibold transition duration-200
-   ${isActive ? "bg-orange-100 text-orange-600 dark:bg-orange-400/20 dark:text-orange-300" : "text-orange-600 dark:text-orange-300 hover:bg-orange-50 dark:hover:bg-white/10"}`
-}
+                navItems.map(
+                  (item) =>
+                    item.active && (
+                      <li key={item.name} className="animate-fade-in-delayed">
+                        <NavLink
+                          className={({ isActive }) =>
+                            `${
+                              isActive &&
+                              "bg-yellow-100 dark:bg-gray-600 shadow-md "
+                            } relative group overflow-hidden inline-flex items-center gap-2 px-5 py-2 text-orange-600 font-semibold hover:bg-orange-200 rounded-full transition-transform duration-300 hover:scale-105 dark:text-orange-400 dark:hover:bg-gray-700`
+                          }
+                          to={item.slug}
+                          onClick={() => handleNavigation()}
+                        >
+                        <span className="absolute block rotate-45 bg-slate-100 h-32 w-3 left-0 bg-opacity-0 group-hover:bg-opacity-35 group-hover:animate-waving-hand"></span>
+                          <item.icon size={18} />
+                          {item.name}
+                        </NavLink>
+                      </li>
+                    )
+                )}
 
-                    >
-                      <item.icon size={18} />
-                      {item.name}
-                    </NavLink>
-                  ))}
+            </ul>
 
+            <ul className="flex justify-end items-center space-x-5">
+              {" "}
+              <li className="animate-fade-in-delayed ">
+              <button 
+                onClick={() => dispatch(toggleTheme())}
+                className="hidden sm:inline-block px-2 justify-end ml-16 py-2 text-orange-600 dark:text-orange-400 font-semibold bg-yellow-100 dark:bg-gray-800 hover:bg-orange-200 dark:hover:bg-gray-700 rounded-full shadow-md transition-transform duration-300 hover:scale-105"
+              >
+                {darkMode ? <LightModeIcon /> : <DarkModeIcon />}
+              </button>
+              </li>
+              {authStatus && <BasicMenu />}
+              {/* Sidebar (Only if user is logged in) */}
+              {authStatus && <Sidebar isOpen={isSidebarOpen} />}
+              {/* Header */}
               {authStatus && (
                 <button
-                  className="text-orange-600 transition bg-yellow-100 rounded-full dark:bg-white/10 dark:text-white dark:backdrop-blur-md dark:border dark:border-white/20 hover:bg-orange-200 dark:hover:bg-white/20 dark:hover:border-white/30 dark:hover:text-orange-500"
+                  className="text-orange-600 bg-yellow-100 dark:bg-gray-500 dark:text-orange-300 hover:bg-orange-200 dark:hover:bg-gray-700 p-2 rounded-full transition"
                   onClick={() => setIsSidebarOpen(!isSidebarOpen)}
                 >
                   {isSidebarOpen ? <X size={28} /> : <Menu size={28} />}
                 </button>
               )}
-            </div>
-          </nav>
+            </ul>
 
-          {/* Mobile Header */}
-          <div className="flex items-center justify-between md:hidden">
-            <Link to="/">
-              <Logo width={70} />
-            </Link>
-
+            {/* Mobile Menu Button */}
             {!authStatus && (
               <button
-                className="p-1 ml-2 transition-colors rounded-lg dark:text-white"
+                className="md:hidden p-1 ml-2 rounded-lg transition-colors"
                 onClick={() => setIsMenuOpen(!isMenuOpen)}
                 aria-label="Toggle menu"
               >
-                <MenuIcon fontSize="large" className="text-orange-600 dark:text-white" />
+                <MenuIcon fontSize="large" className="text-orange-600" />
               </button>
             )}
-          </div>
+          </nav>
 
           {/* Mobile Menu */}
           {isMenuOpen && (
             <div className="md:hidden">
               <div className="mt-4 py-2">
                 <ul className="mt-4 space-y-6 text-lg flex flex-col items-center">
-
-                  {navItems.map((item, index) =>
-                    item.active && (
-                      <li
-                        key={item.name}
-                        className={`${index < 3 ? "md:hidden" : ""}`} // Hide the third item on small screens
-                      >
-                        <NavLink
-                          className={({ isActive }) =>
-  `inline-flex items-center gap-2 px-4 py-2 rounded-lg font-medium transition-all duration-200
-   ${isActive ? "bg-orange-100 text-orange-700 dark:bg-orange-500/10 dark:text-orange-300" : "text-gray-700 dark:text-gray-200 hover:bg-orange-50 dark:hover:bg-white/10 hover:text-orange-600 dark:hover:text-orange-300"}`
-                          }
-                          to={item.slug}
-                          onClick={() => handleNavigation()}
-                        >
-                          <item.icon size={20} className="" />
-                          {item.name}
-                        </NavLink>
-                      </li>
-                    )
-                  )}
+                {navItems.map((item, index) =>
+  item.active && (
+    <li
+      key={item.name}
+      className={`${index < 3 ? "md:hidden" : ""}`} // Hide the third item on small screens
+    >
+      <NavLink
+        className={({ isActive }) =>
+          `${isActive ? "bg-orange-300" : ""} 
+          w-full inline-flex items-center gap-2 px-6 py-2 text-orange-800 
+          font-semibold hover:bg-orange-200 rounded-lg transition-colors`
+        }
+        to={item.slug}
+        onClick={() => handleNavigation()}
+      >
+        <item.icon size={20} />
+        {item.name}
+      </NavLink>
+    </li>
+  )
+)}
 
                   <li className="animate-fade-in-delayed">
                     <button
                       onClick={() => dispatch(toggleTheme())}
-                      className="inline-block px-3 py-2 mr-3 font-semibold text-orange-600 transition-transform duration-300 bg-yellow-100 rounded-full shadow-md dark:text-white dark:bg-white/10 dark:backdrop-blur-md dark:border dark:border-white/20 hover:bg-orange-200 dark:hover:bg-white/20 dark:hover:border-white/30 dark:hover:text-orange-500 hover:scale-105"
+                      className="inline-block px-2 mr-3 py-2 text-orange-600 dark:text-orange-400 font-semibold bg-yellow-100 dark:bg-gray-800 hover:bg-orange-200 dark:hover:bg-gray-700 rounded-full shadow-md transition-transform duration-300 hover:scale-105"
                     >
                       {darkMode ? <LightModeIcon /> : <DarkModeIcon />}
                     </button>
@@ -217,10 +173,9 @@ function Header() {
           )}
         </Container>
       </header>
-
       <div className="relative">
         <div className="absolute inset-0 flex items-center">
-          <div className="w-full border-t border-gray-400 dark:border-white/10"></div>
+          <div className="w-full border-t border-gray-400  dark:border-gray-400"></div>
         </div>
       </div>
     </>
@@ -228,3 +183,4 @@ function Header() {
 }
 
 export default Header;
+
