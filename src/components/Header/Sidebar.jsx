@@ -42,15 +42,10 @@ function Sidebar({ isOpen, setIsOpen }) {
 
     if (isOpen) {
       document.addEventListener("mousedown", handleClickOutside);
-      // Prevent background scroll
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "";
     }
 
     return () => {
-      document.removeEventListener("mousedown", handleClickOutside); 
-      document.body.style.overflow = "";
+      document.removeEventListener("mousedown", handleClickOutside);
     };
   }, [isOpen, setIsOpen]);
 

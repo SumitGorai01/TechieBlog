@@ -205,24 +205,8 @@ const AboutUs = () => {
                         transition={{ delay: 0.2 }}
                         className="text-lg text-gray-600 dark:text-gray-300 leading-relaxed"
                     >
-                        Connect with fellow tech enthusiasts on our Discord server!
-
+                        Follow our socials below!
                     </motion.p>
-                    <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.3 }}
-            className="mt-8"
-        >
-            <a
-                href=""
-              
-                rel="noopener noreferrer"
-                className="inline-block bg-gradient-to-r from-orange-500 to-rose-500 text-white font-semibold px-6 py-3 rounded-2xl shadow-md hover:opacity-90 transition"
-            >
-                Join Us on Discord
-            </a>
-        </motion.div>
                 </div>
             </motion.section>
         </div>

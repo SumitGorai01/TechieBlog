@@ -3,9 +3,6 @@ import { ChevronUp, ChevronDown, Calendar, Clock, MapPin, Users, FileText, Info 
 import { toast } from 'react-toastify';
 
 import { z } from 'zod';
-import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
-
 import eventService from '../appwrite/event';
 import authService from '../appwrite/auth';
 
@@ -29,7 +26,6 @@ const AddEvent = () => {
   });
   const [errors, setErrors] = useState({});
   const [isExpanded, setIsExpanded] = useState(false);
-  const navigate = useNavigate();
 
   const handleChange = useCallback((e) => {
     const { name, value } = e.target;
@@ -57,27 +53,27 @@ const AddEvent = () => {
       });
 
       if (response && response.$id) {
-        toast.success('Event successfully submitted!');
-        setEventDetails({
-          title: '',
-          date: '',
-          time: '',
-          location: '',
-          eligibility: '',
-          description: ''
-        });
-        setErrors({});
-        setTimeout(() => {
-          navigate('/events');
-        }, 1000);
-      } else {
-        toast.error('Event submitted but response is invalid.');
-      }
+  toast.success('Event successfully submitted!');
+
+  setEventDetails({
+    title: '',
+    date: '',
+    time: '',
+    location: '',
+    eligibility: '',
+    description: ''
+  });
+  setErrors({});
+} else {
+  toast.error('Event submitted but response is invalid.');
+}
+
 
     } catch (error) {
       if (error instanceof z.ZodError) {
         const formErrors = error.flatten().fieldErrors;
         setErrors(formErrors);
+
         const firstError = Object.values(formErrors)[0]?.[0];
         if (firstError) {
           toast.error('Validation Error', { description: firstError });
@@ -115,7 +111,7 @@ const AddEvent = () => {
       )}
 
       <form onSubmit={handleSubmit} className="space-y-4">
-        {/* Title */}
+        {/* Title Input */}
         <div>
           <label className="flex items-center text-gray-700 dark:text-gray-200 mb-2">
             <FileText className="mr-2 text-orange-500" size={20} />
@@ -132,7 +128,7 @@ const AddEvent = () => {
           {errors.title && <p className="text-red-500 text-sm mt-1">{errors.title[0]}</p>}
         </div>
 
-        {/* Date & Time */}
+        {/* Date & Time Inputs */}
         <div className="grid grid-cols-2 gap-4">
           <div>
             <label className="flex items-center text-gray-700 dark:text-gray-200 mb-2">
@@ -163,7 +159,7 @@ const AddEvent = () => {
           </div>
         </div>
 
-        {/* Location */}
+        {/* Location Input */}
         <div>
           <label className="flex items-center text-gray-700 dark:text-gray-200 mb-2">
             <MapPin className="mr-2 text-orange-500" size={20} />
@@ -180,7 +176,7 @@ const AddEvent = () => {
           {errors.location && <p className="text-red-500 text-sm mt-1">{errors.location[0]}</p>}
         </div>
 
-        {/* Eligibility */}
+        {/* Eligibility Input */}
         <div>
           <label className="flex items-center text-gray-700 dark:text-gray-200 mb-2">
             <Users className="mr-2 text-orange-500" size={20} />
@@ -195,7 +191,7 @@ const AddEvent = () => {
           />
         </div>
 
-        {/* Description */}
+        {/* Description Input */}
         <div>
           <label className="flex items-center text-gray-700 dark:text-gray-200 mb-2">
             <FileText className="mr-2 text-orange-500" size={20} />
@@ -210,7 +206,6 @@ const AddEvent = () => {
           />
         </div>
 
-        {/* Submit */}
         <button
           type="submit"
           className="w-full p-3 bg-orange-600 text-white font-bold rounded-lg hover:bg-orange-700 transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-offset-2"
