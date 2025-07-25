@@ -36,9 +36,14 @@ export default function BasicMenu() {
         <Avatar
           sx={{
             bgcolor: "#ea580c",
-            width: 40,
-            height: 40,
+            width: 44,
+            height: 44,
             fontSize: 18,
+            border: "2px solid white",
+    boxShadow: "0 0 0 2px #facc15",
+    transition: "transform 0.3s ease-in-out",
+    '&:hover',
+      transform: 'scale(1.1)'
           }}
         >
           {username.charAt(0).toUpperCase()}
@@ -78,6 +83,7 @@ export default function BasicMenu() {
             </Link>
           </div>
           <div className="border-t border-orange-200 dark:border-gray-700 transition duration-300"></div>
+          <div className="absolute right-0 mt-2 w-56 bg-white/80 dark:bg-gray-900/80 backdrop-blur-md border border-orange-200 dark:border-gray-700 rounded-xl menu-dropdown animate-slide-down z-50">
           <div>
             <div
               className="flex items-center px-4 py-2 text-red-600 dark:text-red-400 hover:bg-red-100 dark:hover:bg-gray-800 transition duration-300 cursor-pointer"
@@ -87,6 +93,7 @@ export default function BasicMenu() {
             </div>
           </div>
         </div>
+      </div>
       )}
     </div>
   );
