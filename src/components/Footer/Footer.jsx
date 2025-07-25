@@ -84,14 +84,17 @@ const Footer = () => {
       <div className="max-w-7xl mx-auto px-6 py-10">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-12 text-center md:text-left">
           {/* Brand Section */}
-          <div className="space-y-6">
-            <Logo />
+          <div className="space-y-6 ">
+           <div className="ml-12">
+            <Logo/>
+           </div>
+            
             <p className="text-gray-600 dark:text-gray-400">
               Bridging the gap between knowledge and action, TechieBlog fuels tech enthusiasts and developers with insights to thrive.
             </p>
-            <div className="flex justify-center md:justify-start space-x-4">
+            <div className="flex justify-center md:justify-start space-x-4 space-y-6">
               <a href="https://facebook.com" className="group">
-                <div className="bg-white p-2 rounded-lg shadow-md border border-gray-300 group-hover:border-[#f97316] group-hover:shadow-lg transition-all duration-300 transform group-hover:-translate-y-1 group-hover:scale-105 dark:bg-gray-800 dark:border-gray-700">
+                <div className="bg-white p-2 rounded-lg shadow-md border border-gray-300 group-hover:border-[#f97316] group-hover:shadow-lg transition-all duration-300 transform group-hover:-translate-y-1 group-hover:scale-105 dark:bg-gray-800 dark:border-gray-700 mt-6">
                   <Facebook className="w-5 h-5 text-gray-600 group-hover:text-[#f97316] dark:text-gray-400 transition-colors duration-300" />
                 </div>
               </a>
@@ -172,6 +175,7 @@ const Footer = () => {
                 ))}
               </ul>
             </div>
+         
 
             {/* Contact */}
             <div className="space-y-6">
@@ -218,6 +222,7 @@ const Footer = () => {
                 <Logo className="h-8 w-auto hover:scale-105 transition-transform duration-300" />
               </div>
             </div>
+
           </div>
 
           {/* Copyright */}
@@ -230,6 +235,7 @@ const Footer = () => {
               </Link>.
             </p>
           </div>
+
         </div>
       </footer>
 
