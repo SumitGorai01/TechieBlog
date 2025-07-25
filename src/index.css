@@ -228,3 +228,24 @@
     animation: slide-in 0.3s ease-out;
   }
 }
+
+/* Flip animation utilities */
+.perspective {
+  perspective: 1000px;
+}
+
+.preserve-3d {
+  transform-style: preserve-3d;
+}
+
+.my-rotate-y-180 {
+  transform: rotateY(180deg);
+}
+
+.group-hover\:my-rotate-y-180:hover {
+  transform: rotateY(180deg);
+}
+
+.backface-hidden {
+  backface-visibility: hidden;
+}
