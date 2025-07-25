@@ -26,7 +26,7 @@ const Register = () => {
                 {/* Left side image */}
                 <div className="w-full sm:w-1/2 flex justify-center items-center p-4">
                     <img
-                        src="https://png.pngtree.com/png-clipart/20230914/original/pngtree-workshop-clipart-flat-cartoon-style-art-studio-with-furniture-and-tools-png-image_12146151.png"
+                        src="src\assets\workshop.png"
                         alt="Workshop"
                         className="w-full h-auto object-cover rounded-lg shadow-md"
                     />
