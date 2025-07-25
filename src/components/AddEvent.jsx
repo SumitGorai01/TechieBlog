@@ -3,13 +3,11 @@ import { ChevronUp, ChevronDown, Calendar, Clock, MapPin, Users, FileText, Info 
 import { toast } from 'react-toastify';
 
 import { z } from 'zod';
-
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom'; 
+import { useNavigate } from 'react-router-dom';
 
 import eventService from '../appwrite/event';
 import authService from '../appwrite/auth';
-
 
 const EventSchema = z.object({
   title: z.string().min(5, "Title must be at least 5 characters"),
@@ -21,77 +19,6 @@ const EventSchema = z.object({
 });
 
 const AddEvent = () => {
-
-    const [eventDetails, setEventDetails] = useState({
-        title: '',
-        date: '',
-        time: '',
-        location: '',
-        eligibility: '',
-        description: ''
-    });
-    const [errors, setErrors] = useState({});
-    const [isExpanded, setIsExpanded] = useState(false);
-const navigate = useNavigate();
-    const handleChange = useCallback((e) => {
-        const { name, value } = e.target;
-        setEventDetails(prev => ({ ...prev, [name]: value }));
-        // Clear specific field error when user starts typing
-        if (errors[name]) {
-            setErrors(prev => ({ ...prev, [name]: undefined }));
-        }
-    }, [errors]);
-
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-        
-        try {
-            // Validate entire form
-            const validatedData = EventSchema.parse(eventDetails);
-            console.log("Submitting event:", validatedData);
-
-            const response = await axios.post('http://localhost:5000/api/events', validatedData);
-            
-            toast.success('Event successfully submitted!', {
-                description: `${validatedData.title} has been added`,
-                duration: 3000
-            });
-
-            // Reset form
-            setEventDetails({
-                title: '',
-                date: '',
-                time: '',
-                location: '',
-                eligibility: '',
-                description: ''
-            });
-            setErrors({});
-            setTimeout(() => {
-  navigate('/events');
-}, 1000);
-        } catch (error) {
-            if (error instanceof z.ZodError) {
-                // Handle validation errors
-                const formErrors = error.flatten().fieldErrors;
-                setErrors(formErrors);
-                
-                // Toast first error
-                const firstError = Object.values(formErrors)[0]?.[0];
-                if (firstError) {
-                    toast.error('Validation Error', {
-                        description: firstError,
-                        duration: 3000
-                    });
-                }
-            } else {
-                toast.error('Submission Failed', {
-                    description: 'Please check your network connection',
-                    duration: 3000
-                });
-                console.error('Event submission error:', error);
-            }
-=======
   const [eventDetails, setEventDetails] = useState({
     title: '',
     date: '',
@@ -102,6 +29,7 @@ const navigate = useNavigate();
   });
   const [errors, setErrors] = useState({});
   const [isExpanded, setIsExpanded] = useState(false);
+  const navigate = useNavigate();
 
   const handleChange = useCallback((e) => {
     const { name, value } = e.target;
@@ -129,31 +57,30 @@ const navigate = useNavigate();
       });
 
       if (response && response.$id) {
-  toast.success('Event successfully submitted!');
-
-  setEventDetails({
-    title: '',
-    date: '',
-    time: '',
-    location: '',
-    eligibility: '',
-    description: ''
-  });
-  setErrors({});
-} else {
-  toast.error('Event submitted but response is invalid.');
-}
-
+        toast.success('Event successfully submitted!');
+        setEventDetails({
+          title: '',
+          date: '',
+          time: '',
+          location: '',
+          eligibility: '',
+          description: ''
+        });
+        setErrors({});
+        setTimeout(() => {
+          navigate('/events');
+        }, 1000);
+      } else {
+        toast.error('Event submitted but response is invalid.');
+      }
 
     } catch (error) {
       if (error instanceof z.ZodError) {
         const formErrors = error.flatten().fieldErrors;
         setErrors(formErrors);
-
         const firstError = Object.values(formErrors)[0]?.[0];
         if (firstError) {
           toast.error('Validation Error', { description: firstError });
-
         }
       } else {
         toast.error('Submission Failed', {
@@ -188,7 +115,7 @@ const navigate = useNavigate();
       )}
 
       <form onSubmit={handleSubmit} className="space-y-4">
-        {/* Title Input */}
+        {/* Title */}
         <div>
           <label className="flex items-center text-gray-700 dark:text-gray-200 mb-2">
             <FileText className="mr-2 text-orange-500" size={20} />
@@ -205,7 +132,7 @@ const navigate = useNavigate();
           {errors.title && <p className="text-red-500 text-sm mt-1">{errors.title[0]}</p>}
         </div>
 
-        {/* Date & Time Inputs */}
+        {/* Date & Time */}
         <div className="grid grid-cols-2 gap-4">
           <div>
             <label className="flex items-center text-gray-700 dark:text-gray-200 mb-2">
@@ -236,7 +163,7 @@ const navigate = useNavigate();
           </div>
         </div>
 
-        {/* Location Input */}
+        {/* Location */}
         <div>
           <label className="flex items-center text-gray-700 dark:text-gray-200 mb-2">
             <MapPin className="mr-2 text-orange-500" size={20} />
@@ -253,7 +180,7 @@ const navigate = useNavigate();
           {errors.location && <p className="text-red-500 text-sm mt-1">{errors.location[0]}</p>}
         </div>
 
-        {/* Eligibility Input */}
+        {/* Eligibility */}
         <div>
           <label className="flex items-center text-gray-700 dark:text-gray-200 mb-2">
             <Users className="mr-2 text-orange-500" size={20} />
@@ -268,7 +195,7 @@ const navigate = useNavigate();
           />
         </div>
 
-        {/* Description Input */}
+        {/* Description */}
         <div>
           <label className="flex items-center text-gray-700 dark:text-gray-200 mb-2">
             <FileText className="mr-2 text-orange-500" size={20} />
@@ -283,6 +210,7 @@ const navigate = useNavigate();
           />
         </div>
 
+        {/* Submit */}
         <button
           type="submit"
           className="w-full p-3 bg-orange-600 text-white font-bold rounded-lg hover:bg-orange-700 transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-offset-2"
