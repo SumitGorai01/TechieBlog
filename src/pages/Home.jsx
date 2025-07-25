@@ -187,11 +187,11 @@ function Home() {
           {/* Image Section */}
           <div className="flex-1 animate-fade-in-delayed">
             <div className="relative">
-              <div className="absolute inset-0 bg-gradient-to-r from-orange-400 to-red-500 rounded-2xl blur-2xl opacity-10 animate-pulse"></div>
+              <div className="absolute inset-0 bg-gradient-to-r from-orange-400 to-red-400 bg-[length:400%_400%] rounded-2xl blur-2xl opacity-20 animate-pulse"></div>
               <img
                 src={img}
                 alt="Tech Blog Illustration"
-                className="relative w-full max-w-lg mx-auto transition-opacity duration-300 shadow-2xl animate-bounce-slow dark:opacity-90 rounded-2xl"
+                className="relative w-full max-w-lg mx-auto transition-opacity duration-300 shadow-2xl animate-fade dark:opacity-90 rounded-2xl"
               />
             </div>
           </div>
