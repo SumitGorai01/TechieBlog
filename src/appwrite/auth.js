@@ -19,46 +19,46 @@ export class AuthService {
         this.databases = new Databases(this.client);
     }
 
-    async createAccount({ email, password, name }) {
-    try {
-        const userAccount = await this.account.create(ID.unique(), email, password, name);
-        console.log("User Account Created:", userAccount);
-
-        //  Create a session *BEFORE* sending verification
-        const session = await this.account.createEmailPasswordSession(email, password);
-        console.log("Temporary Session Created:", session);
-
-        // Send verification email (now session is active)
-        await this.account.createVerification(`${baseLink}/verify-email`);
-
-        // Store user in DB (optional, but safe to do after session)
-        await this.databases.createDocument(
-            conf.appwriteDatabaseId,
-            conf.appwriteUserCollectionId,
-            ID.unique(),
-            {
-                userId: userAccount.$id,
-                name: name,
-                email,
-                createdAt: new Date().toISOString()
-            }
-        );
-
-
-        // Clean up session
-        await this.account.deleteSessions();
-
-        return userAccount;
-    } catch (error) {
-        console.error("Error during account creation:", error);
+  async createAccount({ email, password, name, bio = "", social = {} }) {
         try {
+            // ✅ Step 1: Create User in Authentication
+            const userAccount = await this.account.create(ID.unique(), email, password, name);
+            console.log("User Account Created:", userAccount);
+
+            // ✅ Step 2: Store User Data in the Database
+            const userData = await this.databases.createDocument(
+                conf.appwriteDatabaseId,  // Replace with your actual Database ID
+                conf.appwriteUserCollectionId, // Replace with your actual Collection ID
+                ID.unique(), // Use unique ID for the document
+                {
+                    userId: userAccount.$id, // Store the User ID
+                    name: name,
+                    bio: bio,
+                    social: social,
+                }
+            );
+            console.log("User Data Stored in Database:", userData);
+
+            // ✅ Step 3: Send Verification Email
+            const session = await this.account.createEmailPasswordSession(email, password);
+            console.log("Temporary Session Created:", session);
+            
+            await this.account.createVerification(`${baseLink}/verify-email`);
+            
+            // ✅ Step 4: Clean Up Session
             await this.account.deleteSessions();
-        } catch (sessionError) {
-            console.log("Error cleaning up session:", sessionError);
+
+            return userAccount;
+        } catch (error) {
+            console.error("Error during account creation:", error);
+            try {
+                await this.account.deleteSessions();
+            } catch (sessionError) {
+                console.log("Error cleaning up session:", sessionError);
+            }
+            throw error;
         }
-        throw error;
     }
-}
 
     
 
@@ -194,6 +194,54 @@ export class AuthService {
             return await this.account.updatePassword(newPassword, oldPassword);
         } catch (error) {
             console.error("Appwrite service :: changePassword :: error", error);
+            throw error;
+        }
+    }
+
+    // User Bio
+    async updateUserBio(userId, bio) {
+        try {
+            // Find the user's document
+            const response = await this.databases.listDocuments(
+                conf.appwriteDatabaseId,
+                conf.appwriteUserCollectionId,
+                [Query.equal("userId", userId)]
+            );
+            const userDoc = response.documents[0];
+            if (!userDoc) throw new Error("User not found");
+            // Update the bio field
+            return await this.databases.updateDocument(
+                conf.appwriteDatabaseId,
+                conf.appwriteUserCollectionId,
+                userDoc.$id,
+                { bio }
+            );
+        } catch (error) {
+            console.error("Error updating user bio:", error);
+            throw error;
+        }
+    }
+
+    // User Socials
+    async updateUserSocial(userId, social) {
+        try {
+            // Find the user's document
+            const response = await this.databases.listDocuments(
+                conf.appwriteDatabaseId,
+                conf.appwriteUserCollectionId,
+                [Query.equal("userId", userId)]
+            );
+            const userDoc = response.documents[0];
+            if (!userDoc) throw new Error("User not found");
+            // Update the social field
+            return await this.databases.updateDocument(
+                conf.appwriteDatabaseId,
+                conf.appwriteUserCollectionId,
+                userDoc.$id,
+                { social }
+            );
+        } catch (error) {
+            console.error("Error updating user social:", error);
             throw error;
         }
     }

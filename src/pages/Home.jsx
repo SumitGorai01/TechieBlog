@@ -187,11 +187,11 @@ function Home() {
           {/* Image Section */}
           <div className="flex-1 animate-fade-in-delayed">
             <div className="relative">
-              <div className="absolute inset-0 bg-gradient-to-r from-orange-400 to-red-500 rounded-2xl blur-2xl opacity-10 animate-pulse"></div>
+              <div className="absolute inset-0 bg-gradient-to-r from-orange-400 to-red-400 bg-[length:400%_400%] rounded-2xl blur-2xl opacity-20 animate-pulse"></div>
               <img
                 src={img}
                 alt="Tech Blog Illustration"
-                className="relative w-full max-w-lg mx-auto transition-opacity duration-300 shadow-2xl animate-bounce-slow dark:opacity-90 rounded-2xl"
+                className="relative w-full max-w-lg mx-auto transition-opacity duration-300 shadow-2xl animate-fade dark:opacity-90 rounded-2xl"
               />
             </div>
           </div>
@@ -199,7 +199,7 @@ function Home() {
 
         <Testimonials />
         
-        <section className="mb-10">
+        {/* <section className="mb-10">
           <h2 className="my-6 text-3xl font-bold text-black md:text-4xl dark:text-gray-200">
             Meet the Contributors
           </h2>
@@ -207,12 +207,12 @@ function Home() {
             Meet the brilliant minds who brought this project to life!
           </p>
           <div className="hidden md:block">
-            <ContributorsLink classes="w-20 h-20" />
+            <ContributorsLink classes="w-16 h-16" />
           </div>
           <div className="block md:hidden">
-            <ContributorsLink classes="w-12 h-12" />
+            <ContributorsLink classes="w-10 h-10" />
           </div>
-        </section>
+        </section> */}
       </div>
     );
   }
@@ -243,21 +243,6 @@ function Home() {
               </div>
             )}
           </Container>
-        </div>
-
-        <div className="mt-16 animate-fade-in-delayed">
-          <h2 className="text-3xl font-bold text-gray-900 dark:text-gray-100">
-            Join the Community
-          </h2>
-          <p className="mt-2 text-gray-700 dark:text-gray-300">
-            Share your knowledge, write posts, and connect with like-minded tech
-            enthusiasts.
-          </p>
-          <button
-            className="px-8 py-3 mt-6 font-semibold text-white transition-colors duration-300 bg-orange-600 rounded-lg shadow-md dark:bg-orange-500 hover:bg-orange-700 dark:hover:bg-orange-600"
-          >
-            Get Started
-          </button>
         </div>
       </div>
     </div>
