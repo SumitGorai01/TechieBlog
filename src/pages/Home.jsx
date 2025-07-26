@@ -199,7 +199,7 @@ function Home() {
 
         <Testimonials />
         
-        <section className="mb-10">
+        {/* <section className="mb-10">
           <h2 className="my-6 text-3xl font-bold text-black md:text-4xl dark:text-gray-200">
             Meet the Contributors
           </h2>
@@ -207,12 +207,12 @@ function Home() {
             Meet the brilliant minds who brought this project to life!
           </p>
           <div className="hidden md:block">
-            <ContributorsLink classes="w-20 h-20" />
+            <ContributorsLink classes="w-16 h-16" />
           </div>
           <div className="block md:hidden">
-            <ContributorsLink classes="w-12 h-12" />
+            <ContributorsLink classes="w-10 h-10" />
           </div>
-        </section>
+        </section> */}
       </div>
     );
   }
