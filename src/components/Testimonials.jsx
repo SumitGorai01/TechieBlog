@@ -2,12 +2,12 @@ import React, { useState } from "react";
 import { UserCircle, Quote } from "lucide-react";
 import { Carousel } from "react-responsive-carousel";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
-
+import ContributorsLink from "../components/contributors/contributorsLink.jsx";
 const testimonials = [
   {
     id: 1,
     name: "Sumit Gorai",
-    role: "Software Developer",
+    role: "Project Admin",
     content:
       "TechieBlog has become my go-to source for staying updated with the latest tech trends. The articles are well-researched and easy to understand.",
     rating: 5,
@@ -26,13 +26,13 @@ const testimonials = [
   },
   {
     id: 3,
-    name: "Maria Garcia",
-    role: "Product Manager",
+    name: "Meet the Contributors",
+    role: "Meet the brilliant minds who brought this project to life!",
     content:
-      "The insights shared on TechieBlog have helped me make better product decisions. The community discussions are incredibly valuable.",
+      <ContributorsLink classes="w-16 h-16" />,
     rating: 5,
     image:
-      "https://images.saymedia-content.com/.image/t_share/MTc0OTk0MTIwOTMzMTg5NjAw/20-ways-to-tell-if-shes-a-lady.jpg",
+      "https://avatars.githubusercontent.com/u/106994512?v=4",
   },
 ];
 
@@ -97,9 +97,9 @@ const Testimonials = () => {
                   <div className="flex items-center mb-4">
                     <Quote className="w-8 h-8 text-orange-500 dark:text-orange-300 mr-2" />
                   </div>
-                  <p className="text-gray-600 dark:text-gray-300 mb-6 text-2xl">
+                  <a className="text-gray-600 dark:text-gray-300 mb-6 text-2xl">
                     {testimonial.content}
-                  </p>
+                  </a>
                   <h4 className="font-semibold text-2xl text-gray-900 dark:text-gray-100 mt-10 text-center">
                     {testimonial.name}
                   </h4>
