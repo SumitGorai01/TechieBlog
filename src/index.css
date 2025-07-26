@@ -8,13 +8,20 @@
 
 /* Base styles for typography */
 @layer base {
-  html, body {
+
+  html,
+  body {
     font-family: 'Source Sans 3', system-ui, -apple-system, sans-serif;
     @apply text-black;
     transition: background-color 0.5s, color 0.5s, border-color 0.5s;
   }
-  
-  h1, h2, h3, h4, h5, h6 {
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
     font-family: 'Montserrat', system-ui, -apple-system, sans-serif;
     @apply font-semibold tracking-tight;
   }
@@ -42,16 +49,19 @@
     @apply px-4 mx-auto max-w-7xl;
   }
 }
+
 .text-shadow {
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
 }
+
 .hover-input {
   padding: 10px;
   transition: border-color 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
 }
 
 .hover-input:hover {
-  box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.5); /* Add shadow on hover */
+  box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.5);
+  /* Add shadow on hover */
 }
 
 .testimonial-card {
@@ -74,7 +84,8 @@
   transform: rotateY(180deg);
 }
 
-.testimonial-front, .testimonial-back {
+.testimonial-front,
+.testimonial-back {
   position: absolute;
   width: 100%;
   height: 100%;
@@ -104,7 +115,8 @@
 }
 
 .faq-item:hover {
-  background-color: rgba(255, 165, 0, 0.1); /* Light orange background on hover */
+  background-color: rgba(255, 165, 0, 0.1);
+  /* Light orange background on hover */
 }
 
 .faq-item h2 {
@@ -115,50 +127,59 @@
   margin-top: 10px;
 }
 
-.terms{
+.terms {
   color: blue;
 }
-.btn-shadow{
+
+.btn-shadow {
   transition: all 0.3s;
 }
-.btn-shadow:hover{
+
+.btn-shadow:hover {
   text-shadow: 4px 4px 4px rgba(0, 0, 0, 0.5);
   transform: scale(1.05);
 }
 
 
 #sticky-header {
- 
+
   position: sticky;
   top: 0;
   background: white;
   padding: 10px 0;
   text-align: center;
-  z-index: 1000; /* Ensures it stays above other elements */
+  z-index: 1000;
+  /* Ensures it stays above other elements */
   box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
-  width:100%;
-  left: 0;             /* align to left */
-  margin: 0;           /* no side margins */
+  width: 100%;
+  left: 0;
+  /* align to left */
+  margin: 0;
+  /* no side margins */
 }
 
 
 /* Custom scrollbar */
 ::-webkit-scrollbar {
-  width: 15px; /* Set the width of the scrollbar */
+  width: 15px;
+  /* Set the width of the scrollbar */
 }
 
 ::-webkit-scrollbar-track {
-  background-color: #f0f0f0; /* Light background for the track */
+  background-color: #f0f0f0;
+  /* Light background for the track */
   border-radius: 20px;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: linear-gradient(to bottom, #FFFF8F, lightcoral); /* Linear gradient from light yellow to light red */
+  background: linear-gradient(to bottom, #FFFF8F, lightcoral);
+  /* Linear gradient from light yellow to light red */
   border-radius: 10px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: linear-gradient(to bottom, #FFFF8F, lightcoral); /* Keep the gradient on hover */
+  background: linear-gradient(to bottom, #FFFF8F, lightcoral);
+  /* Keep the gradient on hover */
 }
 
 /*Header Styles*/
@@ -176,12 +197,11 @@
   left: -75%;
   width: 50%;
   height: 100%;
-  background: linear-gradient(
-    120deg,
-    rgba(255, 255, 255, 0) 0%,
-    rgba(234, 88, 12, 0.4) 50%, /* orange-600 shimmer for light mode */
-    rgba(255, 255, 255, 0) 100%
-  );
+  background: linear-gradient(120deg,
+      rgba(255, 255, 255, 0) 0%,
+      rgba(234, 88, 12, 0.4) 50%,
+      /* orange-600 shimmer for light mode */
+      rgba(255, 255, 255, 0) 100%);
   transform: skewX(-20deg);
   opacity: 0;
   z-index: -1;
@@ -189,12 +209,11 @@
 }
 
 .dark .shimmer-hover::before {
-  background: linear-gradient(
-    120deg,
-    rgba(255, 255, 255, 0) 0%,
-    rgba(255, 255, 255, 0.4) 50%, /* white shimmer for dark mode */
-    rgba(255, 255, 255, 0) 100%
-  );
+  background: linear-gradient(120deg,
+      rgba(255, 255, 255, 0) 0%,
+      rgba(255, 255, 255, 0.4) 50%,
+      /* white shimmer for dark mode */
+      rgba(255, 255, 255, 0) 100%);
 }
 
 .shimmer-hover:hover::before,
@@ -207,6 +226,7 @@
   0% {
     left: -75%;
   }
+
   100% {
     left: 125%;
   }
@@ -218,6 +238,7 @@
       opacity: 0;
       transform: translate(-50%, -55%) scale(0.95);
     }
+
     to {
       opacity: 1;
       transform: translate(-50%, -50%) scale(1);
