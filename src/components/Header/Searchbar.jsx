@@ -16,7 +16,7 @@ function Searchbar() {
 
     }
     return (
-        <div className="flex justify-center w-full"> 
+        <div className="justify-center w-full hidden md:flex"> 
         <form 
           onSubmit={handlesubmit} 
           className="flex items-center justify-center w-[90%] sm:w-[70%] md:w-[50%] lg:w-[40%] border border-orange-400 rounded-full"

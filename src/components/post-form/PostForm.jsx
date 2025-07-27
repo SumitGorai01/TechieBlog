@@ -103,7 +103,7 @@ export default function PostForm({ post }) {
                         {post && (
                             <div className="w-full mb-6 overflow-hidden rounded-lg border border-gray-300 dark:border-gray-600 group hover:shadow-xl transition-all">
                                 <img
-                                    src={appwriteService.getFilePreview(post.featuredImage)}
+                                    src={appwriteService.getFileView(post.featuredImage)}
                                     alt={post.title}
                                     className="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300"
                                 />
