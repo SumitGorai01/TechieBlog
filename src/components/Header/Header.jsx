@@ -104,11 +104,11 @@ function Header() {
                   `${isActive ? "bg-orange-100" : ""}
                    inline-flex items-center gap-2 px-4 py-2 rounded-xl font-medium
                    text-orange-600 dark:text-orange-300 hover:bg-orange-100 
-                   dark:hover:bg-gray-600 transition`
+                   dark:bg-gray-600 transition`
                 }
               >
-                <LogIn size={18} />
                 Login
+                <LogIn size={18} />
               </NavLink>
             )}
 
