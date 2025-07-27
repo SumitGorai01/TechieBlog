@@ -157,6 +157,9 @@ export class Service {
             fileId
         );
     }
+    getFileView(fileId) {
+    return this.bucket.getFileView(conf.appwriteBucketId, fileId);
+    }
 
     async addLikes(id, userId) {
         try {

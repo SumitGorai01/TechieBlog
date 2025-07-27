@@ -50,7 +50,7 @@ function Header() {
   };
 
   return (
-    <header className="w-full py-3 px-4 bg-[#fffaf3] dark:bg-[#1f1f1f] border-b transition-all duration-300">
+    <header id="sticky-header" className="w-full py-3 px-4 bg-[#fffaf3] dark:bg-[#1f1f1f] border-b transition-all duration-300">
       <Container>
         <nav className="flex items-center justify-between gap-6">
           {/* Logo */}
@@ -86,7 +86,7 @@ function Header() {
           )}
 
           {/* Searchbar - only when logged in */}
-          {authStatus && <Searchbar />}
+         {authStatus && <Searchbar />}
 
           {/* Right side */}
           <div className="flex items-center gap-3">

@@ -248,7 +248,7 @@ useEffect(() => {
 
         <article className="max-w-4xl mx-auto relative">
           <img
-            src={appwriteService.getFilePreview(post.featuredImage)}
+            src={appwriteService.getFileView(post.featuredImage)}
             alt={post.title}
             className="w-full h-[300px] object-contain bg-gray-100 dark:bg-gray-800 rounded-xl mb-4"
           />
