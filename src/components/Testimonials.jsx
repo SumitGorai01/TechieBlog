@@ -1,8 +1,7 @@
-import React, { useState } from "react";
-import { UserCircle, Quote } from "lucide-react";
-import { Carousel } from "react-responsive-carousel";
-import "react-responsive-carousel/lib/styles/carousel.min.css";
+import React from "react";
+import { Quote } from "lucide-react";
 import ContributorsLink from "../components/contributors/contributorsLink.jsx";
+// import "./Testimonials.css"; // custom CSS for flip animation
 const testimonials = [
   {
     id: 1,
@@ -11,13 +10,12 @@ const testimonials = [
     content:
       "TechieBlog has become my go-to source for staying updated with the latest tech trends. The articles are well-researched and easy to understand.",
     rating: 5,
-    image:
-      "https://avatars.githubusercontent.com/u/106994512?v=4",
+    image: "https://avatars.githubusercontent.com/u/106994512?v=4",
   },
   {
     id: 2,
     name: "James Wilson",
-    role: "Software Developer",
+    role: "Reader",
     content:
       "What I love most about TechieBlog is the depth of technical content. It's perfect for both beginners and experienced developers.",
     rating: 5,
@@ -28,63 +26,47 @@ const testimonials = [
     id: 3,
     name: "Meet the Contributors",
     role: "Meet the brilliant minds who brought this project to life!",
-    content:
-      <ContributorsLink classes="w-16 h-16" />,
+    content: <ContributorsLink classes="w-16 h-16" />,
     rating: 5,
-    image:
-      "https://avatars.githubusercontent.com/u/106994512?v=4",
+    image: "https://i.fbcd.co/products/resized/resized-750-500/l014e-21-e05-mainpreview-bf38f61424a9008541dde17dd5ec374266c8a8602da2c55a92e4874ac7bfdf8a.jpg",
   },
 ];
 
 const Testimonials = () => {
-  const [isHovered, setIsHovered] = useState(false);
-
-  const handleMouseEnter = () => setIsHovered(true);
-  const handleMouseLeave = () => setIsHovered(false);
-
   return (
     <section className="py-10 bg-gradient-to-r from-yellow-50 via-orange-50 to-pink-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-700">
-      <div className="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-5">
-          <h2 className="text-3xl font-bold text-gray-900 dark:text-gray-100 sm:text-4xl mb-4">
+      <div className="max-w-7xl mx-auto px-4">
+        <div className="text-center mb-10">
+          <h2 className="text-xl sm:text-2xl font-bold text-gray-900 dark:text-gray-100 mb-2">
             What Our Readers Say
           </h2>
-          <p className="text-lg text-gray-600 dark:text-gray-300">
-            Join thousands of tech enthusiasts who trust TechieBlog for their
-            daily dose of tech insights
+          <p className="text-base text-gray-600 dark:text-gray-300">
+            Join thousands of tech enthusiasts who trust TechieBlog for their daily dose of tech insights
           </p>
         </div>
-        <Carousel
-          showArrows={false}
-          autoPlay={!isHovered}
-          infiniteLoop={true}
-          showThumbs={false}
-        >
+
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {testimonials.map((testimonial) => (
-            <div
-              key={testimonial.id}
-              className="testimonial-card"
-              onMouseEnter={handleMouseEnter}
-              onMouseLeave={handleMouseLeave}
-            >
-              <div className="testimonial-inner">
-                <div className="testimonial-front">
+            <div key={testimonial.id} className="flip-card">
+              <div className="flip-card-inner">
+                {/* Front Side */}
+                <div className="flip-card-front bg-white dark:bg-gray-800 rounded-lg shadow-md p-6">
                   <img
                     src={testimonial.image}
                     alt={testimonial.name}
-                    className="w-44 h-44 rounded-full mx-auto"
+                    className="w-24 h-24 rounded-full mx-auto mb-4"
                   />
-                  <h4 className="font-semibold text-2xl text-gray-900 dark:text-gray-100 mt-10 text-center">
+                  <h4 className="text-xl font-semibold text-center text-gray-900 dark:text-gray-100">
                     {testimonial.name}
                   </h4>
-                  <p className="text-gray-500 dark:text-gray-300">
+                  <p className="text-center text-sm text-gray-500 dark:text-gray-300 mb-4">
                     {testimonial.role}
                   </p>
-                  <div className="flex justify-center mt-2">
+                  <div className="flex justify-center">
                     {[...Array(testimonial.rating)].map((_, index) => (
                       <svg
                         key={index}
-                        className="w-6 h-6 text-orange-500 dark:text-orange-300"
+                        className="w-5 h-5 text-orange-500 dark:text-orange-300"
                         fill="currentColor"
                         viewBox="0 0 20 20"
                       >
@@ -93,24 +75,30 @@ const Testimonials = () => {
                     ))}
                   </div>
                 </div>
-                <div className="testimonial-back bg-orange-100 rounded-lg dark:bg-gray-800">
-                  <div className="flex items-center mb-4">
-                    <Quote className="w-8 h-8 text-orange-500 dark:text-orange-300 mr-2" />
+
+                {/* Back Side */}
+                <div className="flip-card-back bg-orange-100 dark:bg-gray-700 rounded-lg p-6">
+                  <div className="flex items-center mb-2 justify-left">
+                    <Quote className="w-6 h-6 text-orange-500 dark:text-orange-300 mr-2" />
                   </div>
-                  <a className="text-gray-600 dark:text-gray-300 mb-6 text-2xl">
-                    {testimonial.content}
-                  </a>
-                  <h4 className="font-semibold text-2xl text-gray-900 dark:text-gray-100 mt-10 text-center">
+                  <div className="text-sm text-gray-700 dark:text-gray-300 text-center mb-6">
+                    {typeof testimonial.content === "string" ? (
+                      <p>{testimonial.content}</p>
+                    ) : (
+                      testimonial.content
+                    )}
+                  </div>
+                  <h4 className="text-xl font-semibold text-center text-gray-900 dark:text-gray-100">
                     {testimonial.name}
                   </h4>
-                  <p className="text-gray-500 dark:text-gray-300">
+                  <p className="text-center text-sm text-gray-500 dark:text-gray-300">
                     {testimonial.role}
                   </p>
-                  <div className="flex justify-center mt-2">
+                  <div className="flex justify-center">
                     {[...Array(testimonial.rating)].map((_, index) => (
                       <svg
                         key={index}
-                        className="w-6 h-6 text-orange-500 dark:text-orange-300"
+                        className="w-5 h-5 text-orange-500 dark:text-orange-300"
                         fill="currentColor"
                         viewBox="0 0 20 20"
                       >
@@ -118,12 +106,11 @@ const Testimonials = () => {
                       </svg>
                     ))}
                   </div>
-
                 </div>
               </div>
             </div>
           ))}
-        </Carousel>
+        </div>
       </div>
     </section>
   );

@@ -5,14 +5,24 @@ import {
   Linkedin,
   Instagram,
   ArrowUp,
-  Mail,
   MapPin,
+  UserRound,
+  Info,
+  MessageCircle,
+  CalendarDays,
+  LifeBuoy,
+  Headset,
+  User,
+  UserCog,
+  HelpCircle,
+  Mail,
   Phone,
 } from "lucide-react";
 import Logo from "../Logo";
 import ContributorsLink from "../contributors/contributorsLink";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowUp } from "@fortawesome/free-solid-svg-icons";
+import { icon } from "@fortawesome/fontawesome-svg-core";
 
 const Footer = () => {
   const [scrollProgress, setScrollProgress] = useState(0);
@@ -84,9 +94,9 @@ const Footer = () => {
             </h3>
             <ul className="space-y-4">
               {[
-                { name: "About Us", path: "/about-us" },
-                { name: "Feedback", path: "/feedback" },
-                { name: "Events", path: "/events" },
+                { name: "About Us", path: "/about-us", icon: Info },
+                { name: "Feedback", path: "/feedback", icon: MessageCircle },
+                { name: "Events", path: "/events", icon: CalendarDays },
               ].map((item) => (
                 <li key={item.name}>
                   <button
@@ -94,6 +104,9 @@ const Footer = () => {
                     className="group dark:hover:text-gray-200 dark:text-gray-400 flex items-center text-gray-600 hover:text-gray-900 relative w-full text-left"
                   >
                     <span className="w-2 h-2 bg-blue-500 rounded-full mr-3 opacity-0 group-hover:opacity-100 transition-all duration-300 transform group-hover:scale-125" />
+                    {item.icon && (
+                      <item.icon className="w-5 h-5 mr-2 text-blue-500 dark:text-blue-400 group-hover:scale-110 group-hover:rotate-12 transition-all duration-300" />
+                    )}
                     <span className="relative">
                       {item.name}
                       <span className="absolute left-0 bottom-0 w-0 h-0.5 bg-gradient-to-r from-blue-500 to-purple-500 group-hover:w-full transition-all duration-300 ease-out"></span>
@@ -111,9 +124,9 @@ const Footer = () => {
             </h3>
             <ul className="space-y-4">
               {[
-                { name: "Account", path: "/login" },
-                { name: "FAQ", path: "/faq" },
-                { name: "Contact Us", path: "/contact-us" },
+                { name: "Account", path: "/login",icon: UserRound },
+                { name: "FAQ", path: "/faq" , icon: HelpCircle },
+                { name: "Contact Us", path: "/contact-us" , icon: Phone },
               ].map((item) => (
                 <li key={item.name}>
                   <button
@@ -121,6 +134,9 @@ const Footer = () => {
                     className="group flex items-center text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-200 relative w-full text-left"
                   >
                     <span className="w-2 h-2 bg-blue-500 rounded-full mr-3 opacity-0 group-hover:opacity-100 transition-all duration-300 transform group-hover:scale-125" />
+                    {item.icon && (
+                      <item.icon className="w-5 h-5 mr-2 text-blue-500 dark:text-blue-400 group-hover:scale-110 group-hover:rotate-12 transition-all duration-300" />
+                    )}
                     <span className="relative">
                       {item.name}
                       <span className="absolute left-0 bottom-0 w-0 h-0.5 bg-gradient-to-r from-blue-500 to-purple-500 group-hover:w-full transition-all duration-300 ease-out"></span>
@@ -187,7 +203,9 @@ const Footer = () => {
           </p>
 
           {/* Contributors */}
-          <div className="flex items-center space-x-2 mr-5">
+          <div className="flex items-center space-x-2 mr-5"> 
+            <UserCog className="w-8 h-8 text-gray-600 dark:text-gray-400 hover:text-orange-500 transition-colors duration-300" />
+
             <span className="text-sm font-semibold">Contributors:</span>
             <ContributorsLink classes="w-8 h-8 hover:scale-110 transition-transform duration-300" />
           </div>
