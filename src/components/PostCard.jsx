@@ -66,7 +66,7 @@ function PostCard({ $id, title, featuredImage, $createdAt, userId, content }) {
           <div className="h-[240px] relative overflow-hidden">
             <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent z-10" />
             <img
-              src={appwriteService.getFilePreview(featuredImage)}
+              src={appwriteService.getFileView(featuredImage, 320, 240)}
               alt={title}
               className="w-full h-full object-cover transform transition-transform duration-700 group-hover:scale-110 group-hover:rotate-1"
             />

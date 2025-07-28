@@ -19,7 +19,45 @@ export class AuthService {
         this.databases = new Databases(this.client);
     }
 
-  async createAccount({ email, password, name, bio = "", social = {} }) {
+  async createAccount({ email, password, name}) {
+        try {
+            // ✅ Step 1: Create User in Authentication
+            const userAccount = await this.account.create(ID.unique(), email, password, name);
+            console.log("User Account Created:", userAccount);
+
+            // ✅ Step 2: Store User Data in the Database
+            const userData = await this.databases.createDocument(
+                conf.appwriteDatabaseId,  // Replace with your actual Database ID
+                conf.appwriteUserCollectionId, // Replace with your actual Collection ID
+                ID.unique(), // Use unique ID for the document
+                {
+                    userId: userAccount.$id, // Store the User ID
+                    name: name,
+                }
+            );
+            console.log("User Data Stored in Database:", userData);
+
+            // ✅ Step 3: Send Verification Email
+            const session = await this.account.createEmailPasswordSession(email, password);
+            console.log("Temporary Session Created:", session);
+            
+            await this.account.createVerification(`${baseLink}/verify-email`);
+            
+            // ✅ Step 4: Clean Up Session
+            await this.account.deleteSessions();
+
+            return userAccount;
+        } catch (error) {
+            console.error("Error during account creation:", error);
+            try {
+                await this.account.deleteSessions();
+            } catch (sessionError) {
+                console.log("Error cleaning up session:", sessionError);
+            }
+            throw error;
+        }
+    }
+  async createAccountwitbio({ email, password, name, bio = "", social = {} }) {
         try {
             // ✅ Step 1: Create User in Authentication
             const userAccount = await this.account.create(ID.unique(), email, password, name);
