@@ -178,15 +178,16 @@ To contribute to the TechieBlog project, you need to set up your own Appwrite in
 Docker Setup✅
 
 Run the application in a containerized environment using Docker.
-Prerequisites Docker desktop installed
+Prerequisites: Docker desktop installed
 
-1 Build the Docker Image and run all this command in terminal:-
+1. Build the Docker Image and run all these commands in terminal :-
+
 docker build . -t techieblog
 
-2 Run the Container:-
-docker run -d -p 5173:5173 my-nodejs-app
+2. Run the Container :-
 
-Replace 5173:5173 with : as needed.
+docker run -d -p 5173:5173 techieblog
+
 
 ## ⚙ Usage
 Once the app is running, you can:
