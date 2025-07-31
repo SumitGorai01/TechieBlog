@@ -100,7 +100,7 @@ export class Service {
                 conf.appwriteDatabaseId,
                 conf.appwriteCollectionId,
                 [
-                    Query.search("title", [key]),
+                    Query.search("title", key),
                     Query.equal("status", "active")
                 ]
             );
