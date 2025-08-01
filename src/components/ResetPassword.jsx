@@ -23,7 +23,6 @@ function ResetPassword() {
                 userId,
                 secret,
                 data.password,
-                data.confirmPassword
             );
             
             if (session) {
