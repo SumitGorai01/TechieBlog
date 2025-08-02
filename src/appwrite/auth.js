@@ -219,7 +219,6 @@ export class AuthService {
                 userId,
                 secret,
                 newPassword,
-                confirmPassword
             );
         } catch (error) {
             console.error("Appwrite service :: completeReset :: error", error);
