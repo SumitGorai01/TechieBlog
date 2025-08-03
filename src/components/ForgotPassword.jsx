@@ -3,12 +3,30 @@ import { Button, Input, Logo } from "./index";
 import authService from "../appwrite/auth";
 import { useForm } from "react-hook-form";
 import Swal from "sweetalert2";
+import { useState, useEffect } from "react";
 
 function ForgotPassword() {
     const navigate = useNavigate();
     const { register, handleSubmit } = useForm();
 
+    const [isLoading, setIsLoading] = useState(false);
+    const [cooldown, setCooldown] = useState(20); // since emails take time to appear
+
+    useEffect(() => {
+        let timer;
+        if (cooldown > 0) {
+            timer = setInterval(() => {
+                setCooldown((prev) => {
+                    if (prev <= 1) clearInterval(timer);
+                    return prev - 1;
+                });
+            }, 1000);
+        }
+        return () => clearInterval(timer);
+    }, [cooldown]);
+
     const forgotPassword = async (data) => {
+        setIsLoading(true);
         try {
             const session = await authService.resetPassword(data.email);
 
@@ -21,10 +39,8 @@ function ForgotPassword() {
                     showConfirmButton: false,
                 });
 
-                // Redirect to login page after showing success message
-                setTimeout(() => {
-                    navigate("/login");
-                }, 3000);
+                setCooldown(30); // Set cooldown (30 seconds)
+                setTimeout(() => navigate("/login"), 3000);
             }
         } catch (error) {
             Swal.fire({
@@ -33,6 +49,8 @@ function ForgotPassword() {
                 text: error.message || "An error occurred while sending reset link.",
                 confirmButtonText: "Try Again",
             });
+        } finally {
+            setIsLoading(false);
         }
     };
 
@@ -75,9 +93,14 @@ function ForgotPassword() {
                         />
                         <Button
                             type="submit"
+                            disabled={isLoading || cooldown > 0}
                             className="w-full bg-primary dark:bg-orange-500 text-white font-semibold py-3 px-4 rounded-lg hover:bg-primary-dark dark:hover:bg-orange-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary dark:focus:ring-orange-400 transition-all"
                         >
-                            Send Reset Link
+                            {isLoading
+                                ? "Sending..."
+                                : cooldown > 0
+                                ? `Wait ${cooldown}s`
+                                : "Send Reset Link"}
                         </Button>
                     </div>
                 </form>

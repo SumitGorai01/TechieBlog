@@ -8,6 +8,8 @@ import Swal from "sweetalert2";
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { Eye, EyeOff, Mail, Lock, ArrowRight } from "lucide-react";
+import useCooldown from "../hooks/useCoolDown";
+
 
 function Login() {
   const navigate = useNavigate();
@@ -15,8 +17,11 @@ function Login() {
   const { register, handleSubmit, formState: { errors } } = useForm();
   const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const { cooldown, startCooldown } = useCooldown(3); // 3 second cooldown
+
 
   const login = async (data) => {
+    if (cooldown > 0) return; 
     setIsLoading(true);
     try {
       const session = await authService.login(data);
@@ -58,8 +63,10 @@ function Login() {
       });
     } finally {
       setIsLoading(false);
+      startCooldown(); 
     }
   };
+
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -86,11 +93,11 @@ function Login() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 font-sans">
-   
+
       <div className="absolute inset-0 opacity-30">
         <div className="absolute inset-0 bg-gradient-to-r from-orange-400/10 to-pink-400/10"></div>
       </div>
-      
+
       <div className="relative min-h-screen flex flex-col items-center justify-center py-8 px-4">
         <motion.div
           variants={containerVariants}
@@ -104,7 +111,7 @@ function Login() {
           >
             <div className="bg-white/90 dark:bg-gray-800/90 backdrop-blur-xl rounded-3xl p-8 shadow-2xl border border-white/20 dark:border-gray-700/20">
               <form onSubmit={handleSubmit(login)} className="space-y-6">
-               
+
                 <motion.div
                   variants={itemVariants}
                   className="flex justify-center mb-8"
@@ -127,7 +134,7 @@ function Login() {
                   </p>
                 </motion.div>
 
-                
+
                 <motion.div variants={itemVariants} className="space-y-2">
                   <label className="text-sm font-semibold text-gray-700 dark:text-gray-200 flex items-center gap-2">
                     <Mail size={16} className="text-orange-500" />
@@ -137,9 +144,8 @@ function Login() {
                     <Input
                       type="email"
                       required
-                      className={`w-full px-4 py-4 text-gray-900 dark:text-white bg-gray-50/50 dark:bg-gray-700/50 border-2 rounded-2xl transition-all duration-300 focus:border-orange-500 focus:bg-white dark:focus:bg-gray-700 focus:shadow-lg focus:shadow-orange-500/20 ${
-                        errors.email ? 'border-red-400 focus:border-red-500' : 'border-gray-200 dark:border-gray-600'
-                      }`}
+                      className={`w-full px-4 py-4 text-gray-900 dark:text-white bg-gray-50/50 dark:bg-gray-700/50 border-2 rounded-2xl transition-all duration-300 focus:border-orange-500 focus:bg-white dark:focus:bg-gray-700 focus:shadow-lg focus:shadow-orange-500/20 ${errors.email ? 'border-red-400 focus:border-red-500' : 'border-gray-200 dark:border-gray-600'
+                        }`}
                       placeholder="Enter your email"
                       {...register("email", {
                         required: "Email is required",
@@ -162,7 +168,7 @@ function Login() {
                   )}
                 </motion.div>
 
-                
+
                 <motion.div variants={itemVariants} className="space-y-2">
                   <label className="text-sm font-semibold text-gray-700 dark:text-gray-200 flex items-center gap-2">
                     <Lock size={16} className="text-orange-500" />
@@ -172,16 +178,15 @@ function Login() {
                     <Input
                       type={showPassword ? "text" : "password"}
                       required
-                      {...register("password", { 
+                      {...register("password", {
                         required: "Password is required",
                         minLength: {
                           value: 6,
                           message: "Password must be at least 6 characters"
                         }
                       })}
-                      className={`w-full px-4 py-4 pr-12 text-gray-900 dark:text-white bg-gray-50/50 dark:bg-gray-700/50 border-2 rounded-2xl transition-all duration-300 focus:border-orange-500 focus:bg-white dark:focus:bg-gray-700 focus:shadow-lg focus:shadow-orange-500/20 ${
-                        errors.password ? 'border-red-400 focus:border-red-500' : 'border-gray-200 dark:border-gray-600'
-                      }`}
+                      className={`w-full px-4 py-4 pr-12 text-gray-900 dark:text-white bg-gray-50/50 dark:bg-gray-700/50 border-2 rounded-2xl transition-all duration-300 focus:border-orange-500 focus:bg-white dark:focus:bg-gray-700 focus:shadow-lg focus:shadow-orange-500/20 ${errors.password ? 'border-red-400 focus:border-red-500' : 'border-gray-200 dark:border-gray-600'
+                        }`}
                       placeholder="Enter your password"
                     />
                     <button
@@ -207,7 +212,7 @@ function Login() {
                   )}
                 </motion.div>
 
-              
+
                 <motion.div variants={itemVariants} className="flex justify-end">
                   <Link
                     to="/forgot-password"
@@ -217,11 +222,11 @@ function Login() {
                   </Link>
                 </motion.div>
 
-  
+
                 <motion.div variants={itemVariants} className="pt-2">
                   <Button
                     type="submit"
-                    disabled={isLoading}
+                    disabled={isLoading || cooldown > 0}
                     className="relative w-full bg-gradient-to-r from-orange-500 to-pink-500 hover:from-orange-600 hover:to-pink-600 text-white font-semibold py-4 px-6 rounded-2xl transition-all duration-300 transform hover:scale-105 hover:shadow-2xl hover:shadow-orange-500/25 active:scale-95 disabled:opacity-70 disabled:cursor-not-allowed disabled:transform-none group overflow-hidden"
                   >
                     <div className="absolute inset-0 bg-gradient-to-r from-white/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
@@ -230,10 +235,13 @@ function Login() {
                         <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin"></div>
                       ) : (
                         <>
-                          <span>Sign In</span>
-                          <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform duration-200" />
+                          <span>{cooldown > 0 ? `Wait ${cooldown}s` : "Sign In"}</span>
+                          {cooldown === 0 && (
+                            <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform duration-200" />
+                          )}
                         </>
                       )}
+
                     </div>
                   </Button>
                 </motion.div>
