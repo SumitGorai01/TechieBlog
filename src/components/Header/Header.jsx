@@ -52,7 +52,7 @@ function Header() {
   return (
     <header
       id="glassy-navbar"
-      className="w-full fixed top-0 left-0 z-[1000] py-3 px-4 backdrop-blur-xl bg-white/20 dark:bg-[#1f1f1f]/30 border-b border-white/30 dark:border-gray-700 shadow-lg transition-all duration-300"
+      className="w-full fixed top-0 left-0 z-[1000] py-3 px-10 backdrop-blur-xl bg-white/20 dark:bg-[#1f1f1f]/30 border-b border-white/30 dark:border-gray-700 shadow-lg transition-all duration-300"
       style={{
         WebkitBackdropFilter: 'blur(16px)',
         backdropFilter: 'blur(16px)',
