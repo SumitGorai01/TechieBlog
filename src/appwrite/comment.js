@@ -4,7 +4,7 @@ import conf from "../conf/conf";
 import { Client, ID, Databases, Storage, Query } from "appwrite";
 import appwriteService from "./config";
 import appwriteAuthService from "./auth";
-
+import { Permission, Role } from "appwrite";
 
 export class Service {
     client = new Client();
@@ -20,33 +20,43 @@ export class Service {
     }
 
     async createComment(data) {
-        try {
-            console.log(data);
+    try {
+        console.log("data",data);
 
-            const comment = await this.database.createDocument(
-                conf.appwriteDatabaseId,
-                conf.appwriteCommentCollectionId,
-                ID.unique(),
-                data
-            );
+        const permissions = [
+            Permission.read(Role.user(data.commentBy)),    // commenter can read
+            Permission.update(Role.user(data.commentBy)),  // commenter can edit
+            Permission.delete(Role.user(data.commentBy)),  // commenter can delete
+            Permission.read(Role.any()),                   // anyone can read
+        ];
 
-            const post = await appwriteService.getPost(data.article);
-            let comments = post.comments || [];
-            let updatedComments = [...comments, comment.$id];
+        const comment = await this.database.createDocument(
+            conf.appwriteDatabaseId,
+            conf.appwriteCommentCollectionId,
+            ID.unique(),
+            data,
+            permissions 
+        );
 
-            const updatedPost = await this.database.updateDocument(
-                conf.appwriteDatabaseId,
-                conf.appwriteCollectionId,
-                data.article,
-                { comments: updatedComments }
-            );
+        const post = await appwriteService.getPost(data.article);
+        let comments = post.comments || [];
+        let updatedComments = [...comments, comment.$id];
 
-            console.log(updatedPost);
-            return comment;
-        } catch (error) {
-            console.log("Appwrite service :: createComment :: error", error);
-        }
+        const updatedPost = await this.database.updateDocument(
+            conf.appwriteDatabaseId,
+            conf.appwriteCollectionId,
+            data.article,
+            { comments: updatedComments }
+        );
+
+        console.log(updatedPost);
+        return comment;
+    } catch (error) {
+        console.log("Appwrite service :: createComment :: error", error);
+        throw error;
     }
+}
+
 
     async getComments(articleId, { limit = 10, offset = 0 } = {}) {
         try {
@@ -67,7 +77,7 @@ export class Service {
 
             const commentsWithUsers = await Promise.all(
                 comments.documents.map(async (comment) => {
-                    const user = await appwriteAuthService.getUserById(comment.userId);
+                    const user = await appwriteAuthService.getUserById(comment.commentBy);
                     return {
                         ...comment,
                         user: {
