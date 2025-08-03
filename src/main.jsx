@@ -56,7 +56,7 @@ const router = createBrowserRouter([
                 element: (
                     <AuthLayout authentication={false}>
                         <Login />
-                    </AuthLayout>
+                    // </AuthLayout>
                 ),
             },
             {
@@ -64,7 +64,7 @@ const router = createBrowserRouter([
                 element:(
                     <AuthLayout authentication={false}>
                         <Verify />
-                    </AuthLayout>
+                    // </AuthLayout>
                 ),
             },
             {
@@ -72,7 +72,7 @@ const router = createBrowserRouter([
                 element: (
                     <AuthLayout authentication={false}>
                         <Signup />
-                    </AuthLayout>
+                    // </AuthLayout>
                 ),
             },
             {
@@ -80,7 +80,7 @@ const router = createBrowserRouter([
                 element: (
                     <AuthLayout authentication={false}>
                         <ForgotPassword />
-                    </AuthLayout>
+                    // </AuthLayout>
                 ),
             },
             {
@@ -88,7 +88,7 @@ const router = createBrowserRouter([
                 element: (
                     <AuthLayout authentication={false}>
                         <ResetPassword />
-                    </AuthLayout>
+                    // </AuthLayout>
                 ),
             },
             {
@@ -96,7 +96,7 @@ const router = createBrowserRouter([
                 element: (
                     <AuthLayout authentication>
                         <AllPosts />
-                    </AuthLayout>
+                    // </AuthLayout>
                 ),
             },
             {
@@ -104,7 +104,7 @@ const router = createBrowserRouter([
                 element: (
                     <AuthLayout authentication>
                         <AddPost />
-                    </AuthLayout>
+                    // </AuthLayout>
                 ),
             },
             {
@@ -112,7 +112,7 @@ const router = createBrowserRouter([
                 element: (
                     <AuthLayout authentication>
                         <AddComment/>
-                    </AuthLayout>
+                    // </AuthLayout>
                 )
             },
             {
@@ -120,14 +120,14 @@ const router = createBrowserRouter([
                 element: (
                     <AuthLayout authentication>
                         <EditPost />
-                    </AuthLayout>
+                    // </AuthLayout>
                 ),
             }, {
                 path: "/settings",
                 element: (
                     <AuthLayout authentication>
                         <Settings />
-                    </AuthLayout>
+                    // </AuthLayout>
                 )
             }, {
                 path: "/change-password",
@@ -141,7 +141,7 @@ const router = createBrowserRouter([
                 element: (
                     <AuthLayout authentication>
                         <Profile />
-                    </AuthLayout>
+                    // </AuthLayout>
                 )
             },
             {

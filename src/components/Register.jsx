@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import { toast } from 'react-toastify';
+import eventService from '../appwrite/event'
 
 const Register = () => {
     const [formData, setFormData] = useState({
@@ -14,10 +16,27 @@ const Register = () => {
         setFormData({ ...formData, [name]: value });
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        // Handle form submission logic here
-        console.log('Form data submitted:', formData);
+
+        try {
+            const response = await eventService.registerForEvent(formData);
+            if (response) {
+                toast.success("Successfully registered for the workshop!");
+                setFormData({
+                    fullName: '',
+                    email: '',
+                    phoneNumber: '',
+                    workshop: '',
+                    comments: ''
+                });
+            } else {
+                toast.error("Failed to register. Please try again.");
+            }
+        } catch (error) {
+            toast.error("Something went wrong!");
+            console.error("Form submission error:", error);
+        }
     };
 
     return (
@@ -26,7 +45,7 @@ const Register = () => {
                 {/* Left side image */}
                 <div className="w-full sm:w-1/2 flex justify-center items-center p-4">
                     <img
-                        src="src\assets\workshop.png"
+                        src="src/assets/workshop.png"
                         alt="Workshop"
                         className="w-full h-auto object-cover rounded-lg shadow-md"
                     />
