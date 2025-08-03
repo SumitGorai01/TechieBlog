@@ -187,7 +187,7 @@ export class Service {
 
             const response = await this.databases.listDocuments(
                 conf.appwriteDatabaseId,
-                conf.appwritesaveForlaterCollectionId,
+                conf.appwritesaveForLaterCollectionId,
                 [Query.equal("userId", userId)]
             );
 
@@ -196,7 +196,7 @@ export class Service {
             if (!userSavedData) {
                 userSavedData = await this.databases.createDocument(
                     conf.appwriteDatabaseId,
-                    conf.appwritesaveForlaterCollectionId,
+                    conf.appwritesaveForLaterCollectionId,
                     ID.unique(),
                     { userId, savedPosts: [] }
                 );
@@ -209,7 +209,7 @@ export class Service {
 
             const updatedDoc = await this.databases.updateDocument(
                 conf.appwriteDatabaseId,
-                conf.appwritesaveForlaterCollectionId,
+                conf.appwritesaveForLaterCollectionId,
                 userSavedData.$id,
                 { savedPosts: updatedSavedPosts }
             );
@@ -225,7 +225,7 @@ export class Service {
         try {
             const response = await this.databases.listDocuments(
                 conf.appwriteDatabaseId,
-                conf.appwritesaveForlaterCollectionId,
+                conf.appwritesaveForLaterCollectionId,
                 [Query.equal("userId", userId)]
             );
 
