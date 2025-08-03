@@ -82,10 +82,12 @@ function Header() {
                       className={({ isActive }) =>
                         `inline-flex items-center gap-2 px-5 py-2 rounded-xl font-medium transition-colors duration-300
                         ${isActive ? "bg-white/30 dark:bg-gray-700 shadow-md border border-white/30 dark:border-gray-700" : ""}
-                        text-orange-600 dark:text-orange-300 hover:bg-white/40 dark:hover:bg-gray-600 hover:text-orange-500 dark:hover:text-[#00ffcc]`
+                        text-orange-600 dark:text-orange-300 hover:bg-white/40 dark:hover:bg-gray-600 hover:text-orange-500 dark:hover:text-orange-400`
                       }
                     >
-                      <item.icon size={18} />
+                      {item.name === "FAQ"
+                        ? <item.icon size={18} className="text-orange-500" />
+                        : <item.icon size={18} />}
                       {item.name}
                     </NavLink>
                   </li>
@@ -118,7 +120,7 @@ function Header() {
                     className={({ isActive }) =>
                       `hidden sm:inline-flex items-center gap-2 px-5 py-2 rounded-xl font-medium transition-colors duration-300
                       ${isActive ? "bg-white/30 dark:bg-gray-700 shadow-md border border-white/30 dark:border-gray-700" : ""}
-                      text-orange-600 dark:text-orange-300 hover:bg-white/40 dark:hover:bg-gray-600 hover:text-orange-500 dark:hover:text-[#00ffcc]`
+                      text-orange-600 dark:text-orange-300 hover:bg-white/40 dark:hover:bg-gray-600 hover:text-orange-500 dark:hover:text-orange-400`
                     }
                   >
                     {item.name}
@@ -168,7 +170,7 @@ function Header() {
                       className={({ isActive }) =>
                         `inline-flex items-center gap-2 px-5 py-2 rounded-xl font-medium transition-colors duration-300
                         ${isActive ? "bg-white/30 dark:bg-gray-700 shadow-md border border-white/30 dark:border-gray-700" : ""}
-                        text-orange-600 dark:text-orange-300 hover:bg-white/40 dark:hover:bg-gray-600 hover:text-orange-500 dark:hover:text-[#00ffcc]`
+                        text-orange-600 dark:text-orange-300 hover:bg-white/40 dark:hover:bg-gray-600 hover:text-orange-500 dark:hover:text-orange-400`
                       }
                     >
                       <item.icon size={20} />

@@ -53,7 +53,7 @@ function Home() {
 
         <div className="absolute inset-0 bg-grid-pattern opacity-10"></div>
 
-        <div className="relative z-10 flex flex-col items-center justify-center min-h-screen px-4 mt-24">
+        <div className="relative z-10 flex flex-col items-center justify-center min-h-screen px-0 mt-24">
           <div className="text-center max-w-4xl mx-auto mb-16">
            
             
@@ -122,7 +122,7 @@ function Home() {
 
                   {isSubscribed ? (
                     <div className="text-center py-8 animate-fade-in">
-                      <div className="inline-flex items-center justify-center w-20 h-20 mb-4 bg-gradient-to-r from-green-400 to-emerald-400 rounded-full shadow-lg">
+                      <div className="inline-flex items-center justify-center w-20 h-20 mb-4 bg-gradient-to-r from-orange-500 to-green-500 rounded-full shadow-lg">
                         <svg className="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" d="M5 13l4 4L19 7" />
                         </svg>
@@ -158,7 +158,7 @@ function Home() {
                      
                       <div className="flex flex-wrap justify-center gap-3">
                         <div className="flex items-center px-4 py-2 bg-gray-100 dark:bg-white/10 backdrop-blur-sm rounded-full border border-gray-200 dark:border-white/20">
-                          <div className="w-2 h-2 bg-green-400 rounded-full mr-2"></div>
+                          <div className="w-2 h-2 bg-orange-400 dark:bg-green-400 rounded-full mr-2"></div>
                           <span className="text-gray-700 dark:text-white/80 text-sm font-medium">Weekly Deep Dives</span>
                         </div>
                         <div className="flex items-center px-4 py-2 bg-gray-100 dark:bg-white/10 backdrop-blur-sm rounded-full border border-gray-200 dark:border-white/20">
