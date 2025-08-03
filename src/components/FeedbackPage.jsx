@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { FaStar } from "react-icons/fa";
-import emailjs from '@emailjs/browser';
-
+// import emailjs from 'emailjs-com';
 function FeedbackPage() {
   const [formData, setFormData] = useState({
     name: '',
