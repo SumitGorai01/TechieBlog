@@ -53,7 +53,7 @@ function Home() {
 
         <div className="absolute inset-0 bg-grid-pattern opacity-10"></div>
 
-        <div className="relative z-10 flex flex-col items-center justify-center min-h-screen px-4">
+        <div className="relative z-10 flex flex-col items-center justify-center min-h-screen px-4 mt-24">
           <div className="text-center max-w-4xl mx-auto mb-16">
            
             

@@ -50,7 +50,16 @@ function Header() {
   };
 
   return (
-    <header id="sticky-header" className="w-full py-3 px-4 bg-[#fffaf3] dark:bg-[#1f1f1f] border-b transition-all duration-300">
+    <header
+      id="glassy-navbar"
+      className="w-full fixed top-0 left-0 z-[1000] py-3 px-4 backdrop-blur-xl bg-white/20 dark:bg-[#1f1f1f]/30 border-b border-white/30 dark:border-gray-700 shadow-lg transition-all duration-300"
+      style={{
+        WebkitBackdropFilter: 'blur(16px)',
+        backdropFilter: 'blur(16px)',
+        boxShadow: '0 8px 32px 0 rgba(31, 38, 135, 0.15)',
+        borderBottom: '1px solid rgba(255,255,255,0.25)',
+      }}
+    >
       <Container>
         <nav className="flex items-center justify-between gap-6">
           {/* Logo */}
@@ -71,10 +80,9 @@ function Header() {
                       to={item.slug}
                       onClick={handleNavigation}
                       className={({ isActive }) =>
-                        `${isActive ? "bg-orange-50 dark:bg-gray-700 shadow-sm" : ""} 
-                         inline-flex items-center gap-2 px-4 py-2 rounded-xl font-medium
-                         text-orange-600 dark:text-orange-300 hover:bg-orange-100 
-                         dark:hover:bg-gray-600 transition`
+                        `inline-flex items-center gap-2 px-5 py-2 rounded-xl font-medium transition-colors duration-300
+                        ${isActive ? "bg-white/30 dark:bg-gray-700 shadow-md border border-white/30 dark:border-gray-700" : ""}
+                        text-orange-600 dark:text-orange-300 hover:bg-white/40 dark:hover:bg-gray-600 hover:text-orange-500 dark:hover:text-[#00ffcc]`
                       }
                     >
                       <item.icon size={18} />
@@ -93,10 +101,10 @@ function Header() {
             {/* Theme toggle */}
             <button
               onClick={() => dispatch(toggleTheme())}
-              className="p-2 border rounded-full text-orange-600 dark:text-orange-300 hover:bg-orange-100 dark:hover:bg-gray-600 transition"
+              className="p-2 border border-white/30 dark:border-gray-700 rounded-full bg-white/20 dark:bg-gray-800 hover:bg-white/30 dark:hover:bg-gray-700 shadow-md transition"
               aria-label="Toggle Theme"
             >
-              {darkMode ? <LightModeIcon /> : <DarkModeIcon />}
+              {darkMode ? <LightModeIcon className="text-orange-500" /> : <DarkModeIcon />}
             </button>
 
             {/* Login / Signup */}
@@ -108,10 +116,9 @@ function Header() {
                     key={item.name}
                     to={item.slug}
                     className={({ isActive }) =>
-                      `${isActive ? "bg-orange-100" : ""} 
-                      hidden sm:inline-flex items-center gap-2 px-4 py-2 rounded-xl font-medium
-                      text-orange-600 dark:text-orange-300 hover:bg-orange-100 
-                      dark:hover:bg-gray-700 transition`
+                      `hidden sm:inline-flex items-center gap-2 px-5 py-2 rounded-xl font-medium transition-colors duration-300
+                      ${isActive ? "bg-white/30 dark:bg-gray-700 shadow-md border border-white/30 dark:border-gray-700" : ""}
+                      text-orange-600 dark:text-orange-300 hover:bg-white/40 dark:hover:bg-gray-600 hover:text-orange-500 dark:hover:text-[#00ffcc]`
                     }
                   >
                     {item.name}
@@ -126,7 +133,7 @@ function Header() {
                 <Sidebar isOpen={isSidebarOpen} setIsOpen={setIsSidebarOpen} />
                 <button
                   onClick={() => setIsSidebarOpen(!isSidebarOpen)}
-                  className="p-2 rounded-full text-orange-600 bg-orange-100 dark:bg-gray-600 dark:text-orange-300 hover:bg-orange-200 transition"
+                  className="p-2 rounded-full text-orange-600 dark:text-orange-300 bg-white/20 dark:bg-gray-800 border border-white/30 dark:border-gray-700 shadow-md hover:bg-white/30 dark:hover:bg-gray-700 transition"
                   aria-label="Toggle Sidebar"
                 >
                   {isSidebarOpen ? <X size={24} /> : <Menu size={24} />}
@@ -138,7 +145,7 @@ function Header() {
             {!authStatus && (
               <button
                 onClick={() => setIsMenuOpen(!isMenuOpen)}
-                className="md:hidden p-2 ml-2 text-orange-600"
+                className="md:hidden p-2 ml-2 text-orange-600 bg-white/20 border border-white/30 rounded-full shadow-md hover:bg-white/30 transition"
                 aria-label="Toggle Menu"
               >
                 <MenuIcon fontSize="large" />
@@ -159,9 +166,9 @@ function Header() {
                       to={item.slug}
                       onClick={handleNavigation}
                       className={({ isActive }) =>
-                        `${isActive ? "bg-orange-200" : ""} 
-                         inline-flex items-center gap-2 px-5 py-2 rounded-xl 
-                         text-orange-800 font-medium hover:bg-orange-100 transition`
+                        `inline-flex items-center gap-2 px-5 py-2 rounded-xl font-medium transition-colors duration-300
+                        ${isActive ? "bg-white/30 dark:bg-gray-700 shadow-md border border-white/30 dark:border-gray-700" : ""}
+                        text-orange-600 dark:text-orange-300 hover:bg-white/40 dark:hover:bg-gray-600 hover:text-orange-500 dark:hover:text-[#00ffcc]`
                       }
                     >
                       <item.icon size={20} />
@@ -172,7 +179,8 @@ function Header() {
               <li>
                 <button
                   onClick={() => dispatch(toggleTheme())}
-                  className="p-2 rounded-full bg-orange-100 dark:bg-gray-800 text-orange-600 dark:text-orange-300 hover:bg-orange-200 transition"
+                  className="p-2 rounded-full bg-white/20 dark:bg-gray-800 border border-white/30 dark:border-gray-700 text-orange-600 dark:text-orange-300 shadow-md hover:bg-white/30 dark:hover:bg-gray-700 transition"
+                  style={{ color: !darkMode ? '#f59e42' : undefined }}
                 >
                   {darkMode ? <LightModeIcon /> : <DarkModeIcon />}
                 </button>
