@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { FaStar } from "react-icons/fa";
 import emailjs from 'emailjs-com';
 
@@ -21,7 +21,7 @@ function FeedbackPage() {
   const validateForm = () => {
     let newErrors = {};
     if (!formData.name.trim()) newErrors.name = "Name is required.";
-    if (!formData.email.includes('@')) newErrors.email = "Enter a valid email.";
+    if (!/\S+@\S+\.\S+/.test(formData.email)) newErrors.email = "Enter a valid email.";
     if (!formData.feedback.trim()) newErrors.feedback = "Feedback cannot be empty.";
     if (formData.rating < 1) newErrors.rating = "Please provide a rating.";
     setErrors(newErrors);
@@ -45,15 +45,28 @@ function FeedbackPage() {
       ).then((result) => {
         console.log('Email successfully sent!', result.text);
         setSubmitted(true);
-        setTimeout(() => {
-          setSubmitted(false);
-          setFormData({ name: '', email: '', category: 'general', feedback: '', rating: 0 });
-        }, 3000);
       }, (error) => {
         console.error('Error sending email:', error.text);
       });
     }
   };
+
+  useEffect(() => {
+    if (submitted) {
+      const timer = setTimeout(() => {
+        setSubmitted(false);
+        setFormData({
+          name: '',
+          email: '',
+          category: 'general',
+          feedback: '',
+          rating: 0,
+        });
+        setErrors({});
+      }, 3000);
+      return () => clearTimeout(timer);
+    }
+  }, [submitted]);
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-orange-50 via-amber-50 to-orange-100 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 flex items-center justify-center p-4">
@@ -88,11 +101,9 @@ function FeedbackPage() {
               </p>
             </div>
           ) : (
-            <div className="space-y-6">
+            <form onSubmit={handleSubmit} className="space-y-6">
               <div className="space-y-2">
-                <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300">
-                  Full Name
-                </label>
+                <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300">Full Name</label>
                 <input
                   type="text"
                   name="name"
@@ -105,9 +116,7 @@ function FeedbackPage() {
               </div>
 
               <div className="space-y-2">
-                <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300">
-                  Email Address
-                </label>
+                <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300">Email Address</label>
                 <input
                   type="email"
                   name="email"
@@ -120,9 +129,7 @@ function FeedbackPage() {
               </div>
 
               <div className="space-y-2">
-                <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300">
-                  Feedback Category
-                </label>
+                <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300">Feedback Category</label>
                 <div className="relative">
                   <select
                     name="category"
@@ -143,9 +150,7 @@ function FeedbackPage() {
               </div>
 
               <div className="space-y-2">
-                <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300">
-                  Your Rating
-                </label>
+                <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300">Your Rating</label>
                 <div className="flex items-center space-x-2">
                   {[1, 2, 3, 4, 5].map((star) => (
                     <button
@@ -174,9 +179,7 @@ function FeedbackPage() {
               </div>
 
               <div className="space-y-2">
-                <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300">
-                  Your Feedback
-                </label>
+                <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300">Your Feedback</label>
                 <textarea
                   name="feedback"
                   value={formData.feedback}
@@ -190,12 +193,11 @@ function FeedbackPage() {
 
               <button
                 type="submit"
-                onClick={handleSubmit}
                 className="w-full bg-gradient-to-r from-orange-500 to-amber-500 hover:from-orange-600 hover:to-amber-600 text-white font-bold py-4 px-6 rounded-xl shadow-lg hover:shadow-xl transform hover:scale-[1.02] transition-all duration-200 focus:outline-none focus:ring-4 focus:ring-orange-200 dark:focus:ring-orange-800"
               >
                 Submit Feedback
               </button>
-            </div>
+            </form>
           )}
         </div>
 
