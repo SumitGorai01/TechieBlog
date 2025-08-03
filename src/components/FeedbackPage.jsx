@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { FaStar } from "react-icons/fa";
-// import emailjs from 'emailjs-com';
+import emailjsfeedback from 'emailjs-com';
 function FeedbackPage() {
   const [formData, setFormData] = useState({
     name: '',
@@ -30,7 +30,7 @@ function FeedbackPage() {
   const handleSubmit = (event) => {
     event.preventDefault();
     if (validateForm()) {
-      emailjs.send(
+      emailjsfeedback.send(
         import.meta.env.VITE_EMAILJS_SERVICE_ID_FEEDBACK,
         import.meta.env.VITE_EMAILJS_TEMPLATE_ID_FEEDBACK,
         {
