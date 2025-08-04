@@ -57,7 +57,7 @@ function Home() {
           <div className="text-center max-w-4xl mx-auto mb-16">
            
             
-            <h1 className="text-6xl md:text-8xl font-black mb-6 bg-gradient-to-r from-gray-900 via-orange-600 to-red-600 dark:from-white dark:via-orange-200 dark:to-red-200 bg-clip-text text-transparent leading-tight">
+            <h1 className="mt-20 text-6xl md:text-8xl font-black mb-6 bg-gradient-to-r from-gray-900 via-orange-600 to-red-600 dark:from-white dark:via-orange-200 dark:to-red-200 bg-clip-text text-transparent leading-tight">
               <TypeAnimation
                 sequence={[
                   "TechieBlog",
