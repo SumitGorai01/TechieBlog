@@ -40,6 +40,7 @@ const ChangePassword = lazy(() => import("./pages/ChangePassword.jsx"));
 const Profile = lazy(() => import("./pages/Profile.jsx"));
 const FAQ = lazy(() => import("./components/FAQ.jsx"));
 const Terms = lazy(() => import("./components/Terms.jsx"));
+const Privacy = lazy(() => import("./components/Privacy.jsx"))
 const FeedbackPage = lazy(() => import("./components/FeedbackPage.jsx"));
 const AboutUs = lazy(() => import("./components/AboutUs.jsx"));
 const ContactUs = lazy(() => import("./components/ContactUs.jsx"));
@@ -215,6 +216,10 @@ const router = createBrowserRouter([
       {
         path: "/terms",
         element: <Terms />,
+      },
+      {
+        path: "/privacy",
+        element: <Privacy />,
       },
       {
         path: "/events",
