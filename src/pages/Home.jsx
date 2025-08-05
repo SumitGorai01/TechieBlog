@@ -93,9 +93,11 @@ function Home() {
                 <div className="absolute inset-0 bg-gradient-to-r from-orange-700 to-red-700 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
               </Link>
               
-              <button className="px-8 py-4 border-2 border-gray-300 dark:border-white/20 rounded-2xl text-gray-700 dark:text-white font-semibold text-lg backdrop-blur-sm hover:bg-gray-100 dark:hover:bg-white/10 transition-all duration-300 hover:border-orange-400 dark:hover:border-white/40">
-                Explore Articles
-              </button>
+              <Link to="/articles">
+                <button className="px-8 py-4 border-2 border-gray-300 dark:border-white/20 rounded-2xl text-gray-700 dark:text-white font-semibold text-lg backdrop-blur-sm hover:bg-gray-100 dark:hover:bg-white/10 transition-all duration-300 hover:border-orange-400 dark:hover:border-white/40">
+                  Explore Articles
+                </button>
+              </Link>
             </div>
           </div>
 
