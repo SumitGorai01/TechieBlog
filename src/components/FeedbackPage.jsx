@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { FaStar } from "react-icons/fa";
-// import emailjs from 'emailjs-com';
 import emailjs from '@emailjs/browser';
 
 function FeedbackPage() {
@@ -33,6 +32,7 @@ function FeedbackPage() {
     event.preventDefault();
     if (validateForm()) {
       emailjs.send(
+
         import.meta.env.VITE_EMAILJS_SERVICE_ID_FEEDBACK,
         import.meta.env.VITE_EMAILJS_TEMPLATE_ID_FEEDBACK,
         {
