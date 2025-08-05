@@ -112,13 +112,20 @@ If you don’t have an Appwrite account, follow these steps:
     Create a .env file in the root directory and replace the following with .env.sample 
 
     ```bash
-    VITE_APPWRITE_URL = ""
+    VITE_APPWRITE_URL=""
+    VITE_APPWRITE_PROJECT_ID=""
+    VITE_APPWRITE_DATABASE_ID=""
+    VITE_APPWRITE_USER_COLLECTION_ID=""
+    VITE_APPWRITE_COLLECTION_ID=""
+    VITE_APPWRITE_COMMENT_COLLECTION_ID=""
+    VITE_APPWRITE_BUCKET_ID=""
+    VITE_APPWRITE_SAVEFORLATER_COLLECTION_ID=""
+    VITE_APPWRITE_EVENT_ID=""
+    VITE_APPWRITE_REGISTRATION_COLLECTION_ID=""
+    VITE_BASE_LINK=http://localhost:5173
+    VITE_API_KEY=""
     VITE_APPWRITE_PROJECT_ID = ""
-    VITE_APPWRITE_DATABASE_ID = ""
-    VITE_APPWRITE_COLLECTION_ID = ""
-    VITE_APPWRITE_COMMENT_COLLECTION_ID = ""
-    VITE_APPWRITE_BUCKET_ID = ""
-    VITE_API_KEY = ""
+    VITE_APPWRITE_ENDPOINT = ""
     ```
     
 7. Start the application:
