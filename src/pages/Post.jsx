@@ -124,24 +124,26 @@ export default function Post() {
 useEffect(() => {
   async function getsaveForLater(userId) {
     try {
+      if (!post || !userId) return; // ✅ prevent null access
+
       console.log(`Fetching savedForLater posts for userId: ${userId}`);
       
       const response = await appwriteService.getsaveForLater(userId);
       console.log("Saved Posts Response:", response);
       
-      if (response && response.includes(post.$id)) {
-        setIsSaved(prev => !prev);
+      if (response && response.documents?.some(doc => doc.postId === post.$id)) {
+        setIsSaved(true); // ✅ directly set true instead of toggling
       }
-
-      return response; // Return data for future use if needed
     } catch (error) {
       console.error(`Error fetching saved posts for userId: ${userId}`, error);
-      return null;
     }
   }
 
-  getsaveForLater(userData.$id);
-}, [userData?.$id, post?.$id]); // Ensure effect runs only when IDs are available
+  if (userData?.$id && post?.$id) {
+    getsaveForLater(userData.$id);
+  }
+}, [userData?.$id, post?.$id]);
+ // Ensure effect runs only when IDs are available
 
   useEffect(() => {
     // Check if this post is saved in localStorage (for non-logged-in users)

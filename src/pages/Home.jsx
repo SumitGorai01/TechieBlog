@@ -83,7 +83,7 @@ function Home() {
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-12">
               <Link
-                to="/signup"
+                to="/all-posts"
                 className="group relative px-8 py-4 bg-gradient-to-r from-orange-600 to-red-600 rounded-2xl text-white font-semibold text-lg transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:shadow-orange-500/25"
               >
                 <span className="relative z-10 flex items-center gap-2">

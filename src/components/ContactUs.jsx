@@ -1,7 +1,60 @@
-import React from "react";
+import React, { useState } from "react";
 import { Button, Input } from './index'
+import emailjs from 'emailjs-com';
 
 const ContactUs = () => {
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    subject: "",
+    message: ""
+  });
+  const [confirmation, setConfirmation] = useState("");
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({
+      ...prev,
+      [name]: value
+    }));
+  };
+
+  const handleSubmit = () => {
+    if (!formData.name || !formData.email || !formData.subject || !formData.message) {
+      setConfirmation("Please fill in all fields before sending.");
+      setTimeout(() => setConfirmation(""), 3000);
+      return;
+    }
+
+    const templateParams = {
+      name: formData.name,
+      email: formData.email,
+      title: formData.subject,
+      message: formData.message
+    };
+
+    emailjs.send(
+      import.meta.env.VITE_EMAILJS_SERVICE_ID,
+      import.meta.env.VITE_EMAILJS_TEMPLATE_ID,
+      templateParams,
+      import.meta.env.VITE_EMAILJS_PUBLIC_KEY
+    )
+      .then(() => {
+        setFormData({
+          name: "",
+          email: "",
+          subject: "",
+          message: ""
+        });
+        setConfirmation("Your message has been sent successfully!");
+        setTimeout(() => setConfirmation(""), 3000);
+      })
+      .catch(() => {
+        setConfirmation("There was an error sending your message. Please try again later.");
+        setTimeout(() => setConfirmation(""), 3000);
+      });
+  };
+
   return (
     <div class="p-2 dark:bg-gray-800 ">
       <h1 className="text-3xl font-bold mb-6 text-center text-orange-600">
@@ -78,17 +131,54 @@ const ContactUs = () => {
           </div>
         </div>
 
-        <form class="ml space-y-4 ">
-          <Input type='text' placeholder='Name'
-            className="outline-none focus:border-blue-500 hover-input w-full text-sm text-gray-800 border-none border border-gray-300 pl-4 pr-10 py-3 rounded-lg outline-orange-600 dark:bg-gray-800 dark:text-white hover:border-orange-500"  />
-          <Input type='email' placeholder='Email'
-            className="outline-none focus:border-blue-500 hover-input w-full text-sm text-gray-800 border-none border border-gray-300 pl-4 pr-10 py-3 rounded-lg outline-orange-600 dark:bg-gray-800 dark:text-white" />
-          <Input type='text' placeholder='Subject'
-            className="outline-none focus:border-blue-500 hover-input w-full text-sm text-gray-800 border-none border border-gray-300 pl-4 pr-10 py-3 rounded-lg outline-orange-600 dark:bg-gray-800 dark:text-white " />
-          <textarea placeholder='Message' rows="6"
-            className="outline-none focus:border-blue-500 hover-input w-full text-sm text-gray-800 border-none border border-gray-300 pl-4 pr-10 py-3 rounded-lg outline-orange-600 dark:bg-gray-800 dark:text-white"></textarea>
-          <Button type='button'
-            class="text-white bg-blue-500 hover:bg-blue-600 rounded-md text-sm px-4 py-2.5 w-full !mt-6">Send</Button>
+        <form
+          class="ml space-y-4 "
+          onSubmit={e => {
+            e.preventDefault();
+            handleSubmit();
+          }}
+        >
+          <Input
+            type='text'
+            placeholder='Name'
+            name="name"
+            value={formData.name}
+            onChange={handleInputChange}
+            className="outline-none focus:border-blue-500 hover-input w-full text-sm text-gray-800 border-none border border-gray-300 pl-4 pr-10 py-3 rounded-lg outline-orange-600 dark:bg-gray-800 dark:text-white hover:border-orange-500"
+          />
+          <Input
+            type='email'
+            placeholder='Email'
+            name="email"
+            value={formData.email}
+            onChange={handleInputChange}
+            className="outline-none focus:border-blue-500 hover-input w-full text-sm text-gray-800 border-none border border-gray-300 pl-4 pr-10 py-3 rounded-lg outline-orange-600 dark:bg-gray-800 dark:text-white"
+          />
+          <Input
+            type='text'
+            placeholder='Subject'
+            name="subject"
+            value={formData.subject}
+            onChange={handleInputChange}
+            className="outline-none focus:border-blue-500 hover-input w-full text-sm text-gray-800 border-none border border-gray-300 pl-4 pr-10 py-3 rounded-lg outline-orange-600 dark:bg-gray-800 dark:text-white "
+          />
+          <textarea
+            placeholder='Message'
+            rows="6"
+            name="message"
+            value={formData.message}
+            onChange={handleInputChange}
+            className="outline-none focus:border-blue-500 hover-input w-full text-sm text-gray-800 border-none border border-gray-300 pl-4 pr-10 py-3 rounded-lg outline-orange-600 dark:bg-gray-800 dark:text-white"
+          ></textarea>
+          <Button
+            type='submit'
+            class="text-white bg-blue-500 hover:bg-blue-600 rounded-md text-sm px-4 py-2.5 w-full !mt-6"
+          >
+            Send
+          </Button>
+          {confirmation && (
+            <div className="text-center text-orange-600 mt-2">{confirmation}</div>
+          )}
         </form>
       </div>
     </div>

@@ -1,5 +1,5 @@
 import { Client, ID, Databases } from 'appwrite';
-import conf from '../conf/conf';
+import conf from '../conf/conf'; // ✅ Ensure conf contains correct collection IDs
 
 export class EventService {
     client = new Client();
@@ -17,7 +17,7 @@ export class EventService {
         try {
             return await this.databases.createDocument(
                 conf.appwriteDatabaseId,
-                conf.appwriteEventCollectionId, // Should be defined in conf.js
+                conf.appwriteEventCollectionId,
                 ID.unique(),
                 {
                     title,
@@ -31,6 +31,26 @@ export class EventService {
             );
         } catch (error) {
             console.error("EventService :: createEvent :: error", error);
+            return false;
+        }
+    }
+
+    async registerForEvent({ fullName, email, phoneNumber, workshop, comments }) {
+        try {
+            return await this.databases.createDocument(
+                conf.appwriteDatabaseId,
+                conf.appwriteEventRegistrationCollectionId,
+                ID.unique(),
+                {
+                    fullName,
+                    email,
+                    phoneNumber,
+                    workshop,
+                    comments
+                }
+            );
+        } catch (error) {
+            console.error("EventService :: registerForEvent :: error", error);
             return false;
         }
     }
