@@ -19,7 +19,7 @@ const BottomNavigation = () => {
           onClick={() => navigate('/all-posts')}
           className={`flex flex-col items-center justify-center w-full h-full transition duration-300 ${getCurrentValue() === 'posts'
             ? 'text-orange-600 dark:text-orange-400'
-            : 'text-gray-600 dark:text-gray-400 hover:text-orange-500 dark:hover:text-orange-500'
+            : 'text-gray-600 dark:text-gray-400 hover:text-orange-500 dark:hover:text-orange-400'
             }`}
         >
           <Layout className="h-6 w-6" />
@@ -30,7 +30,7 @@ const BottomNavigation = () => {
           onClick={() => navigate('/add-post')}
           className={`flex flex-col items-center justify-center w-full h-full transition duration-300 ${getCurrentValue() === 'create'
             ? 'text-orange-600 dark:text-orange-400'
-            : 'text-gray-600 dark:text-gray-400 hover:text-orange-500 dark:hover:text-orange-500'
+            : 'text-gray-600 dark:text-gray-400 hover:text-orange-500 dark:hover:text-orange-400'
             }`}
         >
           <PlusCircle className="h-6 w-6" />

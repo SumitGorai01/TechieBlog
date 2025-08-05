@@ -56,7 +56,7 @@ const ContactUs = () => {
   };
 
   return (
-    <div class="p-2 dark:bg-gray-800 ">
+    <div class="pt-24 p-2 dark:bg-gray-800 ">
       <h1 className="text-3xl font-bold mb-6 text-center text-orange-600">
         Contact Us
       </h1>

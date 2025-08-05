@@ -44,7 +44,7 @@ function Home() {
 
   if (posts.length === 0) {
     return (
-      <div className="relative min-h-screen overflow-hidden bg-gradient-to-br from-gray-50 via-white to-gray-100 dark:from-gray-900 dark:via-black dark:to-gray-800">
+      <div className="relative min-h-screen overflow-hidden bg-gradient-to-br from-gray-50 via-white to-gray-100 dark:from-gray-900 dark:via-black dark:to-gray-800 mt-20">
         <div className="absolute inset-0">
           <div className="absolute top-0 -left-4 w-72 h-72 bg-orange-300 rounded-full mix-blend-multiply filter blur-xl opacity-10 animate-blob"></div>
           <div className="absolute top-0 -right-4 w-72 h-72 bg-yellow-300 rounded-full mix-blend-multiply filter blur-xl opacity-10 animate-blob animation-delay-2000"></div>
@@ -53,7 +53,7 @@ function Home() {
 
         <div className="absolute inset-0 bg-grid-pattern opacity-10"></div>
 
-        <div className="relative z-10 flex flex-col items-center justify-center min-h-screen px-4">
+        <div className="relative z-10 flex flex-col items-center justify-center min-h-screen px-0 mt-24">
           <div className="text-center max-w-4xl mx-auto mb-16">
            
             
@@ -122,7 +122,7 @@ function Home() {
 
                   {isSubscribed ? (
                     <div className="text-center py-8 animate-fade-in">
-                      <div className="inline-flex items-center justify-center w-20 h-20 mb-4 bg-gradient-to-r from-green-400 to-emerald-400 rounded-full shadow-lg">
+                      <div className="inline-flex items-center justify-center w-20 h-20 mb-4 bg-gradient-to-r from-orange-500 to-green-500 rounded-full shadow-lg">
                         <svg className="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" d="M5 13l4 4L19 7" />
                         </svg>
@@ -158,7 +158,7 @@ function Home() {
                      
                       <div className="flex flex-wrap justify-center gap-3">
                         <div className="flex items-center px-4 py-2 bg-gray-100 dark:bg-white/10 backdrop-blur-sm rounded-full border border-gray-200 dark:border-white/20">
-                          <div className="w-2 h-2 bg-green-400 rounded-full mr-2"></div>
+                          <div className="w-2 h-2 bg-orange-400 dark:bg-green-400 rounded-full mr-2"></div>
                           <span className="text-gray-700 dark:text-white/80 text-sm font-medium">Weekly Deep Dives</span>
                         </div>
                         <div className="flex items-center px-4 py-2 bg-gray-100 dark:bg-white/10 backdrop-blur-sm rounded-full border border-gray-200 dark:border-white/20">
@@ -219,7 +219,7 @@ function Home() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-gray-50 to-slate-100 dark:from-slate-900 dark:via-gray-900 dark:to-slate-800">
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-gray-50 to-slate-100 dark:from-slate-900 dark:via-gray-900 dark:to-slate-800 mt-20">
 
       <div className="relative overflow-hidden bg-gradient-to-r from-orange-600/20 to-red-600/20 backdrop-blur-sm">
         <div className="absolute inset-0 bg-grid-pattern opacity-5"></div>
