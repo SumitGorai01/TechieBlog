@@ -31,7 +31,8 @@ function FeedbackPage() {
   const handleSubmit = (event) => {
     event.preventDefault();
     if (validateForm()) {
-      emailjsfeedback.send(
+      emailjs.send(
+
         import.meta.env.VITE_EMAILJS_SERVICE_ID_FEEDBACK,
         import.meta.env.VITE_EMAILJS_TEMPLATE_ID_FEEDBACK,
         {
