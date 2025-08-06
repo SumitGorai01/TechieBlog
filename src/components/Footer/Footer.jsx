@@ -29,6 +29,7 @@ import Logo from "../Logo";
 import ContributorsLink from "../contributors/contributorsLink";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowUp } from "@fortawesome/free-solid-svg-icons";
+import { FaDiscord } from "react-icons/fa6"; // Or from 'react-icons/fa'
 
 const Footer = () => {
   const [scrollProgress, setScrollProgress] = useState(0);
@@ -188,6 +189,7 @@ const Footer = () => {
                 { icon: Facebook, href: "https://facebook.com", color: "hover:text-blue-500" },
                 { icon: Linkedin, href: "https://linkedin.com", color: "hover:text-blue-600" },
                 { icon: Instagram, href: "https://instagram.com", color: "hover:text-pink-500" },
+                { icon: FaDiscord, href: "https://discord.gg/zkdUgR94", color: "hover:text-purple-500" },
               ].map((social, index) => (
                 <a
                   key={index}
