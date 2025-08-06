@@ -66,7 +66,7 @@ function Sidebar({ isOpen, setIsOpen }) {
           
           <div
             ref={sidebarRef}
-            className="fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 
+            className="fixed  top-[46vh] left-[80vw]  sm:top-[46vh] sm:left-[80vw] lg:top-[46vh] lg:left-[87vw] -translate-x-1/2 -translate-y-1/2 
                        w-11/12 sm:w-64 md:w-72 lg:w-80 max-h-[85vh] overflow-y-auto 
                        bg-white dark:bg-[#1e1e1e] rounded-2xl shadow-xl 
                        p-6 z-50 animate-slide-in"
