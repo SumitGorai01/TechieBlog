@@ -7,7 +7,7 @@ import { useState, useEffect } from "react";
 
 function ForgotPassword() {
     const navigate = useNavigate();
-    const { register, handleSubmit } = useForm();
+    const { register, handleSubmit, formState: { errors, isSubmitting } } = useForm();
 
     const [isLoading, setIsLoading] = useState(false);
     const [cooldown, setCooldown] = useState(20); // since emails take time to appear
@@ -37,10 +37,18 @@ function ForgotPassword() {
                     text: "Please check your email for password reset instructions.",
                     timer: 3000,
                     showConfirmButton: false,
+                    background: document.documentElement.classList.contains('dark') ? '#1f2937' : '#ffffff',
+                    color: document.documentElement.classList.contains('dark') ? '#f9fafb' : '#111827',
+                    customClass: {
+                        popup: 'rounded-2xl shadow-2xl border border-orange-100 dark:border-orange-900/20'
+                    }
                 });
+
 
                 setCooldown(30); // Set cooldown (30 seconds)
                 setTimeout(() => navigate("/login"), 3000);
+
+
             }
         } catch (error) {
             Swal.fire({
@@ -48,6 +56,12 @@ function ForgotPassword() {
                 title: "Reset Failed!",
                 text: error.message || "An error occurred while sending reset link.",
                 confirmButtonText: "Try Again",
+                background: document.documentElement.classList.contains('dark') ? '#1f2937' : '#ffffff',
+                color: document.documentElement.classList.contains('dark') ? '#f9fafb' : '#111827',
+                confirmButtonColor: '#ea580c',
+                customClass: {
+                    popup: 'rounded-2xl shadow-2xl border border-red-100 dark:border-red-900/20'
+                }
             });
         } finally {
             setIsLoading(false);
@@ -55,55 +69,97 @@ function ForgotPassword() {
     };
 
     return (
-        <div className="flex items-center justify-center w-full p-8 bg-gray-50 dark:bg-gray-900">
-            <div className="mx-auto w-full max-w-lg bg-gray-100 dark:bg-gray-800 rounded-xl p-10 border border-black/10 dark:border-gray-700">
-                <div className="mb-2 flex justify-center">
-                    <span className="inline-block w-full max-w-[100px]">
-                        <Logo width="100%" className="justify-center" />
-                    </span>
-                </div>
-                <h2 className="text-center text-2xl font-bold leading-tight text-gray-900 dark:text-gray-100">
-                    Reset Your Password
-                </h2>
-                <p className="mt-2 text-center text-base text-black/60 dark:text-gray-400">
-                    Remembered your password?&nbsp;
-                    <Link
-                        to="/login"
-                        className="font-medium text-primary dark:text-orange-400 transition-all duration-200 hover:underline"
-                    >
-                        Sign In
-                    </Link>
-                </p>
+        <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-orange-50 via-white to-orange-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 p-4 sm:p-6 lg:p-8">
+            <div className="absolute inset-0 overflow-hidden pointer-events-none">
+                <div className="absolute -top-40 -right-40 w-80 h-80 bg-orange-100 dark:bg-orange-900/10 rounded-full blur-3xl opacity-60"></div>
+                <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-orange-200 dark:bg-orange-800/10 rounded-full blur-3xl opacity-40"></div>
+            </div>
 
-                <form onSubmit={handleSubmit(forgotPassword)} className="mt-8">
-                    <div className="space-y-5">
-                        <Input
-                            label="Email :"
-                            placeholder="Enter your email"
-                            type="email"
-                            className="bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-primary dark:focus:ring-orange-400"
-                            {...register("email", {
-                                required: true,
-                                validate: {
-                                    matchPattern: (value) =>
-                                        /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(value) ||
-                                        "Email address must be a valid address",
-                                },
-                            })}
-                        />
-                        <Button
-                            type="submit"
-                            disabled={isLoading || cooldown > 0}
-                            className="w-full bg-primary dark:bg-orange-500 text-white font-semibold py-3 px-4 rounded-lg hover:bg-primary-dark dark:hover:bg-orange-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary dark:focus:ring-orange-400 transition-all"
-                        >
-                            {isLoading
-                                ? "Sending..."
-                                : cooldown > 0
-                                ? `Wait ${cooldown}s`
-                                : "Send Reset Link"}
-                        </Button>
+            <div className="relative w-full max-w-md">
+                <div className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-xl rounded-3xl p-8 sm:p-10 shadow-2xl border border-white/20 dark:border-gray-700/50 hover:shadow-orange-500/10 transition-all duration-500">
+                    
+                    <div className="mb-8 flex justify-center">
+                        <div className="relative">
+                            <div className="absolute inset-0 bg-gradient-to-r from-orange-400 to-orange-600 rounded-2xl blur opacity-20"></div>
+                            <div className="relative bg-gradient-to-br from-orange-50 to-orange-100 dark:from-orange-900/20 dark:to-orange-800/20 p-4 rounded-2xl border border-orange-200/50 dark:border-orange-700/30">
+                                <Logo width="60" className="justify-center filter brightness-110" />
+                            </div>
+                        </div>
                     </div>
-                </form>
+
+                    <div className="text-center mb-8">
+                        <h1 className="text-3xl font-bold bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 dark:from-white dark:via-gray-100 dark:to-white bg-clip-text text-transparent mb-3">
+                            Reset Your Password
+                        </h1>
+                        <p className="text-gray-600 dark:text-gray-300 text-base leading-relaxed">
+                            Enter your email address and we'll send you a link to reset your password
+                        </p>
+                    </div>
+
+                    <form onSubmit={handleSubmit(forgotPassword)} className="space-y-6">
+                        <div className="space-y-2">
+                            <Input
+                                label="Email Address"
+                                placeholder="Enter your email address"
+                                type="email"
+                                className={`w-full px-4 py-3.5 bg-gray-50/50 dark:bg-gray-700/50 border ${
+                                    errors.email 
+                                        ? 'border-red-300 dark:border-red-600 focus:border-red-500 focus:ring-red-500/20' 
+                                        : 'border-gray-200 dark:border-gray-600 focus:border-orange-400 focus:ring-orange-500/20'
+                                } rounded-xl text-gray-900 dark:text-gray-100 placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:ring-4 transition-all duration-200 backdrop-blur-sm`}
+                                {...register("email", {
+                                    required: "Email address is required",
+                                    validate: {
+                                        matchPattern: (value) =>
+                                            /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(value) ||
+                                            "Please enter a valid email address",
+                                    },
+                                })}
+                            />
+                            {errors.email && (
+                                <p className="text-red-500 dark:text-red-400 text-sm mt-1 flex items-center gap-1">
+                                    <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                                        <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clipRule="evenodd" />
+                                    </svg>
+                                    {errors.email.message}
+                                </p>
+                            )}
+                        </div>
+
+                        <Button
+                          type="submit"
+                          disabled={isLoading || cooldown > 0 || isSubmitting}
+                          className={`w-full bg-gradient-to-r from-orange-500 to-orange-600 
+                            hover:from-orange-600 hover:to-orange-700 
+                            disabled:from-orange-400 disabled:to-orange-500 
+                            text-white font-semibold py-3.5 px-6 rounded-xl shadow-lg 
+                            hover:shadow-orange-500/25 focus:outline-none focus:ring-4 
+                            focus:ring-orange-500/20 transition-all duration-200 
+                            transform hover:scale-[1.02] active:scale-[0.98] 
+                            disabled:cursor-not-allowed disabled:transform-none`}
+                        >
+                          {isLoading
+                            ? "Sending..."
+                            : cooldown > 0
+                            ? `Wait ${cooldown}s`
+                            : "Send Reset Link"}
+                        </Button>
+
+                    </form>
+
+                    {/* Footer */}
+                    <div className="mt-8 pt-6 border-t border-gray-200/50 dark:border-gray-700/50">
+                        <p className="text-center text-gray-600 dark:text-gray-400">
+                            Remember your password?{" "}
+                            <Link
+                                to="/login"
+                                className="font-semibold text-orange-600 dark:text-orange-400 hover:text-orange-700 dark:hover:text-orange-300 transition-colors duration-200 hover:underline decoration-2 underline-offset-2"
+                            >
+                                Sign in instead
+                            </Link>
+                        </p>
+                    </div>
+                </div>
             </div>
         </div>
     );
