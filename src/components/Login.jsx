@@ -6,7 +6,6 @@ import authService from "../appwrite/auth";
 import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
 import Swal from "sweetalert2";
-import { useState } from "react";
 import { motion } from "framer-motion";
 import { Eye, EyeOff, Mail, Lock, ArrowRight } from "lucide-react";
 import useCooldown from "../hooks/useCoolDown";
@@ -266,7 +265,5 @@ function Login() {
     </div>
   );
 }
-
-
 export default Login;
 
