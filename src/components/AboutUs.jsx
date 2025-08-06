@@ -56,67 +56,65 @@ const AboutUs = () => {
             </div>
 
             <section className="relative max-w-7xl mx-auto px-6 lg:px-8 pt-24 pb-32">
-                <motion.div
-                    initial={{ opacity: 0, y: 40 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 1, ease: "easeOut" }}
-                    className="text-center relative z-10"
-                >
-                   
+    <motion.div
+        initial={{ opacity: 0, y: 40 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 1, ease: "easeOut" }}
+        className="text-center relative z-10"
+    >
+        <motion.h1
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.3, duration: 0.8 }}
+            className="text-5xl md:text-7xl lg:text-8xl font-bold bg-gradient-to-r from-purple-600 via-orange-500 to-rose-500 dark:from-purple-400 dark:via-orange-400 dark:to-rose-300 bg-clip-text text-transparent mb-6 leading-tight"
+        >
+            About TechieBlog
+        </motion.h1>
+        
+        <motion.p
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.5, duration: 0.8 }}
+            className="text-xl md:text-2xl text-slate-700 dark:text-slate-300 max-w-4xl mx-auto leading-relaxed font-light"
+        >
+            Empowering the global tech community through **cutting-edge insights**,
+            <br className="hidden md:block" />
+            **innovative solutions**, and **collaborative knowledge sharing**
+        </motion.p>
+    </motion.div>
 
-                    <motion.h1
-                        initial={{ opacity: 0, y: 30 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ delay: 0.3, duration: 0.8 }}
-                        className="text-5xl md:text-7xl lg:text-8xl font-bold bg-gradient-to-r from-slate-900 via-orange-500 to-slate-900 dark:from-slate-100 dark:via-orange-400 dark:to-slate-100 bg-clip-text text-transparent mb-6 leading-tight"
-                    >
-                        About TechieBlog
-                    </motion.h1>
-                    
-                    <motion.p
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        transition={{ delay: 0.5, duration: 0.8 }}
-                        className="text-xl md:text-2xl text-slate-600 dark:text-slate-400 max-w-4xl mx-auto leading-relaxed font-light"
-                    >
-                        Empowering the global tech community through cutting-edge insights,
-                        <br className="hidden md:block" />
-                        innovative solutions, and collaborative knowledge sharing
-                    </motion.p>
-                </motion.div>
-
-                <motion.div
-                    variants={containerVariants}
-                    initial="hidden"
-                    animate="visible"
-                    className="grid md:grid-cols-3 gap-6 mt-20"
-                >
-                    {[
-                        { icon: Rocket, title: 'Innovation First', text: 'Pioneering tech insights & trends', accent: 'orange' },
-                        { icon: Users, title: '500K+ Community', text: 'Global network of tech professionals', accent: 'amber' },
-                        { icon: BookOpen, title: '1K+ Resources', text: 'Comprehensive tech knowledge base', accent: 'rose' },
-                    ].map((item, index) => (
-                        <motion.div
-                            key={index}
-                            variants={itemVariants}
-                            whileHover={{ 
-                                y: -5,
-                                transition: { type: 'spring', stiffness: 300 }
-                            }}
-                            className="group relative"
-                        >
-                            <div className="absolute -inset-0.5 bg-gradient-to-r from-orange-500/20 to-orange-600/20 rounded-2xl blur opacity-0 group-hover:opacity-100 transition duration-500" />
-                            <div className="relative bg-white/60 dark:bg-slate-800/60 backdrop-blur-sm rounded-2xl p-8 border border-slate-200/50 dark:border-slate-700/50 shadow-lg">
-                                <div className="flex items-center justify-center w-16 h-16 bg-gradient-to-br from-orange-100 to-orange-200 dark:from-orange-900/30 dark:to-orange-800/30 rounded-xl mb-6 group-hover:scale-110 transition-transform duration-300">
-                                    <item.icon className="w-8 h-8 text-orange-600 dark:text-orange-400" />
-                                </div>
-                                <h3 className="text-xl font-bold mb-3 text-slate-900 dark:text-slate-100">{item.title}</h3>
-                                <p className="text-slate-600 dark:text-slate-400 leading-relaxed">{item.text}</p>
-                            </div>
-                        </motion.div>
-                    ))}
-                </motion.div>
-            </section>
+    <motion.div
+        variants={containerVariants}
+        initial="hidden"
+        animate="visible"
+        className="grid md:grid-cols-3 gap-8 mt-20"
+    >
+        {[
+            { icon: Rocket, title: 'Innovation First', text: 'Pioneering tech insights & trends', color: 'purple' },
+            { icon: Users, title: '500K+ Community', text: 'Global network of tech professionals', color: 'orange' },
+            { icon: BookOpen, title: '1K+ Resources', text: 'Comprehensive tech knowledge base', color: 'rose' },
+        ].map((item, index) => (
+            <motion.div
+                key={index}
+                variants={itemVariants}
+                whileHover={{ 
+                    y: -8,
+                    transition: { type: 'spring', stiffness: 200, damping: 10 }
+                }}
+                className="group relative h-full"
+            >
+                <div className={`absolute -inset-0.5 bg-gradient-to-r from-${item.color}-500 to-purple-500 rounded-3xl blur-md opacity-0 group-hover:opacity-60 transition duration-500`} />
+                <div className="relative h-full bg-white dark:bg-slate-800 backdrop-blur-lg rounded-3xl p-8 border border-slate-200/50 dark:border-slate-700/50 shadow-lg group-hover:shadow-2xl transition-shadow duration-300">
+                    <div className={`flex items-center justify-center w-16 h-16 bg-gradient-to-br from-${item.color}-100 to-${item.color}-200 dark:from-${item.color}-900/30 dark:to-${item.color}-800/30 rounded-2xl mb-6 group-hover:scale-105 transition-transform duration-300`}>
+                        <item.icon className={`w-8 h-8 text-${item.color}-600 dark:text-${item.color}-400`} />
+                    </div>
+                    <h3 className="text-2xl font-bold mb-3 text-slate-900 dark:text-slate-100">{item.title}</h3>
+                    <p className="text-slate-600 dark:text-slate-400 leading-relaxed">{item.text}</p>
+                </div>
+            </motion.div>
+        ))}
+    </motion.div>
+</section>
 
             <section className="relative py-32 bg-gradient-to-b from-transparent to-slate-100/50 dark:to-slate-800/20">
                 <div className="max-w-7xl mx-auto px-6 lg:px-8">
