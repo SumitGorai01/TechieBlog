@@ -11,6 +11,7 @@ import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import Loader from "./components/loaders/Loading.jsx";
 const AddEventPage = lazy(() => import("./components/AddEvent.jsx"));
 const ShowEvents = lazy(() => import("./pages/EventPage.jsx"));
+import UserDashboard from "./pages/UserDashboard.jsx";
 
 import { ToastContainer } from "react-toastify";
 import SavedBlogs from "./pages/SavedBlogs.jsx";
@@ -51,6 +52,7 @@ const AddEvent = lazy(() => import("./components/AddEvent.jsx"));
 const AddComment = lazy(() => import("./components/AddComment.jsx"));
 const Articles = lazy(()=> import("./pages/Articles.jsx") )
 const News = lazy(() => import("./pages/News.jsx"))
+
 const router = createBrowserRouter([
   {
     path: "/",
@@ -234,6 +236,10 @@ const router = createBrowserRouter([
       {
         path: "/news",
         element: <News />,
+      },
+      {
+        path: "/userdashboard",
+        element: <UserDashboard />,
       }
     ],
   },
