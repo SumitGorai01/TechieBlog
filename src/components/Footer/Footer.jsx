@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import {
-Facebook,
+  Facebook,
   Linkedin,
   Instagram,
   ArrowUp,
@@ -22,17 +22,19 @@ Facebook,
   Bot,
   Minimize2,
   Maximize2,
+  Sparkles,
+  ChevronUp,
 } from "lucide-react";
 import Logo from "../Logo";
 import ContributorsLink from "../contributors/contributorsLink";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowUp } from "@fortawesome/free-solid-svg-icons";
-import { icon } from "@fortawesome/fontawesome-svg-core";
+import { FaDiscord } from "react-icons/fa6"; // Or from 'react-icons/fa'
 
 const Footer = () => {
   const [scrollProgress, setScrollProgress] = useState(0);
   const [isVisible, setIsVisible] = useState(false);
-    const [isChatOpen, setIsChatOpen] = useState(false);
+  const [isChatOpen, setIsChatOpen] = useState(false);
   const [isMinimized, setIsMinimized] = useState(false);
   const [messages, setMessages] = useState([
     {
@@ -77,7 +79,6 @@ const Footer = () => {
       "I'd recommend checking our FAQ section or contacting our support team for more detailed information about that topic.",
     ],
   };
-
 
   useEffect(() => {
     const handleScroll = () => {
@@ -161,52 +162,56 @@ const Footer = () => {
     setIsMinimized(!isMinimized);
   };
 
-
   return (
-    <footer className="relative bg-gradient-to-r from-yellow-200 via-orange-200 to-red-200 dark:bg-gradient-to-r dark:from-gray-800 dark:via-gray-900 dark:to-black">
-      <div className="max-w-7xl mx-auto px-6 py-6">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-12 text-center md:text-left">
-    
-          <div className="space-y-2">
-            <div className="">
+    <footer className="relative bg-gradient-to-br from-slate-50 via-orange-50/30 to-slate-100 dark:from-slate-900 dark:via-slate-800 dark:to-black overflow-hidden">
+      <div className="absolute inset-0 opacity-5">
+        <div className="absolute inset-0 bg-gradient-to-r from-orange-400/20 to-amber-400/20"></div>
+        <div className="absolute inset-0" style={{
+          backgroundImage: `radial-gradient(circle at 20% 50%, rgba(251, 146, 60, 0.1) 0%, transparent 50%), 
+                           radial-gradient(circle at 80% 20%, rgba(251, 146, 60, 0.1) 0%, transparent 50%),
+                           radial-gradient(circle at 40% 80%, rgba(251, 146, 60, 0.1) 0%, transparent 50%)`
+        }}></div>
+      </div>
+
+      <div className="relative max-w-7xl mx-auto px-6 py-8">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
+          
+          <div className="space-y-6 md:col-span-1">
+            <div className="flex items-center space-x-2">
               <Logo />
             </div>
-            <p className="text-gray-600 dark:text-gray-400">
+            <p className="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">
               Bridging the gap between knowledge and action, TechieBlog fuels
-              tech enthusiasts and developers with insights to thrive.
+              tech enthusiasts and developers with insights to thrive in the digital age.
             </p>
-            {/* <div className="flex justify-center md:justify-start space-x-4 space-y-6">
-              <a href="https://facebook.com" className="group">
-                <div className="bg-white p-2 rounded-lg shadow-md border border-gray-300 group-hover:border-[#f97316] group-hover:shadow-lg transition-all duration-300 transform group-hover:-translate-y-1 group-hover:scale-105 dark:bg-gray-800 dark:border-gray-700 mt-6">
-                  <Facebook className="w-5 h-5 text-gray-600 group-hover:text-[#f97316] dark:text-gray-400 transition-colors duration-300" />
-                </div>
-              </a>
-              <a href="https://twitter.com" className="group">
-                <div className="bg-white p-2 rounded-lg shadow-md border border-gray-300 group-hover:border-[#f97316] group-hover:shadow-lg transition-all duration-300 transform group-hover:-translate-y-1 group-hover:scale-105 dark:bg-gray-800 dark:border-gray-700">
-                  <svg xmlns="http://www.w3.org/2000/svg" className="w-5 h-5 text-gray-600 group-hover:text-[#f97316] transition-colors duration-300" viewBox="0 0 24 24" fill="currentColor">
-                    <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
-                  </svg>
-                </div>
-              </a>
-              <a href="https://linkedin.com" className="group">
-                <div className="bg-white p-2 rounded-lg shadow-md border border-gray-300 group-hover:border-[#f97316] group-hover:shadow-lg transition-all duration-300 transform group-hover:-translate-y-1 group-hover:scale-105 dark:border-gray-700 dark:bg-gray-800">
-                  <Linkedin className="w-5 h-5 text-gray-600 group-hover:text-[#f97316] dark:text-gray-400 transition-colors duration-300" />
-                </div>
-              </a>
-              <a href="https://instagram.com" className="group">
-                <div className="bg-white p-2 rounded-lg shadow-md border border-gray-300 group-hover:border-[#f97316] group-hover:shadow-lg transition-all duration-300 transform group-hover:-translate-y-1 group-hover:scale-105 dark:bg-gray-800 dark:border-gray-700">
-                  <Instagram className="w-5 h-5 text-gray-600 group-hover:text-[#f97316] dark:text-gray-400 transition-colors duration-300" />
-                </div>
-              </a>
-            </div> */}
+            <div className="flex space-x-3">
+              {[
+                { icon: Facebook, href: "https://facebook.com", color: "hover:text-blue-500" },
+                { icon: Linkedin, href: "https://linkedin.com", color: "hover:text-blue-600" },
+                { icon: Instagram, href: "https://instagram.com", color: "hover:text-pink-500" },
+                { icon: FaDiscord, href: "https://discord.gg/zkdUgR94", color: "hover:text-purple-500" },
+              ].map((social, index) => (
+                <a
+                  key={index}
+                  href={social.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group"
+                >
+                  <div className="w-10 h-10 bg-white/80 dark:bg-slate-800/80 backdrop-blur-sm border border-slate-200/50 dark:border-slate-700/50 rounded-xl flex items-center justify-center transition-all duration-300 group-hover:scale-110 group-hover:shadow-lg group-hover:shadow-orange-500/20 group-hover:border-orange-300">
+                    <social.icon className={`w-4 h-4 text-slate-500 dark:text-slate-400 transition-colors duration-300 ${social.color}`} />
+                  </div>
+                </a>
+              ))}
+            </div>
           </div>
 
-          {/* Quick Links Section */}
-          <div className="space-y-6 ml-12">
-            <h3 className="text-lg ml-5 dark:text-gray-200 font-bold">
-              Company
-            </h3>
-            <ul className="space-y-4">
+          <div className="space-y-6">
+            <div className="flex items-center space-x-2">
+              <div className="w-1 h-6 bg-gradient-to-b from-orange-400 to-orange-600 rounded-full"></div>
+              <h3 className="text-lg font-bold text-slate-800 dark:text-slate-200">Company</h3>
+            </div>
+            <ul className="space-y-3">
               {[
                 { name: "About Us", path: "/about-us", icon: Info },
                 { name: "Feedback", path: "/feedback", icon: MessageCircle },
@@ -215,15 +220,14 @@ const Footer = () => {
                 <li key={item.name}>
                   <button
                     onClick={() => handleNavigation(item.path)}
-                    className="group dark:hover:text-gray-200 dark:text-gray-400 flex items-center text-gray-600 hover:text-gray-900 relative w-full text-left"
+                    className="group flex items-center text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200 transition-all duration-300 w-full text-left"
                   >
-                    <span className="w-2 h-2 bg-blue-500 rounded-full mr-3 opacity-0 group-hover:opacity-100 transition-all duration-300 transform group-hover:scale-125" />
-                    {item.icon && (
-                      <item.icon className="w-5 h-5 mr-2 text-blue-500 dark:text-blue-400 group-hover:scale-110 group-hover:rotate-12 transition-all duration-300" />
-                    )}
-                    <span className="relative">
+                    <div className="w-8 h-8 bg-orange-100/50 dark:bg-orange-900/20 rounded-lg flex items-center justify-center mr-3 transition-all duration-300 group-hover:bg-orange-200/70 dark:group-hover:bg-orange-800/30 group-hover:scale-110">
+                      <item.icon className="w-4 h-4 text-orange-500 dark:text-orange-400" />
+                    </div>
+                    <span className="relative font-medium">
                       {item.name}
-                      <span className="absolute left-0 bottom-0 w-0 h-0.5 bg-gradient-to-r from-blue-500 to-purple-500 group-hover:w-full transition-all duration-300 ease-out"></span>
+                      <span className="absolute left-0 -bottom-1 w-0 h-0.5 bg-gradient-to-r from-orange-400 to-amber-400 group-hover:w-full transition-all duration-300 ease-out"></span>
                     </span>
                   </button>
                 </li>
@@ -231,29 +235,28 @@ const Footer = () => {
             </ul>
           </div>
 
-   
-          <div className="space-y-6 ml-6">
-            <h3 className="text-lg ml-5 dark:text-gray-200 font-bold">
-              Support
-            </h3>
-            <ul className="space-y-4">
+          <div className="space-y-6">
+            <div className="flex items-center space-x-2">
+              <div className="w-1 h-6 bg-gradient-to-b from-orange-400 to-orange-600 rounded-full"></div>
+              <h3 className="text-lg font-bold text-slate-800 dark:text-slate-200">Support</h3>
+            </div>
+            <ul className="space-y-3">
               {[
-                { name: "Account", path: "/login",icon: UserRound },
-                { name: "FAQ", path: "/faq" , icon: HelpCircle },
-                { name: "Contact Us", path: "/contact-us" , icon: Phone },
+                { name: "Account", path: "/login", icon: UserRound },
+                { name: "FAQ", path: "/faq", icon: HelpCircle },
+                { name: "Contact Us", path: "/contact-us", icon: Phone },
               ].map((item) => (
                 <li key={item.name}>
                   <button
                     onClick={() => handleNavigation(item.path)}
-                    className="group flex items-center text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-200 relative w-full text-left"
+                    className="group flex items-center text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200 transition-all duration-300 w-full text-left"
                   >
-                    <span className="w-2 h-2 bg-blue-500 rounded-full mr-3 opacity-0 group-hover:opacity-100 transition-all duration-300 transform group-hover:scale-125" />
-                    {item.icon && (
-                      <item.icon className="w-5 h-5 mr-2 text-blue-500 dark:text-blue-400 group-hover:scale-110 group-hover:rotate-12 transition-all duration-300" />
-                    )}
-                    <span className="relative">
+                    <div className="w-8 h-8 bg-orange-100/50 dark:bg-orange-900/20 rounded-lg flex items-center justify-center mr-3 transition-all duration-300 group-hover:bg-orange-200/70 dark:group-hover:bg-orange-800/30 group-hover:scale-110">
+                      <item.icon className="w-4 h-4 text-orange-500 dark:text-orange-400" />
+                    </div>
+                    <span className="relative font-medium">
                       {item.name}
-                      <span className="absolute left-0 bottom-0 w-0 h-0.5 bg-gradient-to-r from-blue-500 to-purple-500 group-hover:w-full transition-all duration-300 ease-out"></span>
+                      <span className="absolute left-0 -bottom-1 w-0 h-0.5 bg-gradient-to-r from-orange-400 to-amber-400 group-hover:w-full transition-all duration-300 ease-out"></span>
                     </span>
                   </button>
                 </li>
@@ -261,64 +264,55 @@ const Footer = () => {
             </ul>
           </div>
 
-          {/* Contact Section */}
           <div className="space-y-6">
-            <h3 className="text-lg  dark:text-gray-200 font-bold">
-              Contact Info
-            </h3>
+            <div className="flex items-center space-x-2">
+              <div className="w-1 h-6 bg-gradient-to-b from-orange-400 to-orange-600 rounded-full"></div>
+              <h3 className="text-lg font-bold text-slate-800 dark:text-slate-200">Get in Touch</h3>
+            </div>
             <ul className="space-y-4">
-              <li className="group flex items-center justify-center md:justify-start space-x-3 text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-200 transition-colors duration-300 cursor-pointer">
-                <MapPin className="w-5 h-5 text-blue-500 dark:text-blue-400 group-hover:scale-110 group-hover:rotate-12 transition-all duration-300" />
-                <span className="relative">123 Tech Street, Digital City</span>
+              <li className="group flex items-start space-x-3 text-slate-600 dark:text-slate-400 transition-colors duration-300">
+                <div className="w-8 h-8 bg-orange-100/50 dark:bg-orange-900/20 rounded-lg flex items-center justify-center mt-0.5 transition-all duration-300 group-hover:bg-orange-200/70 dark:group-hover:bg-orange-800/30">
+                  <MapPin className="w-4 h-4 text-orange-500 dark:text-orange-400" />
+                </div>
+                <div>
+                  <span className="text-sm font-medium text-slate-800 dark:text-slate-200">Address</span>
+                  <p className="text-sm">123 Tech Street, Digital City</p>
+                </div>
               </li>
-              <li className="group flex items-center justify-center md:justify-start space-x-3 text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-200 transition-colors duration-300 cursor-pointer">
-                <Phone className="w-5 h-5 text-blue-500 dark:text-blue-400 group-hover:scale-110 group-hover:rotate-12 transition-all duration-300" />
-                <span className="relative">+1 (555) 123-4567</span>
+              <li className="group flex items-start space-x-3 text-slate-600 dark:text-slate-400 transition-colors duration-300">
+                <div className="w-8 h-8 bg-orange-100/50 dark:bg-orange-900/20 rounded-lg flex items-center justify-center mt-0.5 transition-all duration-300 group-hover:bg-orange-200/70 dark:group-hover:bg-orange-800/30">
+                  <Phone className="w-4 h-4 text-orange-500 dark:text-orange-400" />
+                </div>
+                <div>
+                  <span className="text-sm font-medium text-slate-800 dark:text-slate-200">Phone</span>
+                  <p className="text-sm">+1 (555) 123-4567</p>
+                </div>
               </li>
-              <li className="group flex items-center justify-center md:justify-start space-x-3 text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-200 transition-colors duration-300">
-                <Mail className="w-5 h-5 text-blue-500 dark:text-blue-400 group-hover:scale-110 group-hover:rotate-12 transition-all duration-300" />
-                <a href="mailto:support@techieblog.com" className="relative">
-                  support@techieblog.com
-                </a>
+              <li className="group flex items-start space-x-3 text-slate-600 dark:text-slate-400 transition-colors duration-300">
+                <div className="w-8 h-8 bg-orange-100/50 dark:bg-orange-900/20 rounded-lg flex items-center justify-center mt-0.5 transition-all duration-300 group-hover:bg-orange-200/70 dark:group-hover:bg-orange-800/30">
+                  <Mail className="w-4 h-4 text-orange-500 dark:text-orange-400" />
+                </div>
+                <div>
+                  <span className="text-sm font-medium text-slate-800 dark:text-slate-200">Email: </span>
+                  <a href="mailto:support@techieblog.com" className="text-sm hover:text-orange-500 transition-colors duration-200">
+                    support@techieblog.com
+                  </a>
+                </div>
               </li>
             </ul>
           </div>
         </div>
 
-        
-        <div className="mt-6 flex flex-col md:flex-row justify-between items-center gap-4 text-gray-600 dark:text-gray-400 ">
-          <div className="flex space-x-6">
-            <a href="https://facebook.com" target="_blank" rel="noopener noreferrer">
-              <Facebook className="w-5 h-5 hover:text-orange-500" />
-            </a>
-            <a href="https://twitter.com" target="_blank" rel="noopener noreferrer">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="w-5 h-5 hover:text-orange-500"
-                viewBox="0 0 24 24"
-                fill="currentColor"
-              >
-                <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
-              </svg>
-            </a>
-            <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer">
-              <Linkedin className="w-5 h-5 hover:text-orange-500" />
-            </a>
-            <a href="https://instagram.com" target="_blank" rel="noopener noreferrer">
-              <Instagram className="w-5 h-5 hover:text-orange-500" />
-            </a>
-          </div>
+        <div className="pt-8 border-t border-slate-200/50 dark:border-slate-700/50">
+          <div className="flex flex-col md:flex-row justify-between items-center gap-6">
+            
+            <div className="flex items-center space-x-4">
+              <p className="text-slate-600 dark:text-slate-400 font-medium">
+                © {new Date().getFullYear()} TechieBlog. All Rights Reserved.
+              </p>
+            </div>
 
-          
-          <p className="text-lg text-center md:text-left mt-2">           
-            © {new Date().getFullYear()} TechieBlog. All Rights Reserved.
-          </p>
-
-          <div className="flex items-center space-x-2 mr-5"> 
-            <UserCog className="w-8 h-8 text-gray-600 dark:text-gray-400 hover:text-orange-500 transition-colors duration-300" />
-
-            <span className="text-sm font-semibold">Contributors:</span>
-            <ContributorsLink classes="w-8 h-8 hover:scale-110 transition-transform duration-300" />
+            
           </div>
         </div>
       </div>

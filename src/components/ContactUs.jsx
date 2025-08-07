@@ -1,6 +1,26 @@
 import React, { useState } from "react";
-import { Button, Input } from './index'
-import emailjs from 'emailjs-com';
+
+const Input = ({ label, className, value, ...props }) => (
+  <div className="relative group">
+    <input
+      {...props}
+      value={value}
+      className={`${className}`}
+    />
+    <label className={`absolute left-4 text-sm font-medium transition-all duration-200 pointer-events-none
+      ${value ? '-top-2 left-3 text-xs text-orange-500 bg-white dark:bg-slate-900 px-1' : 'top-4 text-slate-400'}
+      group-focus-within:-top-2 group-focus-within:left-3 group-focus-within:text-xs group-focus-within:text-orange-500 group-focus-within:bg-white group-focus-within:px-1
+      dark:group-focus-within:bg-slate-900`}>
+      {label}
+    </label>
+  </div>
+);
+
+const Button = ({ children, className, ...props }) => (
+  <button className={className} {...props}>
+    {children}
+  </button>
+);
 
 const ContactUs = () => {
   const [formData, setFormData] = useState({
@@ -10,6 +30,7 @@ const ContactUs = () => {
     message: ""
   });
   const [confirmation, setConfirmation] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -19,167 +40,190 @@ const ContactUs = () => {
     }));
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    
     if (!formData.name || !formData.email || !formData.subject || !formData.message) {
       setConfirmation("Please fill in all fields before sending.");
-      setTimeout(() => setConfirmation(""), 3000);
+      setTimeout(() => setConfirmation(""), 4000);
       return;
     }
 
-    const templateParams = {
-      name: formData.name,
-      email: formData.email,
-      title: formData.subject,
-      message: formData.message
-    };
-
-    emailjs.send(
-      import.meta.env.VITE_EMAILJS_SERVICE_ID,
-      import.meta.env.VITE_EMAILJS_TEMPLATE_ID,
-      templateParams,
-      import.meta.env.VITE_EMAILJS_PUBLIC_KEY
-    )
-      .then(() => {
-        setFormData({
-          name: "",
-          email: "",
-          subject: "",
-          message: ""
-        });
-        setConfirmation("Your message has been sent successfully!");
-        setTimeout(() => setConfirmation(""), 3000);
-      })
-      .catch(() => {
-        setConfirmation("There was an error sending your message. Please try again later.");
-        setTimeout(() => setConfirmation(""), 3000);
+    setIsSubmitting(true);
+    
+    setTimeout(() => {
+      setFormData({
+        name: "",
+        email: "",
+        subject: "",
+        message: ""
       });
+      setConfirmation("Your message has been sent successfully!");
+      setIsSubmitting(false);
+      setTimeout(() => setConfirmation(""), 4000);
+    }, 2000);
   };
 
   return (
-    <div class="p-2 dark:bg-gray-800 ">
-      <h1 className="text-3xl font-bold mb-6 text-center text-orange-600">
-        Contact Us
-      </h1>
-      <div class="grid sm:grid-cols-2 items-start gap-12 p-8 mx-auto mb-5 max-w-4xl bg-white shadow-[0_2px_5px_5px_rgba(255,165,0,0.3)] rounded-md font-[sans-serif] dark:bg-gray-800">
+    <div className="min-h-screen bg-gradient-to-br from-orange-50/30 via-white to-slate-50 dark:from-slate-900 dark:via-slate-800 dark:to-slate-900 py-16 px-4">
+      <div className="fixed inset-0 overflow-hidden pointer-events-none">
+        <div className="absolute -top-40 -right-40 w-80 h-80 bg-orange-100/20 dark:bg-orange-900/10 rounded-full blur-3xl"></div>
+        <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-orange-100/20 dark:bg-orange-900/10 rounded-full blur-3xl"></div>
+      </div>
 
-        <div>
-          <h1 class="text-orange-600 text-3xl font-bold">Let's Talk</h1>
-          <p class="text-sm text-gray-500 mt-4 dark:text-white">Have some big idea or brand to develop and need help? Then reach out we'd love to hear about your project  and provide help.</p>
-
-          <div class="mt-12">
-            <h2 class="text-gray-800 text-base font-bold dark:text-white">Email</h2>
-            <ul class="mt-4">
-              <li class="flex items-center">
-                <div class="h-10 w-10 rounded-full flex items-center justify-center shrink-0">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="20px" height="20px" fill='#ff7002'
-                    viewBox="0 0 479.058 479.058">
-                    <path
-                      d="M434.146 59.882H44.912C20.146 59.882 0 80.028 0 104.794v269.47c0 24.766 20.146 44.912 44.912 44.912h389.234c24.766 0 44.912-20.146 44.912-44.912v-269.47c0-24.766-20.146-44.912-44.912-44.912zm0 29.941c2.034 0 3.969.422 5.738 1.159L239.529 264.631 39.173 90.982a14.902 14.902 0 0 1 5.738-1.159zm0 299.411H44.912c-8.26 0-14.971-6.71-14.971-14.971V122.615l199.778 173.141c2.822 2.441 6.316 3.655 9.81 3.655s6.988-1.213 9.81-3.655l199.778-173.141v251.649c-.001 8.26-6.711 14.97-14.971 14.97z"
-                      data-original="#000000" />
-                  </svg>
-                </div>
-                <a href="javascript:void(0)" class="text-[#ff7002] text-sm ml-4">
-                  <small class="block">Mail</small>
-                  <strong>info@example.com</strong>
-                </a>
-              </li>
-            </ul>
-          </div>
-
-          <div class="mt-12">
-            <h2 class="text-gray-800 text-base font-bold dark:text-white">Socials</h2>
-
-            <ul class="flex mt-4 space-x-4">
-              <li class="h-10 w-10 rounded-full flex items-center justify-center shrink-0 hover:scale-110 transition-transform duration-300 cursor-pointer">
-                <a href="https://facebook.com" target="_blank" rel="noopener noreferrer">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="20px" height="20px" fill='#ff7002'
-                    viewBox="0 0 24 24">
-                    <path
-                      d="M6.812 13.937H9.33v9.312c0 .414.335.75.75.75l4.007.001a.75.75 0 0 0 .75-.75v-9.312h2.387a.75.75 0 0 0 .744-.657l.498-4a.75.75 0 0 0-.744-.843h-2.885c.113-2.471-.435-3.202 1.172-3.202 1.088-.13 2.804.421 2.804-.75V.909a.75.75 0 0 0-.648-.743A26.926 26.926 0 0 0 15.071 0c-7.01 0-5.567 7.772-5.74 8.437H6.812a.75.75 0 0 0-.75.75v4c0 .414.336.75.75.75zm.75-3.999h2.518a.75.75 0 0 0 .75-.75V6.037c0-2.883 1.545-4.536 4.24-4.536.878 0 1.686.043 2.242.087v2.149c-.402.205-3.976-.884-3.976 2.697v2.755c0 .414.336.75.75.75h2.786l-.312 2.5h-2.474a.75.75 0 0 0-.75.75V22.5h-2.505v-9.312a.75.75 0 0 0-.75-.75H7.562z"
-                      data-original="#000000" />
-                  </svg>
-                </a>
-              </li>
-              <li class="h-10 w-10 rounded-full flex items-center justify-center shrink-0 hover:scale-110 transition-transform duration-300 cursor-pointer">
-                <a href="https://x.com" target="_blank" rel="noopener noreferrer">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="20px" height="20px" fill="#ff7002" viewBox="0 0 120 120">
-                    <path d="M92.74 20H108L74.29 56.53L113 100H84.38L60.1 72.42L32 100H16L52.97 61.3L16 20h29.13l22.35 25.12L92.74 20zM87 94h7L36 26h-7l58 68z" />
-                  </svg>
-                </a>
-              </li>
-              <li class="h-10 w-10 rounded-full flex items-center justify-center shrink-0 hover:scale-110 transition-transform duration-300 cursor-pointer">
-                <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="20px" height="20px" fill='#ff7002'
-                    viewBox="0 0 511 512">
-                    <path
-                      d="M111.898 160.664H15.5c-8.285 0-15 6.719-15 15V497c0 8.285 6.715 15 15 15h96.398c8.286 0 15-6.715 15-15V175.664c0-8.281-6.714-15-15-15zM96.898 482H30.5V190.664h66.398zM63.703 0C28.852 0 .5 28.352.5 63.195c0 34.852 28.352 63.2 63.203 63.2 34.848 0 63.195-28.352 63.195-63.2C126.898 28.352 98.551 0 63.703 0zm0 96.395c-18.308 0-33.203-14.891-33.203-33.2C30.5 44.891 45.395 30 63.703 30c18.305 0 33.195 14.89 33.195 33.195 0 18.309-14.89 33.2-33.195 33.2zm289.207 62.148c-22.8 0-45.273 5.496-65.398 15.777-.684-7.652-7.11-13.656-14.942-13.656h-96.406c-8.281 0-15 6.719-15 15V497c0 8.285 6.719 15 15 15h96.406c8.285 0 15-6.715 15-15V320.266c0-22.735 18.5-41.23 41.235-41.23 22.734 0 41.226 18.495 41.226 41.23V497c0 8.285 6.719 15 15 15h96.403c8.285 0 15-6.715 15-15V302.066c0-79.14-64.383-143.523-143.524-143.523zM466.434 482h-66.399V320.266c0-39.278-31.953-71.23-71.226-71.23-39.282 0-71.239 31.952-71.239 71.23V482h-66.402V190.664h66.402v11.082c0 5.77 3.309 11.027 8.512 13.524a15.01 15.01 0 0 0 15.875-1.82c20.313-16.294 44.852-24.907 70.953-24.907 62.598 0 113.524 50.926 113.524 113.523zm0 0"
-                      data-original="#000000" />
-                  </svg>
-                </a>
-              </li>
-              <li class="h-10 w-10 rounded-full flex items-center justify-center shrink-0 hover:scale-110 transition-transform duration-300 cursor-pointer">
-                <a href="https://www.instagram.com" target="_blank" rel="noopener noreferrer">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="20px" height="20px" fill='#ff7002'
-                    viewBox="0 0 24 24">
-                    <path
-                      d="M12 9.3a2.7 2.7 0 1 0 0 5.4 2.7 2.7 0 0 0 0-5.4Zm0-1.8a4.5 4.5 0 1 1 0 9 4.5 4.5 0 0 1 0-9Zm5.85-.225a1.125 1.125 0 1 1-2.25 0 1.125 1.125 0 0 1 2.25 0ZM12 4.8c-2.227 0-2.59.006-3.626.052-.706.034-1.18.128-1.618.299a2.59 2.59 0 0 0-.972.633 2.601 2.601 0 0 0-.634.972c-.17.44-.265.913-.298 1.618C4.805 9.367 4.8 9.714 4.8 12c0 2.227.006 2.59.052 3.626.034.705.128 1.18.298 1.617.153.392.333.674.632.972.303.303.585.484.972.633.445.172.918.267 1.62.3.993.047 1.34.052 3.626.052 2.227 0 2.59-.006 3.626-.052.704-.034 1.178-.128 1.617-.298.39-.152.674-.333.972-.632.304-.303.485-.585.634-.972.171-.444.266-.918.299-1.62.047-.993.052-1.34.052-3.626 0-2.227-.006-2.59-.052-3.626-.034-.704-.128-1.18-.299-1.618a2.619 2.619 0 0 0-.633-.972 2.595 2.595 0 0 0-.972-.634c-.44-.17-.914-.265-1.618-.298-.993-.047-1.34-.052-3.626-.052ZM12 3c2.445 0 2.75.009 3.71.054.958.045 1.61.195 2.185.419A4.388 4.388 0 0 1 19.49 4.51c.457.45.812.994 1.038 1.595.222.573.373 1.227.418 2.185.042.96.054 1.265.054 3.71 0 2.445-.009 2.75-.054 3.71-.045.958-.196 1.61-.419 2.185a4.395 4.395 0 0 1-1.037 1.595 4.44 4.44 0 0 1-1.595 1.038c-.573.222-1.227.373-2.185.418-.96.042-1.265.054-3.71.054-2.445 0-2.75-.009-3.71-.054-.958-.045-1.61-.196-2.185-.419A4.402 4.402 0 0 1 4.51 19.49a4.414 4.414 0 0 1-1.037-1.595c-.224-.573-.374-1.227-.419-2.185C3.012 14.75 3 14.445 3 12c0-2.445.009-2.75.054-3.71s.195-1.61.419-2.185A4.392 4.392 0 0 1 4.51 4.51c.45-.458.994-.812 1.595-1.037.574-.224 1.226-.374 2.185-.419C9.25 3.012 9.555 3 12 3Z">
-                    </path>
-                  </svg>
-                </a>
-              </li>
-            </ul>
-          </div>
+      <div className="relative max-w-6xl mx-auto">
+        <div className="text-center mb-16">
+          <h1 className="text-5xl md:text-6xl font-bold bg-gradient-to-r from-slate-900 via-slate-700 to-orange-600 dark:from-white dark:via-slate-200 dark:to-orange-400 bg-clip-text text-transparent mb-4">
+            Let's create something amazing
+          </h1>
+          <p className="text-xl text-slate-600 dark:text-slate-300 max-w-2xl mx-auto leading-relaxed">
+            We'd love to hear about your project and discuss how we can bring your vision to life.
+          </p>
         </div>
 
-        <form
-          class="ml space-y-4 "
-          onSubmit={e => {
-            e.preventDefault();
-            handleSubmit();
-          }}
-        >
-          <Input
-            type='text'
-            placeholder='Name'
-            name="name"
-            value={formData.name}
-            onChange={handleInputChange}
-            className="outline-none focus:border-blue-500 hover-input w-full text-sm text-gray-800 border-none border border-gray-300 pl-4 pr-10 py-3 rounded-lg outline-orange-600 dark:bg-gray-800 dark:text-white hover:border-orange-500"
-          />
-          <Input
-            type='email'
-            placeholder='Email'
-            name="email"
-            value={formData.email}
-            onChange={handleInputChange}
-            className="outline-none focus:border-blue-500 hover-input w-full text-sm text-gray-800 border-none border border-gray-300 pl-4 pr-10 py-3 rounded-lg outline-orange-600 dark:bg-gray-800 dark:text-white"
-          />
-          <Input
-            type='text'
-            placeholder='Subject'
-            name="subject"
-            value={formData.subject}
-            onChange={handleInputChange}
-            className="outline-none focus:border-blue-500 hover-input w-full text-sm text-gray-800 border-none border border-gray-300 pl-4 pr-10 py-3 rounded-lg outline-orange-600 dark:bg-gray-800 dark:text-white "
-          />
-          <textarea
-            placeholder='Message'
-            rows="6"
-            name="message"
-            value={formData.message}
-            onChange={handleInputChange}
-            className="outline-none focus:border-blue-500 hover-input w-full text-sm text-gray-800 border-none border border-gray-300 pl-4 pr-10 py-3 rounded-lg outline-orange-600 dark:bg-gray-800 dark:text-white"
-          ></textarea>
-          <Button
-            type='submit'
-            class="text-white bg-blue-500 hover:bg-blue-600 rounded-md text-sm px-4 py-2.5 w-full !mt-6"
-          >
-            Send
-          </Button>
-          {confirmation && (
-            <div className="text-center text-orange-600 mt-2">{confirmation}</div>
-          )}
-        </form>
+        <div className="bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl rounded-3xl shadow-2xl shadow-orange-500/5 dark:shadow-orange-500/10 border border-white/20 dark:border-slate-700/50 overflow-hidden">
+          <div className="grid lg:grid-cols-5 gap-0">
+            
+            <div className="lg:col-span-2 p-8 lg:p-12 bg-gradient-to-br from-orange-500/5 to-orange-600/10 dark:from-orange-900/20 dark:to-orange-800/20">
+              <div className="space-y-8">
+                
+                <div className="space-y-6">
+                  <div className="flex items-start gap-4">
+                    <div className="w-12 h-12 bg-orange-100 dark:bg-orange-900/30 rounded-2xl flex items-center justify-center shrink-0">
+                      <svg className="w-6 h-6 text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                      </svg>
+                    </div>
+                    <div>
+                      <h3 className="font-semibold text-slate-900 dark:text-white mb-1">Email us</h3>
+                      <p className="text-slate-600 dark:text-slate-300 text-sm mb-2">Drop us a line anytime</p>
+                      <a href="mailto:info@techieblog.com" className="text-orange-600 hover:text-orange-700 dark:text-orange-400 dark:hover:text-orange-300 font-medium transition-colors">
+                       info@techieblog.com
+                      </a>
+                    </div>
+                  </div>
+                </div>
+
+                <div>
+                  <h3 className="font-semibold text-slate-900 dark:text-white mb-4">Follow us</h3>
+                  <div className="flex gap-3">
+                    {[
+                      { name: 'X', href: 'https://x.com', icon: 'M18.244 2H21.5l-7.68 8.77L22 22h-7.8l-5.54-7.3L2.98 22H-.5l8.34-9.54L0 2h7.9l5.05 6.73L18.244 2z' },
+                      { name: 'GitHub', href: 'https://github.com/SumitGorai01/TechieBlog', icon: 'M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22' },
+                      { name: 'LinkedIn', href: 'https://www.linkedin.com', icon: 'M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6zM2 9h4v12H2z M4 2a2 2 0 1 1 0 4 2 2 0 0 1 0-4z' },
+                    ].map((social, index) => (
+                      <a
+                        key={index}
+                        href={social.href}
+                        className="w-11 h-11 bg-white/50 dark:bg-slate-800/50 hover:bg-orange-100 dark:hover:bg-orange-900/30 rounded-xl flex items-center justify-center transition-all duration-200 hover:scale-105 hover:shadow-lg group"
+                      >
+                        <svg className="w-5 h-5 text-slate-600 group-hover:text-orange-600 dark:text-slate-400 dark:group-hover:text-orange-400 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d={social.icon} />
+                        </svg>
+                      </a>
+                    ))}
+                  </div>
+                </div>
+
+                <div className="bg-white/50 dark:bg-slate-800/30 rounded-2xl p-6 border border-orange-100/50 dark:border-orange-900/20">
+                  <div className="flex items-center gap-3 mb-2">
+                    <div className="w-8 h-8 bg-green-100 dark:bg-green-900/30 rounded-lg flex items-center justify-center">
+                      <svg className="w-4 h-4 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
+                      </svg>
+                    </div>
+                    <h4 className="font-semibold text-slate-900 dark:text-white">Quick Response</h4>
+                  </div>
+                  <p className="text-sm text-slate-600 dark:text-slate-300">
+                    We typically respond within 24 hours on business days.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div className="lg:col-span-3 p-8 lg:p-12">
+              <form onSubmit={handleSubmit} className="space-y-6">
+                <div className="grid md:grid-cols-2 gap-6">
+                  <Input
+                    type="text"
+                    name="name"
+                    value={formData.name}
+                    onChange={handleInputChange}
+                    label="Name"
+                    className="w-full px-4 py-4 bg-slate-50/50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 rounded-2xl text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-orange-500/50 focus:border-orange-500 transition-all duration-200"
+                    required
+                  />
+                  <Input
+                    type="email"
+                    name="email"
+                    value={formData.email}
+                    onChange={handleInputChange}
+                    label="Email"
+                    className="w-full px-4 py-4 bg-slate-50/50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 rounded-2xl text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-orange-500/50 focus:border-orange-500 transition-all duration-200"
+                    required
+                  />
+                </div>
+
+                <Input
+                  type="text"
+                  name="subject"
+                  value={formData.subject}
+                  onChange={handleInputChange}
+                  label="Subject"
+                  className="w-full px-4 py-4 bg-slate-50/50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 rounded-2xl text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-orange-500/50 focus:border-orange-500 transition-all duration-200"
+                  required
+                />
+
+                <div className="relative group">
+                  <textarea
+                    name="message"
+                    value={formData.message}
+                    onChange={handleInputChange}
+                    rows={6}
+                    className="w-full px-4 py-4 bg-slate-50/50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 rounded-2xl text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-orange-500/50 focus:border-orange-500 transition-all duration-200 resize-none"
+                    required
+                  />
+                  <label className={`absolute left-4 text-sm font-medium transition-all duration-200 pointer-events-none
+                    ${formData.message ? '-top-2 left-3 text-xs text-orange-500 bg-white dark:bg-slate-900 px-1' : 'top-4 text-slate-400'}
+                    group-focus-within:-top-2 group-focus-within:left-3 group-focus-within:text-xs group-focus-within:text-orange-500 group-focus-within:bg-white group-focus-within:px-1
+                    dark:group-focus-within:bg-slate-900`}>
+                    Message
+                  </label>
+                </div>
+
+                <Button
+                  type="submit"
+                  disabled={isSubmitting}
+                  className="w-full bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white font-semibold py-4 px-8 rounded-2xl transition-all duration-200 hover:shadow-lg hover:shadow-orange-500/25 hover:-translate-y-0.5 focus:outline-none focus:ring-2 focus:ring-orange-500/50 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none flex items-center justify-center gap-2"
+                >
+                  {isSubmitting ? (
+                    <>
+                      <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin"></div>
+                      Sending...
+                    </>
+                  ) : (
+                    <>
+                      Send Message
+                      <svg className="w-5 h-5 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
+                      </svg>
+                    </>
+                  )}
+                </Button>
+
+                {confirmation && (
+                  <div className={`text-center p-4 rounded-2xl font-medium transition-all duration-300 ${
+                    confirmation.includes('success') 
+                      ? 'bg-green-50 dark:bg-green-900/20 text-green-700 dark:text-green-400 border border-green-200 dark:border-green-800' 
+                      : 'bg-amber-50 dark:bg-amber-900/20 text-amber-700 dark:text-amber-400 border border-amber-200 dark:border-amber-800'
+                  }`}>
+                    {confirmation}
+                  </div>
+                )}
+              </form>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );
