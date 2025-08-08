@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { useEffect } from 'react';
 import { Clock, Eye, MessageCircle, Share2, TrendingUp, Bookmark, Search, Filter, Calendar, User, ArrowRight, Zap, Globe, Smartphone, Cpu, Cloud, Shield } from 'lucide-react';
 
+const NEWS_API_KEY = import.meta.env.VITE_NEWS_API_KEY;
+
 const TechNews = () => {
 
     const categories = ["All", "AI/ML", "Hardware", "Software", "Cloud", "Automotive", "Energy"];
@@ -15,7 +17,7 @@ const TechNews = () => {
     useEffect(() => {
         const fetchLiveNews = async () => {
             try {
-               const response = await fetch(`https://newsapi.org/v2/top-headlines?category=technology&language=en&pageSize=10&apiKey=c0d62e1130ea4b69bd2a4dd41320696d`);
+               const response = await fetch(`https://newsapi.org/v2/top-headlines?category=technology&language=en&pageSize=10&apiKey=${NEWS_API_KEY}`);
                 const data = await response.json();
                 if (data.articles) {
                     const formattedArticles = data.articles.map((article, index) => ({
