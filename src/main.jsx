@@ -153,9 +153,9 @@ const router = createBrowserRouter([
       {
         path: "/change-password",
         element: (
-          <AuthLayout authentication>
+          // <AuthLayout authentication>
             <ChangePassword />
-          </AuthLayout>
+          // </AuthLayout>
         ),
       },
       {
