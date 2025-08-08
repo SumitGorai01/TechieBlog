@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
-// import parse from "html-react-parser";
+
 import Swal from 'sweetalert2';
 import { format, formatDistanceToNow } from "date-fns";
 import { ArrowLeft, Calendar, Clock, Share2, User, Heart, Send, Bookmark } from "lucide-react";
@@ -58,12 +58,11 @@ export default function Post() {
   
         setPost(fetchedPost);
   
-        // Fetch author name properly
         const user = await authService.getUserNameById(fetchedPost.userId);
         console.log("User:", user);
         
         if (user) {
-          setAuthor(user); // Only setting the name, not whole object
+          setAuthor(user); 
         } else {
           setAuthor("Unknown Author");
         }
@@ -103,7 +102,7 @@ export default function Post() {
 
         if (!result.isConfirmed) return;
 
-        // Call the service method
+     
         const response = await appwriteService.saveForLater(userData.$id, post.$id);
 
         if (response) {
@@ -124,7 +123,7 @@ export default function Post() {
 useEffect(() => {
   async function getsaveForLater(userId) {
     try {
-      if (!post || !userId) return; // ✅ prevent null access
+      if (!post || !userId) return;
 
       console.log(`Fetching savedForLater posts for userId: ${userId}`);
       
@@ -143,10 +142,10 @@ useEffect(() => {
     getsaveForLater(userData.$id);
   }
 }, [userData?.$id, post?.$id]);
- // Ensure effect runs only when IDs are available
+
 
   useEffect(() => {
-    // Check if this post is saved in localStorage (for non-logged-in users)
+    
     if (post && post.$id) {
       const saved = JSON.parse(localStorage.getItem("savedBlogs") || "[]");
       setIsSavedLocal(saved.includes(post.$id));
@@ -279,7 +278,7 @@ useEffect(() => {
                 <span>Updated {formatDistanceToNow(new Date(post.$updatedAt), { addSuffix: true })}</span>
               </div>
             </div>
-            {/* Read Time & Word Count */}
+           
             <div className="flex items-center gap-3 text-xs text-gray-500 dark:text-gray-400 mt-2">
               <span className="flex items-center gap-1"><Clock className="w-4 h-4" /> {readTime} min read</span>
               <span className="flex items-center gap-1">· ✍️ {wordCount} words</span>
