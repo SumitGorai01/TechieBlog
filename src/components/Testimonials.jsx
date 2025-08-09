@@ -205,9 +205,11 @@ const Testimonials = () => {
         <div className="text-center mt-16">
           <div className="relative inline-block">
             <div className="absolute inset-0 bg-gradient-to-r from-orange-400 to-red-400 rounded-2xl blur-xl opacity-20 animate-pulse"></div>
-            <button className="relative px-8 py-4 bg-gradient-to-r from-orange-600 to-red-600 rounded-2xl text-white font-semibold text-lg transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:shadow-orange-500/25">
-              Join Our Community
-            </button>
+            <Link to="/chatbox">
+              <button className="relative px-8 py-4 bg-gradient-to-r from-orange-600 to-red-600 rounded-2xl text-white font-semibold text-lg transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:shadow-orange-500/25">
+                Join Our Community
+              </button>
+            </Link>
           </div>
 
           <p className="mt-4 text-sm text-gray-600 dark:text-gray-400">
