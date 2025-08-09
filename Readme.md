@@ -66,7 +66,7 @@ TechieBlog is a blogging platform that allows users to create, read, update, and
 - **Database**: Appwrite Database
 - **Authentication**: Appwrite Authentication
 - **Link**: [Click Here](https://techie-blogs.vercel.app/)
-![techie-blog](image.png)
+![techie-blog](./public/images/5.png)
 
 <img src="https://www.animatedimages.org/data/media/562/animated-line-image-0184.gif" width="100%" />
 
