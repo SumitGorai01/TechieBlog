@@ -15,6 +15,7 @@ import {
   Calendar,
   Bookmark,
   Newspaper,
+  LayoutDashboard,
 } from "lucide-react";
 import Logo from "../Logo";
 import Searchbar from "./Searchbar.jsx";
@@ -37,6 +38,7 @@ function Header() {
   const navItems = [
     { name: "Login", slug: "/login", active: !authStatus, icon: LogIn },
     { name: "Signup", slug: "/signup", active: !authStatus, icon: UserPlus },
+    { name: "Dashboard", slug: "/dashboard", active: !authStatus, icon: LayoutDashboard },
     { name: "All Posts", slug: "/all-posts", active: authStatus, icon: Files },
     { name: "Add Post", slug: "/add-post", active: authStatus, icon: FileEdit },
     { name: "Saved Blogs", slug: "/saved-blogs", active: authStatus, icon: Bookmark },
@@ -68,7 +70,7 @@ function Header() {
           {!authStatus && (
             <ul className="hidden md:flex flex-grow justify-center items-center gap-2">
               {navItems
-                .filter((item) => item.active && item.name !== "Login" && item.name !== "Signup")
+                .filter((item) => item.active && !["Login", "Signup", "Dashboard"].includes(item.name))
                 .map((item) => (
                   <li key={item.name}>
                     <NavLink to={item.slug} onClick={handleNavigation}>
@@ -125,25 +127,46 @@ function Header() {
               </div>
             </button>
 
-            {!authStatus &&
-              navItems
-                .filter((item) => item.name === "Login" || item.name === "Signup")
-                .map((item) => (
-                  <NavLink
-                    key={item.name}
-                    to={item.slug}
-                    className={({ isActive }) =>
-                      `group hidden sm:inline-flex items-center gap-2 px-5 py-2.5 rounded-xl font-semibold text-sm transition-all duration-200 hover:scale-105 ${
-                        item.name === "Signup"
-                          ? "bg-gradient-to-r from-orange-500 to-orange-600 text-white shadow-lg hover:shadow-orange-200 dark:hover:shadow-orange-900/50 hover:from-orange-600 hover:to-orange-700"
-                          : `${isActive ? "bg-orange-100 dark:bg-gray-700" : ""} text-orange-600 dark:text-orange-300 hover:bg-orange-100 dark:hover:bg-gray-700 border border-orange-200 dark:border-orange-800 shadow-sm hover:shadow-md`
-                      }`
-                    }
-                  >
-                    <span>{item.name}</span>
-                    <item.icon size={18} className="transition-transform duration-200 group-hover:scale-110" />
-                  </NavLink>
-                ))}
+            {!authStatus && (
+              <>
+                {/* Login Button */}
+                <NavLink
+                  to="/login"
+                  className={({ isActive }) =>
+                    `group hidden sm:inline-flex items-center gap-2 px-5 py-2.5 rounded-xl font-semibold text-sm transition-all duration-200 hover:scale-105 ${
+                      isActive ? "bg-orange-100 dark:bg-gray-700" : ""
+                    } text-orange-600 dark:text-orange-300 hover:bg-orange-100 dark:hover:bg-gray-700 border border-orange-200 dark:border-orange-800 shadow-sm hover:shadow-md`
+                  }
+                >
+                  <span>Login</span>
+                  <LogIn size={18} className="transition-transform duration-200 group-hover:scale-110" />
+                </NavLink>
+
+                {/* Signup Button */}
+                <NavLink
+                  to="/signup"
+                  className="group hidden sm:inline-flex items-center gap-2 px-5 py-2.5 rounded-xl font-semibold text-sm transition-all duration-200 hover:scale-105 bg-gradient-to-r from-orange-500 to-orange-600 text-white shadow-lg hover:shadow-orange-200 dark:hover:shadow-orange-900/50 hover:from-orange-600 hover:to-orange-700"
+                >
+                  <span>Signup</span>
+                  <UserPlus size={18} className="transition-transform duration-200 group-hover:scale-110" />
+                </NavLink>
+
+                {/* Dashboard Button */}
+                <NavLink
+                  to="/userdashboard"
+                  className={({ isActive }) =>
+                    `group hidden sm:inline-flex items-center gap-2 px-5 py-2.5 rounded-xl font-semibold text-sm transition-all duration-200 hover:scale-105 ${
+                      isActive 
+                        ? "bg-gradient-to-r from-orange-500 to-orange-600 text-white shadow-lg" 
+                        : "bg-gradient-to-r from-orange-500 to-orange-600 text-white shadow-lg hover:shadow-blue-200 dark:hover:shadow-orange-900/50 hover:from-orange-600 hover:to-orange-700"
+                    }`
+                  }
+                >
+                  <span>Dashboard</span>
+                  <LayoutDashboard size={18} className="transition-transform duration-200 group-hover:scale-110" />
+                </NavLink>
+              </>
+            )}
 
             {authStatus && (
               <>
