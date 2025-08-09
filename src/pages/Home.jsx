@@ -248,7 +248,7 @@ function Home() {
               <Loading />
             </div>
           ) : (
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 3xl:grid-cols-5 4xl:grid-cols-6 gap-8">
               {posts.map((post, index) => (
                 <div 
                   key={post.$id} 
