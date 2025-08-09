@@ -19,7 +19,7 @@ export class AuthService {
         this.databases = new Databases(this.client);
     }
 
-  async createAccount({ email, password, name}) {
+    async createAccount({ email, password, name }) {
         try {
             // ✅ Step 1: Create User in Authentication
             const userAccount = await this.account.create(ID.unique(), email, password, name);
@@ -40,9 +40,9 @@ export class AuthService {
             // ✅ Step 3: Send Verification Email
             const session = await this.account.createEmailPasswordSession(email, password);
             console.log("Temporary Session Created:", session);
-            
+
             await this.account.createVerification(`${baseLink}/verify-email`);
-            
+
             // ✅ Step 4: Clean Up Session
             await this.account.deleteSessions();
 
@@ -57,7 +57,7 @@ export class AuthService {
             throw error;
         }
     }
-  async createAccountwitbio({ email, password, name, bio = "", social = {} }) {
+    async createAccountwitbio({ email, password, name, bio = "", social = {} }) {
         try {
             // ✅ Step 1: Create User in Authentication
             const userAccount = await this.account.create(ID.unique(), email, password, name);
@@ -80,9 +80,9 @@ export class AuthService {
             // ✅ Step 3: Send Verification Email
             const session = await this.account.createEmailPasswordSession(email, password);
             console.log("Temporary Session Created:", session);
-            
+
             await this.account.createVerification(`${baseLink}/verify-email`);
-            
+
             // ✅ Step 4: Clean Up Session
             await this.account.deleteSessions();
 
@@ -98,7 +98,7 @@ export class AuthService {
         }
     }
 
-    
+
 
     async login({ email, password }) {
         try {
@@ -203,9 +203,11 @@ export class AuthService {
 
     async resetPassword(email) {
         try {
+            const redirectUrl = `${window.location.origin}/forgot-password`;
+            
             return await this.account.createRecovery(
                 email,
-                `${window.location.origin}/reset-password`
+                `${redirectUrl}`
             );
         } catch (error) {
             console.error("Appwrite service :: resetPassword :: error", error);
