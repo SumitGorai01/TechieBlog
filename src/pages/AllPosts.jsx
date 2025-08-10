@@ -35,8 +35,13 @@ function AllPosts() {
         {loading ? (
           <Loading />
         ) : (
+// <<<<<<< post-card
           <div className="max-w-[1500px] mx-auto px-4 sm:px-6 lg:px-4">
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-5">
+// =======
+//           <div className='w-full mx-auto px-4 sm:px-6 lg:px-8'>
+//           <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-5 justify-items-center'>
+// >>>>>>> main
               {posts.length === 0 ? (
                 <div className="col-span-full text-center py-10">
                   <p className="text-xl text-gray-600 dark:text-gray-400">
