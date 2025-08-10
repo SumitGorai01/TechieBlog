@@ -27,8 +27,7 @@ const PostCard = ({ $id, title, featuredImage, $createdAt, userId, content }) =>
           const name = await authService.getUserNameById(userId);
           setAuthorName(name);
         }
-      } catch (error) {
-        console.error("Error fetching author:", error);
+      } catch {
         setAuthorName("Unknown User");
       }
     };
@@ -57,31 +56,31 @@ const PostCard = ({ $id, title, featuredImage, $createdAt, userId, content }) =>
 
   return (
     <motion.div
-      whileHover={{ y: -5 }}
-      transition={{ duration: 0.3 }}
-      className="group cursor-pointer"
+      whileHover={{ y: -4 }}
+      transition={{ duration: 0.25 }}
+      className="group cursor-pointer h-[400px]" // Fixed height for all cards
     >
       <Link
         to={`/post/${$id}`}
-        className="bg-white/80 dark:bg-slate-800/80 backdrop-blur-sm rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 border border-slate-200/50 dark:border-slate-700/50 h-full flex flex-col"
+        className="bg-white dark:bg-slate-800 rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 border border-slate-200 dark:border-slate-700 flex flex-col h-full"
       >
         {/* Image Section */}
-        <div className="relative overflow-hidden">
+        <div className="relative h-[180px] overflow-hidden">
           <img
             src={appwriteService.getFileView(featuredImage, 400, 240)}
             alt={title}
-            className="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-500"
+            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
           />
         </div>
 
         {/* Content */}
-        <div className="p-6 flex flex-col flex-grow">
-          <h3 className="text-lg font-bold text-slate-900 dark:text-slate-100 mb-3 group-hover:text-orange-600 dark:group-hover:text-orange-400 transition-colors line-clamp-2">
+        <div className="p-5 flex flex-col flex-grow">
+          <h3 className="text-lg font-semibold text-slate-900 dark:text-slate-100 mb-2 group-hover:text-orange-600 dark:group-hover:text-orange-400 transition-colors line-clamp-2">
             {title}
           </h3>
 
           {/* Read Time & Word Count */}
-          <div className="flex items-center gap-3 text-xs text-slate-500 dark:text-slate-400 mb-4">
+          <div className="flex items-center gap-3 text-xs text-slate-500 dark:text-slate-400 mb-3">
             <span className="flex items-center gap-1">
               <Clock className="w-4 h-4" /> {readTime} min read
             </span>
@@ -89,33 +88,44 @@ const PostCard = ({ $id, title, featuredImage, $createdAt, userId, content }) =>
           </div>
 
           {/* Author & Date */}
-          <div className="flex items-center justify-between mt-auto">
+          <div className="flex items-center justify-between text-sm mt-auto">
             <Link
               to={`/profile/${userId}`}
-              className="flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 hover:text-orange-500 dark:hover:text-orange-400"
+              className="flex items-center gap-2 text-slate-600 dark:text-slate-400 hover:text-orange-500 dark:hover:text-orange-400 transition-colors"
             >
               <User className="w-4 h-4" />
-              <span>{authorName}</span>
+              <span className="truncate max-w-[120px]">{authorName}</span>
             </Link>
-            <span className="text-xs text-slate-500 dark:text-slate-400">
+            <span className="text-xs text-slate-500 dark:text-slate-400 whitespace-nowrap">
               {formatDistanceToNow(new Date($createdAt), { addSuffix: true })}
             </span>
           </div>
 
           {/* Actions */}
-          <div className="flex items-center justify-between mt-4 pt-4 border-t border-slate-200 dark:border-slate-700">
+          <div className="flex items-center justify-between mt-4 pt-3 border-t border-slate-200 dark:border-slate-700">
             <button
               onClick={handleSave}
-              className={`p-2 rounded-lg transition-colors ${
+              className={`flex items-center gap-1 px-3 py-1.5 rounded-lg text-sm transition-colors ${
                 isSaved
                   ? "bg-orange-100 dark:bg-orange-900/20 text-orange-500"
                   : "hover:bg-orange-100 dark:hover:bg-orange-900/20 text-slate-500 hover:text-orange-500"
               }`}
             >
               <BookmarkPlus className="w-4 h-4" />
+              {isSaved ? "Saved" : "Save"}
             </button>
-            <button className="p-2 hover:bg-orange-100 dark:hover:bg-orange-900/20 rounded-lg transition-colors text-slate-500 hover:text-orange-500">
-              <Share2 className="w-4 h-4" />
+            <button
+              className="flex items-center gap-1 px-3 py-1.5 hover:bg-orange-100 dark:hover:bg-orange-900/20 rounded-lg transition-colors text-slate-500 hover:text-orange-500 text-sm"
+              onClick={(e) => {
+                e.preventDefault();
+                navigator.share?.({
+                  title,
+                  text: title,
+                  url: window.location.origin + `/post/${$id}`,
+                });
+              }}
+            >
+              <Share2 className="w-4 h-4" /> Share
             </button>
           </div>
         </div>
