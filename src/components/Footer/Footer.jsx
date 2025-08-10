@@ -50,9 +50,9 @@ const Footer = () => {
     script1.src = import.meta.env.VITE_BOTPRESS_SCRIPT_1;
     script1.defer = true;
 
-    const script2 = document.createElement('script');
-    script2.src = import.meta.env.VITE_BOTPRESS_SCRIPT_2;
-    script2.defer = true;
+const script2 = document.createElement('script');
+script2.src = import.meta.env.VITE_BOTPRESS_SCRIPT_2;
+script2.defer = true;
 
     document.body.appendChild(script1);
     document.body.appendChild(script2);
@@ -63,39 +63,60 @@ const Footer = () => {
     };
   }, []);
 
-  const handleNavigation = (path) => {
-    window.scrollTo(0, 0);
-    navigate(path);
+const handleNavigation = (path) => {
+  window.scrollTo(0, 0);
+  navigate(path);
+};
+  
   };
 
   return (
     <footer className="relative bg-gradient-to-br from-slate-50 via-orange-50/30 to-slate-100 dark:from-slate-900 dark:via-slate-800 dark:to-black overflow-hidden">
       <div className="absolute inset-0 opacity-5">
         <div className="absolute inset-0 bg-gradient-to-r from-orange-400/20 to-amber-400/20"></div>
-        <div className="absolute inset-0" style={{
-          backgroundImage: `radial-gradient(circle at 20% 50%, rgba(251, 146, 60, 0.1) 0%, transparent 50%), 
+        <div
+          className="absolute inset-0"
+          style={{
+            backgroundImage: `radial-gradient(circle at 20% 50%, rgba(251, 146, 60, 0.1) 0%, transparent 50%), 
                            radial-gradient(circle at 80% 20%, rgba(251, 146, 60, 0.1) 0%, transparent 50%),
-                           radial-gradient(circle at 40% 80%, rgba(251, 146, 60, 0.1) 0%, transparent 50%)`
-        }}></div>
+                           radial-gradient(circle at 40% 80%, rgba(251, 146, 60, 0.1) 0%, transparent 50%)`,
+          }}
+        ></div>
       </div>
 
       <div className="relative max-w-7xl mx-auto px-6 py-8">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
-          
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-4">
           <div className="space-y-6 md:col-span-1">
             <div className="flex items-center space-x-2">
               <Logo />
             </div>
             <p className="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">
               Bridging the gap between knowledge and action, TechieBlog fuels
-              tech enthusiasts and developers with insights to thrive in the digital age.
+              tech enthusiasts and developers with insights to thrive in the
+              digital age.
             </p>
             <div className="flex space-x-3">
               {[
-                { icon: Facebook, href: "https://facebook.com", color: "hover:text-blue-500" },
-                { icon: Linkedin, href: "https://linkedin.com", color: "hover:text-blue-600" },
-                { icon: Instagram, href: "https://instagram.com", color: "hover:text-pink-500" },
-                { icon: FaDiscord, href: "https://discord.gg/zkdUgR94", color: "hover:text-purple-500" },
+                {
+                  icon: Facebook,
+                  href: "https://facebook.com",
+                  color: "hover:text-blue-500",
+                },
+                {
+                  icon: Linkedin,
+                  href: "https://linkedin.com",
+                  color: "hover:text-blue-600",
+                },
+                {
+                  icon: Instagram,
+                  href: "https://instagram.com",
+                  color: "hover:text-pink-500",
+                },
+                {
+                  icon: FaDiscord,
+                  href: "https://discord.gg/zkdUgR94",
+                  color: "hover:text-purple-500",
+                },
               ].map((social, index) => (
                 <a
                   key={index}
@@ -105,7 +126,9 @@ const Footer = () => {
                   className="group"
                 >
                   <div className="w-10 h-10 bg-white/80 dark:bg-slate-800/80 backdrop-blur-sm border border-slate-200/50 dark:border-slate-700/50 rounded-xl flex items-center justify-center transition-all duration-300 group-hover:scale-110 group-hover:shadow-lg group-hover:shadow-orange-500/20 group-hover:border-orange-300">
-                    <social.icon className={`w-4 h-4 text-slate-500 dark:text-slate-400 transition-colors duration-300 ${social.color}`} />
+                    <social.icon
+                      className={`w-4 h-4 text-slate-500 dark:text-slate-400 transition-colors duration-300 ${social.color}`}
+                    />
                   </div>
                 </a>
               ))}
@@ -115,7 +138,9 @@ const Footer = () => {
           <div className="space-y-6">
             <div className="flex items-center space-x-2">
               <div className="w-1 h-6 bg-gradient-to-b from-orange-400 to-orange-600 rounded-full"></div>
-              <h3 className="text-lg font-bold text-slate-800 dark:text-slate-200">Company</h3>
+              <h3 className="text-lg font-bold text-slate-800 dark:text-slate-200">
+                Company
+              </h3>
             </div>
             <ul className="space-y-3">
               {[
@@ -144,7 +169,9 @@ const Footer = () => {
           <div className="space-y-6">
             <div className="flex items-center space-x-2">
               <div className="w-1 h-6 bg-gradient-to-b from-orange-400 to-orange-600 rounded-full"></div>
-              <h3 className="text-lg font-bold text-slate-800 dark:text-slate-200">Support</h3>
+              <h3 className="text-lg font-bold text-slate-800 dark:text-slate-200">
+                Support
+              </h3>
             </div>
             <ul className="space-y-3">
               {[
@@ -173,34 +200,50 @@ const Footer = () => {
           <div className="space-y-6">
             <div className="flex items-center space-x-2">
               <div className="w-1 h-6 bg-gradient-to-b from-orange-400 to-orange-600 rounded-full"></div>
-              <h3 className="text-lg font-bold text-slate-800 dark:text-slate-200">Get in Touch</h3>
+              <h3 className="text-lg font-bold text-slate-800 dark:text-slate-200">
+                Get in Touch
+              </h3>
             </div>
-            <ul className="space-y-4">
+            <ul className="space-y-2">
               <li className="group flex items-start space-x-3 text-slate-600 dark:text-slate-400 transition-colors duration-300">
-                <div className="w-8 h-8 bg-orange-100/50 dark:bg-orange-900/20 rounded-lg flex items-center justify-center mt-0.5 transition-all duration-300 group-hover:bg-orange-200/70 dark:group-hover:bg-orange-800/30">
+                <div className="w-8 h-8 bg-orange-100/50 dark:bg-orange-900/20 rounded-lg flex items-center justify-center mt-0.5  transition-all duration-300 group-hover:bg-orange-200/70 dark:group-hover:bg-orange-800/30">
                   <MapPin className="w-4 h-4 text-orange-500 dark:text-orange-400" />
                 </div>
                 <div>
-                  <span className="text-sm font-medium text-slate-800 dark:text-slate-200">Address</span>
-                  <p className="text-sm">123 Tech Street, Digital City</p>
+                  <span className="text-sm font-medium text-slate-800 dark:text-slate-200">
+                    Address
+                  </span>
+                  <p className="text-sm">Tech Park, Digital City, India</p>
                 </div>
               </li>
               <li className="group flex items-start space-x-3 text-slate-600 dark:text-slate-400 transition-colors duration-300">
-                <div className="w-8 h-8 bg-orange-100/50 dark:bg-orange-900/20 rounded-lg flex items-center justify-center mt-0.5 transition-all duration-300 group-hover:bg-orange-200/70 dark:group-hover:bg-orange-800/30">
+                <div className="w-8 h-8 bg-orange-100/50 dark:bg-orange-900/20 rounded-lg flex items-center justify-center mt-0.5  transition-all duration-300 group-hover:bg-orange-200/70 dark:group-hover:bg-orange-800/30">
                   <Phone className="w-4 h-4 text-orange-500 dark:text-orange-400" />
                 </div>
                 <div>
-                  <span className="text-sm font-medium text-slate-800 dark:text-slate-200">Phone</span>
-                  <p className="text-sm">+1 (555) 123-4567</p>
+                  <span className="text-sm font-medium text-slate-800 dark:text-slate-200">
+                    Phone : { " "}
+                  </span><a
+                    href="tel:+15551234567"
+                    className="text-sm hover:text-orange-500 transition-colors duration-200"
+                  >
+                    +1 (555) 123-4567
+                  </a>
+                  {/* <p className="text-sm">+1 (555) 123-4567</p> */}
                 </div>
               </li>
               <li className="group flex items-start space-x-3 text-slate-600 dark:text-slate-400 transition-colors duration-300">
-                <div className="w-8 h-8 bg-orange-100/50 dark:bg-orange-900/20 rounded-lg flex items-center justify-center mt-0.5 transition-all duration-300 group-hover:bg-orange-200/70 dark:group-hover:bg-orange-800/30">
+                <div className="w-8 h-8 bg-orange-100/50 dark:bg-orange-900/20 rounded-lg flex items-center justify-center  transition-all duration-300 group-hover:bg-orange-200/70 dark:group-hover:bg-orange-800/30">
                   <Mail className="w-4 h-4 text-orange-500 dark:text-orange-400" />
                 </div>
                 <div>
-                  <span className="text-sm font-medium text-slate-800 dark:text-slate-200">Email: </span>
-                  <a href="mailto:support@techieblog.com" className="text-sm hover:text-orange-500 transition-colors duration-200">
+                  <span className="text-sm font-medium text-slate-800 dark:text-slate-200">
+                    Email:{" "}
+                  </span>
+                  <a
+                    href="mailto:sumitgr7479@gmail.com"
+                    className="text-sm mt-1 hover:text-orange-500 transition-colors duration-200"
+                  >
                     support@techieblog.com
                   </a>
                 </div>
@@ -209,25 +252,21 @@ const Footer = () => {
           </div>
         </div>
 
-        <div className="pt-8 border-t border-slate-200/50 dark:border-slate-700/50">
+        <div className="pt-6 border-t border-slate-200/50 dark:border-slate-700/50">
           <div className="flex flex-col md:flex-row justify-between items-center gap-6">
-            
             <div className="flex items-center space-x-4">
               <p className="text-slate-600 dark:text-slate-400 font-medium">
                 © {new Date().getFullYear()} TechieBlog. All Rights Reserved.
               </p>
             </div>
-
-            
           </div>
         </div>
       </div>
 
       <div className="fixed bottom-20 right-6 z-50">
-        <script src="https://cdn.botpress.cloud/webchat/v3.2/inject.js" defer></script>
-        <script src="https://files.bpcontent.cloud/2025/08/09/18/20250809180041-F5Z71XWG.js" defer></script>
+<script src="https://cdn.botpress.cloud/webchat/v3.2/inject.js" defer></script>
+<script src="https://files.bpcontent.cloud/2025/08/09/18/20250809180041-F5Z71XWG.js" defer></script>
       </div>
-
 
       <div
         id="scrollButton"
