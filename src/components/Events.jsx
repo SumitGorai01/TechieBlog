@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Bookmark, Calendar, Clock, Plus, ArrowRight, Sparkles, Users, MapPin, X, Mail, User, Phone, CheckCircle } from 'lucide-react';
 
 const Events = () => {
@@ -128,6 +128,18 @@ const Events = () => {
             default: return 'bg-gray-100 text-gray-800 border-gray-200';
         }
     };
+
+    useEffect(() => {
+        if(showRegistrationDialog) {
+            document.body.style.overflow = "hidden";
+        } else {
+            document.body.style.overflow = "";
+        }
+
+        return() => {
+            document.body.style.overflow = "";
+        };
+    }, [showRegistrationDialog]);
 
     return (
         <div className="min-h-screen bg-gradient-to-br from-orange-50 via-amber-50 to-white dark:from-gray-900 dark:via-gray-800 dark:to-gray-900">
