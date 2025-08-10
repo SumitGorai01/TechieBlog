@@ -203,7 +203,7 @@ export class AuthService {
 
     async resetPassword(email) {
         try {
-            const redirectUrl = `${window.location.origin}/forgot-password`;
+            const redirectUrl = `${window.location.origin}/reset-password`;
             
             return await this.account.createRecovery(
                 email,
