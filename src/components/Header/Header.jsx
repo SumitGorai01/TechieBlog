@@ -14,6 +14,7 @@ import {
   Phone,
   Calendar,
   Bookmark,
+  Newspaper,
 } from "lucide-react";
 import Logo from "../Logo";
 import Searchbar from "./Searchbar.jsx";
@@ -24,6 +25,7 @@ import LightModeIcon from "@mui/icons-material/LightMode";
 import { toggleTheme } from "../../store/themeSlice";
 import Sidebar from "./Sidebar.jsx";
 import { Menu, X } from "lucide-react";
+import { icon } from "@fortawesome/fontawesome-svg-core";
 
 function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -43,6 +45,7 @@ function Header() {
     { name: "About Us", slug: "/about-us", active: true, icon: Info },
     { name: "Events", slug: "/events", active: true, icon: Calendar },
     { name: "Contact Us", slug: "/contact-us", active: true, icon: Phone },
+    { name: "News" , slug: "/news" , active: true, icon: Newspaper}
   ];
 
   const handleNavigation = () => {

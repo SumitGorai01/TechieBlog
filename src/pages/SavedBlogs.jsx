@@ -70,8 +70,8 @@ export default function SavedBlogs() {
             <span>No blogs saved yet. Click the <span className="inline-block align-middle"><svg width="20" height="20" fill="currentColor" className="inline text-orange-500"><path d="M5 3a2 2 0 0 0-2 2v12a1 1 0 0 0 1.447.894L10 16.118l5.553 1.776A1 1 0 0 0 17 17V5a2 2 0 0 0-2-2H5zm0 2h10v11.382l-4.553-1.455a1 1 0 0 0-.894 0L5 16.382V5z"/></svg></span> icon on any blog to save it for later!</span>
           </div>
         ) : (
-          <div className="max-w-[1500px] mx-auto px-4 sm:px-6 lg:px-4">
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-5 justify-items-center">
+          <div className="w-full mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-5 justify-items-center">
               {posts.map((post) => (
                 <div key={post.$id} className="flex justify-center transform hover:-translate-y-1 transition-transform duration-300">
                   <PostCard {...post} />
@@ -87,8 +87,8 @@ export default function SavedBlogs() {
             <span>No events saved yet. Click the <span className="inline-block align-middle"><svg width="20" height="20" fill="currentColor" className="inline text-orange-500"><path d="M5 3a2 2 0 0 0-2 2v12a1 1 0 0 0 1.447.894L10 16.118l5.553 1.776A1 1 0 0 0 17 17V5a2 2 0 0 0-2-2H5zm0 2h10v11.382l-4.553-1.455a1 1 0 0 0-.894 0L5 16.382V5z"/></svg></span> icon on any event to save it for later!</span>
           </div>
         ) : (
-          <div className="max-w-[1500px] mx-auto px-4 sm:px-6 lg:px-4">
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-5 justify-items-center">
+          <div className="w-full mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-5 justify-items-center">
               {savedEventObjects.map((event, idx) => (
                 <div key={event.title} className="flex flex-col justify-center items-start bg-white dark:bg-gray-800 rounded-xl shadow-md p-6 w-full sm:w-96 border-2 border-orange-200 dark:border-gray-700">
                   <h3 className="text-xl font-bold text-orange-600 dark:text-orange-400 mb-2">{event.title}</h3>

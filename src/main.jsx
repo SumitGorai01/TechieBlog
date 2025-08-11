@@ -50,6 +50,7 @@ const Verify = lazy(() => import("./pages/Verify.jsx"));
 const AddEvent = lazy(() => import("./components/AddEvent.jsx"));
 const AddComment = lazy(() => import("./components/AddComment.jsx"));
 const Articles = lazy(()=> import("./pages/Articles.jsx") )
+const News = lazy(() => import("./pages/News.jsx"))
 const router = createBrowserRouter([
   {
     path: "/",
@@ -64,7 +65,6 @@ const router = createBrowserRouter([
         element: (
           <AuthLayout authentication={false}>
             <Login />
-            //{" "}
           </AuthLayout>
         ),
       },
@@ -73,7 +73,6 @@ const router = createBrowserRouter([
         element: (
           <AuthLayout authentication={false}>
             <Verify />
-            //{" "}
           </AuthLayout>
         ),
       },
@@ -82,7 +81,6 @@ const router = createBrowserRouter([
         element: (
           <AuthLayout authentication={false}>
             <Signup />
-            //{" "}
           </AuthLayout>
         ),
       },
@@ -91,7 +89,6 @@ const router = createBrowserRouter([
         element: (
           <AuthLayout authentication={false}>
             <ForgotPassword />
-            //{" "}
           </AuthLayout>
         ),
       },
@@ -100,7 +97,6 @@ const router = createBrowserRouter([
         element: (
           <AuthLayout authentication={false}>
             <ResetPassword />
-            //{" "}
           </AuthLayout>
         ),
       },
@@ -109,7 +105,6 @@ const router = createBrowserRouter([
         element: (
           <AuthLayout authentication>
             <AllPosts />
-            //{" "}
           </AuthLayout>
         ),
       },
@@ -118,7 +113,6 @@ const router = createBrowserRouter([
         element: (
           <AuthLayout authentication>
             <AddPost />
-            //{" "}
           </AuthLayout>
         ),
       },
@@ -127,7 +121,6 @@ const router = createBrowserRouter([
         element: (
           <AuthLayout authentication>
             <AddComment />
-            //{" "}
           </AuthLayout>
         ),
       },
@@ -136,7 +129,6 @@ const router = createBrowserRouter([
         element: (
           <AuthLayout authentication>
             <EditPost />
-            //{" "}
           </AuthLayout>
         ),
       },
@@ -145,7 +137,6 @@ const router = createBrowserRouter([
         element: (
           <AuthLayout authentication>
             <Settings />
-            //{" "}
           </AuthLayout>
         ),
       },
@@ -162,7 +153,6 @@ const router = createBrowserRouter([
         element: (
           <AuthLayout authentication>
             <Profile />
-            //{" "}
           </AuthLayout>
         ),
       },
@@ -230,6 +220,10 @@ const router = createBrowserRouter([
         path: "/articles",
         element: <Articles />,
       },
+      {
+        path: "/news",
+        element: <News />,
+      }
     ],
   },
 ]);
