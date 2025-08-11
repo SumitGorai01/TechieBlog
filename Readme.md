@@ -66,7 +66,7 @@ TechieBlog is a blogging platform that allows users to create, read, update, and
 - **Database**: Appwrite Database
 - **Authentication**: Appwrite Authentication
 - **Link**: [Click Here](https://techie-blogs.vercel.app/)
-- ![techie-blog](https://github.com/user-attachments/assets/d010c27b-1b1e-4eea-999c-f9d0c9433f86)
+![techie-blog](./public/images/5.png)
 
 <img src="https://www.animatedimages.org/data/media/562/animated-line-image-0184.gif" width="100%" />
 
@@ -111,21 +111,26 @@ If you don’t have an Appwrite account, follow these steps:
 
     Create a .env file in the root directory and replace the following with .env.sample 
 
-    ```bash
-    VITE_APPWRITE_URL=""
-    VITE_APPWRITE_PROJECT_ID=""
-    VITE_APPWRITE_DATABASE_ID=""
-    VITE_APPWRITE_USER_COLLECTION_ID=""
-    VITE_APPWRITE_COLLECTION_ID=""
-    VITE_APPWRITE_COMMENT_COLLECTION_ID=""
-    VITE_APPWRITE_BUCKET_ID=""
-    VITE_APPWRITE_SAVEFORLATER_COLLECTION_ID=""
-    VITE_APPWRITE_EVENT_ID=""
-    VITE_APPWRITE_REGISTRATION_COLLECTION_ID=""
-    VITE_BASE_LINK=http://localhost:5173
-    VITE_API_KEY=""
+    ```bash    
+    VITE_APPWRITE_URL = "https://cloud.appwrite.io/v1"
+    # VITE_APPWRITE_URL=https://fra.cloud.appwrite.io/v1
     VITE_APPWRITE_PROJECT_ID = ""
-    VITE_APPWRITE_ENDPOINT = ""
+    VITE_APPWRITE_DATABASE_ID = ""
+    VITE_APPWRITE_COLLECTION_ID = ""
+    VITE_APPWRITE_BUCKET_ID = ""
+    VITE_API_KEY = ""
+    VITE_APPWRITE_COMMENT_COLLECTION_ID = ""
+    # VITE_BASE_LINK = 'https://techie-blogs.vercel.app/'
+    VITE_BASE_LINK = 'http://localhost:5173/'
+    VITE_APPWRITE_USER_COLLECTION_ID = ""
+    VITE_APPWRITE_EVENT_ID=""
+    VITE_APPWRITE_SAVEFORLATER_COLLECTION_ID=""
+    VITE_EMAILJS_SERVICE_ID=""
+    VITE_EMAILJS_TEMPLATE_ID = ""
+    VITE_EMAILJS_PUBLIC_KEY = ""
+    VITE_EMAILJS_SERVICE_ID_FEEDBACK = ""
+    VITE_EMAILJS_TEMPLATE_ID_FEEDBACK =""
+    VITE_EMAILJS_PUBLIC_KEY_FEEDBACK =""
     ```
     
 7. Start the application:
@@ -162,13 +167,16 @@ To contribute to the TechieBlog project, you need to set up your own Appwrite in
     - Click on Create Collection.
     - Name it (e.g., Comments) and configure permissions.
 
-![Overall Database](./public/images/1.png)
-![Article Schema](./public/images/2.png)
+Overall Database![Overall Database](./public/images/overall.jpg)
+Article Schema![alt text](./public/images/article.png)
 
-![Comment Schema](./public/images/3.png)
-![Permissions](./public/images/4.png)
+Comment Schema![Comment Schema](./public/images/comment.jpg)
+Events![event](./public/images/event.jpg)
+savedForLater![savedForLater](./public/images/saved.png)
+users![users](./public/images/users.jpg)
+Permissions![Permissions](./public/images/permision.jpg)
 
-4. Set Up Storage
+1. Set Up Storage
     - In your project dashboard, go to the Storage section.
     - Click on Create Bucket.
     - Name your bucket (e.g., BlogImages) and configure permissions (e.g., read/write access for users).
