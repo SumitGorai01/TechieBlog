@@ -65,7 +65,6 @@ const router = createBrowserRouter([
         element: (
           <AuthLayout authentication={false}>
             <Login />
-            //{" "}
           </AuthLayout>
         ),
       },
@@ -74,7 +73,6 @@ const router = createBrowserRouter([
         element: (
           <AuthLayout authentication={false}>
             <Verify />
-            //{" "}
           </AuthLayout>
         ),
       },
@@ -83,7 +81,6 @@ const router = createBrowserRouter([
         element: (
           <AuthLayout authentication={false}>
             <Signup />
-            //{" "}
           </AuthLayout>
         ),
       },
@@ -92,7 +89,6 @@ const router = createBrowserRouter([
         element: (
           <AuthLayout authentication={false}>
             <ForgotPassword />
-            //{" "}
           </AuthLayout>
         ),
       },
@@ -101,7 +97,6 @@ const router = createBrowserRouter([
         element: (
           <AuthLayout authentication={false}>
             <ResetPassword />
-            //{" "}
           </AuthLayout>
         ),
       },
@@ -110,7 +105,6 @@ const router = createBrowserRouter([
         element: (
           <AuthLayout authentication>
             <AllPosts />
-            //{" "}
           </AuthLayout>
         ),
       },
@@ -119,7 +113,6 @@ const router = createBrowserRouter([
         element: (
           <AuthLayout authentication>
             <AddPost />
-            //{" "}
           </AuthLayout>
         ),
       },
@@ -128,7 +121,6 @@ const router = createBrowserRouter([
         element: (
           <AuthLayout authentication>
             <AddComment />
-            //{" "}
           </AuthLayout>
         ),
       },
@@ -137,7 +129,6 @@ const router = createBrowserRouter([
         element: (
           <AuthLayout authentication>
             <EditPost />
-            //{" "}
           </AuthLayout>
         ),
       },
@@ -146,7 +137,6 @@ const router = createBrowserRouter([
         element: (
           <AuthLayout authentication>
             <Settings />
-            //{" "}
           </AuthLayout>
         ),
       },
@@ -163,7 +153,6 @@ const router = createBrowserRouter([
         element: (
           <AuthLayout authentication>
             <Profile />
-            //{" "}
           </AuthLayout>
         ),
       },
