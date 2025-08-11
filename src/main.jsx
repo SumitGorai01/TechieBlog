@@ -51,6 +51,7 @@ const AddEvent = lazy(() => import("./components/AddEvent.jsx"));
 const AddComment = lazy(() => import("./components/AddComment.jsx"));
 const Articles = lazy(()=> import("./pages/Articles.jsx") )
 const News = lazy(() => import("./pages/News.jsx"))
+const Chatbox = lazy(() => import("./pages/Chatbox.jsx"))
 const router = createBrowserRouter([
   {
     path: "/",
@@ -230,6 +231,10 @@ const router = createBrowserRouter([
       {
         path: "/articles",
         element: <Articles />,
+      },
+       {
+        path: "/chatbox",
+        element: <Chatbox />,
       },
       {
         path: "/news",
