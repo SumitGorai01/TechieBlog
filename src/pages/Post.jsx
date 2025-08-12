@@ -238,7 +238,6 @@ export default function Post() {
     <div className="min-h-screen bg-gradient-to-br from-orange-50/30 via-white to-orange-50/20 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900">
       <Container>
         <div className="py-8 max-w-5xl mx-auto">
-          {/* Back Button */}
           <motion.button
             onClick={() => navigate(-1)}
             className="mb-8 group flex items-center gap-3 px-4 py-2 rounded-xl bg-white/70 dark:bg-gray-800/70 backdrop-blur-sm shadow-sm hover:shadow-md border border-orange-100 dark:border-gray-700 text-gray-700 hover:text-orange-600 dark:text-gray-300 dark:hover:text-orange-400 transition-all duration-200"
@@ -255,7 +254,6 @@ export default function Post() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, ease: "easeOut" }}
           >
-            {/* Featured Image */}
             <div className="relative overflow-hidden">
               <motion.img
                 src={appwriteService.getFileView(post.featuredImage)}
@@ -267,7 +265,6 @@ export default function Post() {
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent" />
               
-              {/* Floating Save Button */}
               <motion.button
                 onClick={handleSaveLocal}
                 aria-label={isSavedLocal ? "Remove from Saved" : "Save for Later"}
@@ -287,9 +284,7 @@ export default function Post() {
               </motion.button>
             </div>
 
-            {/* Post Content */}
             <div className="p-8 lg:p-12">
-              {/* Meta Information */}
               <div className="flex flex-wrap items-center gap-6 mb-6">
                 <motion.div 
                   className="flex items-center gap-3 px-4 py-2 rounded-full bg-orange-50 dark:bg-orange-900/20 border border-orange-200/50 dark:border-orange-800/50"
@@ -324,7 +319,6 @@ export default function Post() {
                 </div>
               </div>
 
-              {/* Title */}
               <motion.h1 
                 className="text-4xl lg:text-5xl font-bold mb-8 bg-gradient-to-r from-gray-900 via-gray-800 to-orange-800 dark:from-white dark:via-gray-200 dark:to-orange-300 bg-clip-text text-transparent leading-tight"
                 initial={{ opacity: 0, y: 20 }}
@@ -334,7 +328,6 @@ export default function Post() {
                 {post.title}
               </motion.h1>
 
-              {/* Content */}
               <motion.div
                 className="prose prose-lg dark:prose-invert max-w-none prose-headings:text-gray-900 dark:prose-headings:text-gray-100 prose-p:text-gray-700 dark:prose-p:text-gray-300 prose-a:text-orange-600 dark:prose-a:text-orange-400 prose-code:text-orange-600 dark:prose-code:text-orange-400 prose-pre:bg-gray-50 dark:prose-pre:bg-gray-900"
                 initial={{ opacity: 0 }}
@@ -345,7 +338,6 @@ export default function Post() {
               </motion.div>
             </div>
 
-            {/* Actions Bar */}
             <motion.div 
               className="px-8 lg:px-12 py-6 bg-gradient-to-r from-orange-50/50 via-white/50 to-orange-50/50 dark:from-gray-800/50 dark:via-gray-700/50 dark:to-gray-800/50 border-t border-orange-100 dark:border-gray-600"
               initial={{ opacity: 0, y: 20 }}
@@ -354,7 +346,6 @@ export default function Post() {
             >
               <div className="flex flex-wrap items-center justify-between gap-4">
                 <div className="flex items-center gap-4">
-                  {/* Share Button */}
                   <motion.button
                     onClick={sharePost}
                     className="flex items-center gap-2 px-4 py-2 rounded-xl bg-white dark:bg-gray-800 shadow-sm hover:shadow-md border border-gray-200 dark:border-gray-600 text-gray-600 dark:text-gray-400 hover:text-orange-600 dark:hover:text-orange-400 transition-all duration-200"
@@ -365,7 +356,6 @@ export default function Post() {
                     <span className="text-sm font-medium">Share</span>
                   </motion.button>
 
-                  {/* Like Button */}
                   {userData && (
                     <motion.button
                       onClick={handleLike}
@@ -387,14 +377,12 @@ export default function Post() {
                     </motion.button>
                   )}
 
-                  {/* Comments Indicator */}
                   <div className="flex items-center gap-2 px-4 py-2 rounded-xl bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-600 text-gray-600 dark:text-gray-400">
                     <MessageCircle className="w-4 h-4" />
                     <span className="text-sm font-medium">Comments</span>
                   </div>
                 </div>
 
-                {/* Author Actions */}
                 {isAuthor && (
                   <div className="flex items-center gap-3">
                     <Link
@@ -436,7 +424,6 @@ export default function Post() {
             </motion.div>
           </motion.article>
 
-          {/* Comments Section */}
           <motion.div 
             className="mt-12"
             initial={{ opacity: 0, y: 20 }}
