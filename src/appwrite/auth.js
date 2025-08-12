@@ -259,6 +259,21 @@ export class AuthService {
         }
     }
 
+        async getCoreUserById(userId) {
+        try {
+            const currentUser = await this.account.get();
+            if (!userId || userId === currentUser.$id) {
+                return currentUser;
+            } else {
+                return null;
+            }
+        } catch (error) {
+            console.error("Error in getCoreUserById:", error);
+            return null;
+        }
+    }
+
+
     // User Socials
     async updateUserSocial(userId, social) {
         try {
