@@ -1,9 +1,6 @@
 import React, { useEffect, useRef } from "react";
 import { NavLink, Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { toggleTheme } from "../../store/themeSlice";
-import DarkModeIcon from "@mui/icons-material/DarkMode";
-import LightModeIcon from "@mui/icons-material/LightMode";
 import {
   Files,
   FileEdit,
@@ -13,6 +10,7 @@ import {
   Phone,
   Calendar,
   Bookmark,
+  X,
 } from "lucide-react";
 import Logo from "../Logo";
 
@@ -32,7 +30,7 @@ function Sidebar({ isOpen, setIsOpen }) {
   const dispatch = useDispatch();
   const sidebarRef = useRef(null);
 
-  // ⛳ Close on outside click
+  // Close on outside click
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (sidebarRef.current && !sidebarRef.current.contains(event.target)) {
@@ -62,70 +60,66 @@ function Sidebar({ isOpen, setIsOpen }) {
   return (
     <>
       {isOpen && (
-        <div className="fixed inset-0 z-40 bg-black/30 backdrop-blur-sm transition-opacity duration-300">
-          
+        <div className="fixed inset-0 z-40 bg-black/20 backdrop-blur-sm transition-all duration-300">
           <div
             ref={sidebarRef}
-            className="fixed  top-[46vh] left-[80vw]  sm:top-[46vh] sm:left-[80vw] lg:top-[46vh] lg:left-[87vw] -translate-x-1/2 -translate-y-1/2 
-                       w-11/12 sm:w-64 md:w-72 lg:w-80 max-h-[85vh] overflow-y-auto 
-                       bg-white dark:bg-[#1e1e1e] rounded-2xl shadow-xl 
-                       p-6 z-50 animate-slide-in"
+            className="fixed top-0 right-0 h-full w-80 max-w-[85vw] 
+                       bg-white/95 dark:bg-gray-900/95 backdrop-blur-xl
+                       border-l border-orange-100/50 dark:border-orange-900/20
+                       shadow-2xl z-50 transform translate-x-0 transition-transform duration-300"
           >
-            {/* Logo */}
-            <div className="flex justify-center mb-6">
+            <div className="flex items-center justify-between p-6 border-b border-orange-100/30 dark:border-orange-900/20">
               <Link to="/" onClick={() => setIsOpen(false)}>
-                <Logo width={50} />
+                <Logo width={40} />
               </Link>
+              <button
+                onClick={() => setIsOpen(false)}
+                className="p-2 rounded-full hover:bg-orange-50/50 dark:hover:bg-orange-900/20 
+                           transition-colors duration-200"
+              >
+                <X size={20} className="text-gray-600 dark:text-gray-300" />
+              </button>
             </div>
 
-            {/* Navigation */}
-            <ul className="space-y-3">
-              {navItems.map((item) => (
-                <li key={item.name}>
+            <div className="flex-1 overflow-y-auto p-6">
+              <nav className="space-y-2">
+                {navItems.map((item) => (
                   <NavLink
+                    key={item.name}
                     to={item.slug}
                     onClick={() => setIsOpen(false)}
                     className={({ isActive }) =>
-                      `flex items-center gap-3 px-4 py-2 rounded-xl font-medium 
+                      `group flex items-center gap-3 px-4 py-3 rounded-xl 
                       transition-all duration-200 ${
                         isActive
-                          ? "bg-orange-100 dark:bg-gray-700 shadow-md"
-                          : "hover:bg-orange-50 dark:hover:bg-gray-800"
-                      } text-orange-600 dark:text-orange-300`
+                          ? "bg-gradient-to-r from-orange-50 to-orange-100/50 dark:from-orange-900/30 dark:to-orange-800/20 text-orange-700 dark:text-orange-300 border border-orange-200/50 dark:border-orange-700/30"
+                          : "text-gray-700 dark:text-gray-300 hover:bg-orange-50/30 dark:hover:bg-orange-900/10 hover:text-orange-600 dark:hover:text-orange-400"
+                      }`
                     }
                   >
-                    <item.icon size={18} />
-                    {item.name}
+                    <item.icon 
+                      size={18} 
+                      className="transition-colors duration-200" 
+                    />
+                    <span className="font-medium">{item.name}</span>
                   </NavLink>
-                </li>
-              ))}
-              <li>
+                ))}
+                
                 <Link
                   to="/saved-blogs"
                   onClick={() => setIsOpen(false)}
-                  className="flex items-center gap-3 px-4 py-2 rounded-xl font-medium 
-                             hover:bg-orange-50 dark:hover:bg-gray-800 
-                             text-orange-600 dark:text-orange-300 transition-all"
+                  className="group flex items-center gap-3 px-4 py-3 rounded-xl 
+                           text-gray-700 dark:text-gray-300 hover:bg-orange-50/30 
+                           dark:hover:bg-orange-900/10 hover:text-orange-600 
+                           dark:hover:text-orange-400 transition-all duration-200"
                 >
-                  <Bookmark size={18} />
-                  Saved Blogs
+                  <Bookmark size={18} className="transition-colors duration-200" />
+                  <span className="font-medium">Saved Blogs</span>
                 </Link>
-              </li>
-            </ul>
+              </nav>
+            </div>
 
-            {/* Theme Toggle
-            <div className="mt-6">
-              <button
-                onClick={() => dispatch(toggleTheme())}
-                className="w-full flex items-center justify-center gap-2 px-4 py-2 
-                           rounded-full font-semibold transition-all 
-                           bg-orange-100 dark:bg-gray-700 hover:bg-orange-200 
-                           dark:hover:bg-gray-600 text-orange-600 dark:text-orange-300"
-              >
-                {darkMode ? <LightModeIcon /> : <DarkModeIcon />}
-                Toggle Theme
-              </button>
-            </div> */}
+            
           </div>
         </div>
       )}
