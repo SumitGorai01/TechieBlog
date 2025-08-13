@@ -231,7 +231,7 @@ const Footer = () => {
                 },
                 {
                   icon: FaDiscord,
-                  href: "https://discord.gg/zkdUgR94",
+                  href: "https://discord.gg/CQgK8742",
                   color: "hover:text-purple-500",
                 },
               ].map((social, index) => (

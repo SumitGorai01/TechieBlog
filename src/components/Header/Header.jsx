@@ -174,7 +174,8 @@ function Header() {
 
             {!authStatus &&
               navItems
-                .filter((item) => item.name === "Login" || item.name === "Signup")
+                // .filter((item) => item.name === "Login" || item.name === "Signup")
+                .filter((item) => item.name === "Signup")
                 .map((item) => (
                   <NavLink
                     key={item.name}
