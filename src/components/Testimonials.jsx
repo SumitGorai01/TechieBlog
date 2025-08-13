@@ -32,10 +32,10 @@ const testimonials = [
     name: "Meet the Contributors",
     role: "Meet the brilliant minds who brought this project to life!",
     content: (
-  <Link to="/contributors" className="block">
-    <ContributorsLink classes="w-16 h-16" />
-  </Link>
-),
+      <Link to="/contributors" className="block">
+        <ContributorsLink classes="w-16 h-16" />
+      </Link>
+    ),
     rating: 5,
     image:
       "https://i.fbcd.co/products/resized/resized-750-500/l014e-21-e05-mainpreview-bf38f61424a9008541dde17dd5ec374266c8a8602da2c55a92e4874ac7bfdf8a.jpg",
@@ -110,9 +110,7 @@ const Testimonials = () => {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          
-              
-              {testimonials.map((testimonial, index) => (
+          {testimonials.map((testimonial, index) => (
             <div
               key={testimonial.id}
               className="group relative cursor-pointer"
@@ -205,9 +203,11 @@ const Testimonials = () => {
         <div className="text-center mt-16">
           <div className="relative inline-block">
             <div className="absolute inset-0 bg-gradient-to-r from-orange-400 to-red-400 rounded-2xl blur-xl opacity-20 animate-pulse"></div>
-            <button className="relative px-8 py-4 bg-gradient-to-r from-orange-600 to-red-600 rounded-2xl text-white font-semibold text-lg transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:shadow-orange-500/25">
-              Join Our Community
-            </button>
+            <a href="https://discord.gg/CQgK8742" target="_new">
+              <button className="relative px-8 py-4 bg-gradient-to-r from-orange-600 to-red-600 rounded-2xl text-white font-semibold text-lg transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:shadow-orange-500/25">
+                Join Our Community
+              </button>
+            </a>
           </div>
 
           <p className="mt-4 text-sm text-gray-600 dark:text-gray-400">

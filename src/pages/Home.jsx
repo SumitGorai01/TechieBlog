@@ -123,7 +123,7 @@ function Home() {
                   </div>
 
                   {isSubscribed ? (
-                    <div className="text-center py-8 animate-fade-in">
+                    <div className="text-center py-8 animate-fade-in" id="sub">
                       <div className="inline-flex items-center justify-center w-20 h-20 mb-4 bg-gradient-to-r from-green-400 to-emerald-400 rounded-full shadow-lg">
                         <svg className="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" d="M5 13l4 4L19 7" />
@@ -237,12 +237,12 @@ function Home() {
           </div>
           
           <h1 className="text-7xl md:text-8xl lg:text-9xl font-black mb-8 leading-none tracking-tighter">
-            <span className="block bg-gradient-to-r from-gray-900 via-orange-700 to-red-700 dark:from-white dark:via-orange-300 dark:to-red-300 bg-clip-text text-transparent">
-              Latest
+            <span className="block bg-gradient-to-r from-gray-900 via-orange-700 to-red-700 dark:from-white dark:via-orange-300 dark:to-red-300 bg-clip-text text-transparent pb-2">
+              Latest  Insights
             </span>
-            <span className="block bg-gradient-to-r from-orange-600 via-red-600 to-orange-800 dark:from-orange-400 dark:via-red-400 dark:to-orange-500 bg-clip-text text-transparent">
+            {/* <span className="block bg-gradient-to-r from-orange-600 via-red-600 to-orange-800 dark:from-orange-400 dark:via-red-400 dark:to-orange-500 bg-clip-text text-transparent">
               Insights
-            </span>
+            </span> */}
           </h1>
           
           <p className="text-2xl md:text-3xl text-gray-600 dark:text-gray-300 max-w-4xl mx-auto font-light leading-relaxed">

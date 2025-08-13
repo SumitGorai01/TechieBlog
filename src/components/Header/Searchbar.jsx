@@ -29,7 +29,7 @@ function Searchbar() {
   }
 
   return (
-    <div className="flex justify-center w-full">
+    <div className="hidden sm:flex justify-center w-full">
       <form
         onSubmit={handleSubmit}
         className="relative group w-full max-w-2xl"
