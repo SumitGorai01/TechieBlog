@@ -23,14 +23,12 @@ function AllPosts() {
     fetchPosts();
   }, []);
 
-  // Debug log in dev mode
   if (import.meta.env.MODE === "development") {
     console.log("posts", posts);
   }
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-orange-100 via-orange-50 to-amber-100 dark:from-gray-900 dark:via-gray-800 dark:to-orange-950 relative overflow-hidden">
-      {/* Glassmorphism Background Elements */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <div className="absolute -top-40 -right-40 w-80 h-80 rounded-full bg-gradient-to-br from-orange-300/30 to-amber-400/20 blur-3xl animate-pulse"></div>
         <div className="absolute top-1/4 -left-32 w-64 h-64 rounded-full bg-gradient-to-br from-orange-400/25 to-red-300/15 blur-3xl animate-pulse delay-1000"></div>
@@ -46,7 +44,6 @@ function AllPosts() {
           </div>
         ) : (
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 lg:py-12 relative z-10">
-            {/* Glassmorphism Header Section */}
             <div className="text-center mb-12">
               <div className="backdrop-blur-xl bg-white/30 dark:bg-black/30 rounded-3xl p-8 md:p-12 border border-white/40 dark:border-white/10 shadow-2xl mx-auto max-w-4xl">
                 <div className="inline-flex items-center justify-center w-20 h-20 rounded-2xl bg-gradient-to-br from-orange-400/80 to-orange-600/80 backdrop-blur-sm shadow-xl mb-8 border border-white/30">
@@ -73,7 +70,6 @@ function AllPosts() {
                   Discover and explore our collection of amazing content.
                 </p>
                 
-                {/* Glassmorphic decorative line */}
                 <div className="flex items-center justify-center mt-8">
                   <div className="h-px bg-gradient-to-r from-transparent via-orange-400/60 to-transparent w-24 backdrop-blur-sm"></div>
                   <div className="w-3 h-3 rounded-full bg-gradient-to-br from-orange-400 to-orange-600 mx-6 shadow-lg border border-white/30"></div>
@@ -82,7 +78,6 @@ function AllPosts() {
               </div>
             </div>
 
-            {/* Posts Grid with Glassmorphism */}
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 lg:gap-8">
               {posts.length === 0 ? (
                 <div className="col-span-full">
@@ -126,7 +121,6 @@ function AllPosts() {
               )}
             </div>
 
-            {/* Glassmorphic Bottom Stats */}
             {posts.length > 0 && (
               <div className="mt-16">
                 <div className="backdrop-blur-xl bg-white/20 dark:bg-black/20 rounded-2xl p-2 border border-white/30 dark:border-white/10 shadow-xl text-center max-w-sm mx-auto">
