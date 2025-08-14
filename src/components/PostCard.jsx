@@ -80,7 +80,7 @@ const PostCard = ({ $id, title, featuredImage, $createdAt, userId, content }) =>
               className={`flex items-center gap-1 px-2 py-1.5 rounded-lg text-sm backdrop-blur-md bg-white/80 dark:bg-slate-800/80 transition-colors ${
                 isSaved
                   ? "text-orange-500"
-                  : "text-slate-600 hover:text-orange-500"
+                  : "text-slate-600 dark:text-slate-200 hover:text-orange-500"
               }`}
             >
               <BookmarkPlus className="w-4 h-4" />
@@ -97,7 +97,7 @@ const PostCard = ({ $id, title, featuredImage, $createdAt, userId, content }) =>
                   url: window.location.origin + `/post/${$id}`,
                 });
               }}
-              className="flex items-center gap-1 px-2 py-1.5 rounded-lg text-sm backdrop-blur-md bg-white/80 dark:bg-slate-800/80 text-slate-600 hover:text-orange-500 transition-colors"
+              className="flex items-center gap-1 px-2 py-1.5 rounded-lg text-sm backdrop-blur-md bg-white/80 dark:bg-slate-800/80 text-slate-600 dark:text-slate-200 hover:text-orange-500 transition-colors"
             >
               <Share2 className="w-4 h-4" /> 
             </button>
