@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import appwriteService from "../appwrite/config";
+import newsletterService from "../appwrite/newsletter";
 import { Container, PostCard, Testimonials } from "../components";
 import Loading from "../components/loaders/Loading.jsx";
 import { Link } from "react-router-dom";
@@ -11,6 +12,8 @@ function Home() {
   const [loading, setLoading] = useState(true);
   const [email, setEmail] = useState("");
   const [isSubscribed, setIsSubscribed] = useState(false);
+  const [isSubscribing, setIsSubscribing] = useState(false);
+  const [subscriptionError, setSubscriptionError] = useState("");
 
   useEffect(() => {
     const fetchPosts = async () => {
@@ -31,14 +34,31 @@ function Home() {
     fetchPosts();
   }, []);
 
-  const handleSubscribe = (e) => {
+  const handleSubscribe = async (e) => {
     e.preventDefault();
-    if (email.trim()) {
+    if (!email.trim()) return;
+
+    setIsSubscribing(true);
+    setSubscriptionError("");
+
+    try {
+      await newsletterService.subscribeToNewsletter(email.trim());
       setIsSubscribed(true);
       setEmail("");
+
+      // Reset success message after 5 seconds
       setTimeout(() => {
         setIsSubscribed(false);
-      }, 3000);
+      }, 5000);
+    } catch (error) {
+      setSubscriptionError(error.message || "Failed to subscribe. Please try again.");
+
+      // Clear error message after 5 seconds
+      setTimeout(() => {
+        setSubscriptionError("");
+      }, 5000);
+    } finally {
+      setIsSubscribing(false);
     }
   };
 
@@ -133,11 +153,19 @@ function Home() {
                         Welcome Aboard! 🚀
                       </h3>
                       <p className="text-gray-600 dark:text-white/70">
-                        You're now part of the TechieBlog community
+                        You&apos;re now part of the TechieBlog community! Check your email for confirmation.
                       </p>
                     </div>
                   ) : (
                     <div className="space-y-6">
+                      {subscriptionError && (
+                        <div className="p-4 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-xl">
+                          <p className="text-red-600 dark:text-red-400 text-sm font-medium text-center">
+                            {subscriptionError}
+                          </p>
+                        </div>
+                      )}
+
                       <form onSubmit={handleSubscribe} className="space-y-4">
                         <div className="relative">
                           <input
@@ -147,12 +175,21 @@ function Home() {
                             placeholder="your.email@domain.com"
                             className="w-full px-6 py-5 bg-gray-50 dark:bg-white/10 backdrop-blur-sm border border-gray-200 dark:border-white/20 rounded-2xl text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-white/50 text-lg focus:outline-none focus:ring-4 focus:ring-orange-500/30 focus:border-orange-400 dark:focus:border-orange-400/50 transition-all duration-300"
                             required
+                            disabled={isSubscribing}
                           />
                           <button
                             type="submit"
-                            className="absolute right-2 top-2 bottom-2 px-6 bg-gradient-to-r from-orange-600 to-red-600 rounded-xl text-white font-semibold transition-all duration-300 hover:scale-105 active:scale-95 shadow-lg"
+                            disabled={isSubscribing}
+                            className="absolute right-2 top-2 bottom-2 px-6 bg-gradient-to-r from-orange-600 to-red-600 rounded-xl text-white font-semibold transition-all duration-300 hover:scale-105 active:scale-95 shadow-lg disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
                           >
-                            Subscribe
+                            {isSubscribing ? (
+                              <div className="flex items-center gap-2">
+                                <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+                                <span>Subscribing...</span>
+                              </div>
+                            ) : (
+                              "Subscribe"
+                            )}
                           </button>
                         </div>
                       </form>
