@@ -24,6 +24,7 @@ import {
   Maximize2,
   Sparkles,
   ChevronUp,
+  Users as UsersIcon,
 } from "lucide-react";
 import Logo from "../Logo";
 import ContributorsLink from "../contributors/contributorsLink";
@@ -216,6 +217,7 @@ const Footer = () => {
                 { name: "About Us", path: "/about-us", icon: Info },
                 { name: "Feedback", path: "/feedback", icon: MessageCircle },
                 { name: "Events", path: "/events", icon: CalendarDays },
+                { name: "Our Team", path: "/team", icon: UsersIcon },
               ].map((item) => (
                 <li key={item.name}>
                   <button

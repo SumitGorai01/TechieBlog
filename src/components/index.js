@@ -15,6 +15,7 @@ import Select from './Select'
 import ForgotPassword from './ForgotPassword'
 import ResetPassword from './ResetPassword'
 import Testimonials from './Testimonials'
+import Team from './Team'
 
 export {
     Header,
@@ -33,5 +34,6 @@ export {
     Select,
     ForgotPassword,
     ResetPassword,
-    Testimonials
+    Testimonials,
+     Team  ,
 }

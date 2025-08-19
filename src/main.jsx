@@ -49,7 +49,10 @@ const Register = lazy(() => import("./components/Register.jsx"));
 const Verify = lazy(() => import("./pages/Verify.jsx"));
 const AddEvent = lazy(() => import("./components/AddEvent.jsx"));
 const AddComment = lazy(() => import("./components/AddComment.jsx"));
-const Articles = lazy(()=> import("./pages/Articles.jsx") )
+const Articles = lazy(()=> import("./pages/Articles.jsx") );
+const Team = lazy(() => import("./components/Team.jsx"));
+
+
 const router = createBrowserRouter([
   {
     path: "/",
@@ -230,6 +233,12 @@ const router = createBrowserRouter([
         path: "/articles",
         element: <Articles />,
       },
+      {
+  path: "/team",
+  element: <Team />,
+},
+
+      
     ],
   },
 ]);
