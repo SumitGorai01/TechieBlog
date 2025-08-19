@@ -5,6 +5,7 @@ import Loading from "../components/loaders/Loading.jsx";
 import { Link } from "react-router-dom";
 import LoginIcon from "@mui/icons-material/Login";
 import { TypeAnimation } from "react-type-animation";
+import Counter from "../components/Counter.jsx";
 
 function Home() {
   const [posts, setPosts] = useState([]);
@@ -176,15 +177,15 @@ function Home() {
                      
                       <div className="grid grid-cols-3 gap-4 mt-8">
                         <div className="text-center">
-                          <div className="text-2xl font-bold text-gray-900 dark:text-white">500+</div>
+                          <div className="text-2xl font-bold text-gray-900 dark:text-white"><Counter target={500} duration={3} suffix="+"/></div>
                           <div className="text-gray-600 dark:text-white/60 text-sm">Articles</div>
                         </div>
                         <div className="text-center">
-                          <div className="text-2xl font-bold text-gray-900 dark:text-white">50K+</div>
+                          <div className="text-2xl font-bold text-gray-900 dark:text-white"><Counter target={50} duration={3} suffix="K+"/></div>
                           <div className="text-gray-600 dark:text-white/60 text-sm">Readers</div>
                         </div>
                         <div className="text-center">
-                          <div className="text-2xl font-bold text-gray-900 dark:text-white">4.9★</div>
+                          <div className="text-2xl font-bold text-gray-900 dark:text-white"><Counter target={4.9} duration={3} suffix="★"/></div>
                           <div className="text-gray-600 dark:text-white/60 text-sm">Rating</div>
                         </div>
                       </div>
