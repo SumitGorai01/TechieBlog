@@ -3,12 +3,27 @@ import { Button, Input, Logo } from "./index";
 import authService from "../appwrite/auth";
 import { useForm } from "react-hook-form";
 import Swal from "sweetalert2";
+import { useState, useEffect } from "react";
 
 function ForgotPassword() {
     const navigate = useNavigate();
-    const { register, handleSubmit, formState: { errors, isSubmitting } } = useForm();
+    const { register, handleSubmit, formState: { errors } } = useForm();
+    const [isSubmitting, setIsSubmitting] = useState(false);
+    const [cooldown, setCooldown] = useState(0);
+
+    // cooldown countdown effect
+    useEffect(() => {
+        if (cooldown > 0) {
+            const timer = setTimeout(() => setCooldown(cooldown - 1), 1000);
+            return () => clearTimeout(timer);
+        }
+    }, [cooldown]);
 
     const forgotPassword = async (data) => {
+        if (cooldown > 0) return; // prevent extra clicks during cooldown
+        setIsSubmitting(true);
+        setCooldown(3); // start cooldown
+
         try {
             const session = await authService.resetPassword(data.email);
 
@@ -43,6 +58,8 @@ function ForgotPassword() {
                     popup: 'rounded-2xl shadow-2xl border border-red-100 dark:border-red-900/20'
                 }
             });
+        } finally {
+            setIsSubmitting(false);
         }
     };
 
@@ -104,25 +121,39 @@ function ForgotPassword() {
                             )}
                         </div>
 
-                        <Button
-                            type="submit"
-                            disabled={isSubmitting}
-                            className="w-full bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 disabled:from-orange-400 disabled:to-orange-500 text-white font-semibold py-3.5 px-6 rounded-xl shadow-lg hover:shadow-orange-500/25 focus:outline-none focus:ring-4 focus:ring-orange-500/20 transition-all duration-200 transform hover:scale-[1.02] active:scale-[0.98] disabled:cursor-not-allowed disabled:transform-none"
-                        >
-                            {isSubmitting ? (
-                                <div className="flex items-center justify-center gap-3">
-                                    <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin"></div>
-                                    Sending Reset Link...
-                                </div>
-                            ) : (
-                                <div className="flex items-center justify-center gap-2">
-                                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                                    </svg>
-                                    Send Reset Link
-                                </div>
+                        <div className="flex flex-col items-center">
+                            <Button
+                                type="submit"
+                                disabled={isSubmitting || cooldown > 0}
+                                className="w-full bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 disabled:from-orange-400 disabled:to-orange-500 text-white font-semibold py-3.5 px-6 rounded-xl shadow-lg hover:shadow-orange-500/25 focus:outline-none focus:ring-4 focus:ring-orange-500/20 transition-all duration-200 transform hover:scale-[1.02] active:scale-[0.98] disabled:cursor-not-allowed disabled:transform-none"
+                            >
+                                {isSubmitting ? (
+                                    <div className="flex items-center justify-center gap-3">
+                                        <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin"></div>
+                                        Sending Reset Link...
+                                    </div>
+                                ) : cooldown > 0 ? (
+                                    <div className="flex items-center justify-center gap-2">
+                                        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                                        </svg>
+                                        Send Reset Link
+                                    </div>
+                                ) : (
+                                    <div className="flex items-center justify-center gap-2">
+                                        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                                        </svg>
+                                        Send Reset Link
+                                    </div>
+                                )}
+                            </Button>
+                            {cooldown > 0 && (
+                                <p className="mt-2 text-sm text-gray-500 dark:text-gray-400">
+                                    Wait {cooldown}s
+                                </p>
                             )}
-                        </Button>
+                        </div>
                     </form>
 
                     {/* Footer */}

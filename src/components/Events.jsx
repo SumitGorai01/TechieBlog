@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Bookmark, Calendar, Clock, Plus, ArrowRight, Sparkles, Users, MapPin } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
+import { Bookmark, Calendar, Clock, Plus, ArrowRight, Sparkles, Users, MapPin, X, Mail, User, Phone, CheckCircle } from 'lucide-react';
 
 const Events = () => {
     const events = [
@@ -46,6 +46,17 @@ const Events = () => {
 
     const [savedEvents, setSavedEvents] = useState([]);
     const [activeFilter, setActiveFilter] = useState('All');
+    const [showRegistrationDialog, setShowRegistrationDialog] = useState(false);
+    const [selectedEvent, setSelectedEvent] = useState(null);
+    const [showConfirmation, setShowConfirmation] = useState(false);
+    const [formData, setFormData] = useState({
+        firstName: '',
+        lastName: '',
+        email: '',
+        phone: '',
+        experience: '',
+        expectations: ''
+    });
 
     const filters = ['All', 'Webinar', 'Workshop', 'Masterclass'];
 
@@ -56,6 +67,51 @@ const Events = () => {
                 ? prev.filter(id => id !== eventId)
                 : [...prev, eventId]
         );
+    };
+
+    const handleRegisterClick = (event) => {
+        setSelectedEvent(event);
+        setShowRegistrationDialog(true);
+        setShowConfirmation(false);
+    };
+
+    const handleCloseDialog = () => {
+        setShowRegistrationDialog(false);
+        setSelectedEvent(null);
+        setShowConfirmation(false);
+        setFormData({
+            firstName: '',
+            lastName: '',
+            email: '',
+            phone: '',
+            experience: '',
+            expectations: ''
+        });
+    };
+
+    const handleInputChange = (e) => {
+        const { name, value } = e.target;
+        setFormData(prev => ({
+            ...prev,
+            [name]: value
+        }));
+    };
+
+    const handleSubmitRegistration = (e) => {
+        e.preventDefault();
+        
+        if (!formData.firstName.trim() || !formData.lastName.trim() || !formData.email.trim()) {
+            alert('Please fill in all required fields (First Name, Last Name, and Email)');
+            return;
+        }
+        
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(formData.email)) {
+            alert('Please enter a valid email address');
+            return;
+        }
+        
+        setShowConfirmation(true);
     };
 
     const isEventSaved = (eventId) => savedEvents.includes(eventId);
@@ -72,6 +128,18 @@ const Events = () => {
             default: return 'bg-gray-100 text-gray-800 border-gray-200';
         }
     };
+
+    useEffect(() => {
+        if(showRegistrationDialog) {
+            document.body.style.overflow = "hidden";
+        } else {
+            document.body.style.overflow = "";
+        }
+
+        return() => {
+            document.body.style.overflow = "";
+        };
+    }, [showRegistrationDialog]);
 
     return (
         <div className="min-h-screen bg-gradient-to-br from-orange-50 via-amber-50 to-white dark:from-gray-900 dark:via-gray-800 dark:to-gray-900">
@@ -182,6 +250,7 @@ const Events = () => {
                                 </div>
 
                                 <button
+                                    onClick={() => handleRegisterClick(event)}
                                     className="w-full bg-gradient-to-r from-orange-600 to-amber-600 hover:from-orange-700 hover:to-amber-700 text-white font-semibold py-3 px-6 rounded-xl transition-all duration-300 flex items-center justify-center gap-2 group/btn shadow-lg hover:shadow-xl"
                                 >
                                     <span>Register Now</span>
@@ -214,6 +283,222 @@ const Events = () => {
                     </div>
                 </div>
             </div>
+
+            {showRegistrationDialog && (
+                <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center p-4 z-50">
+                    <div className="bg-white dark:bg-gray-800 rounded-3xl shadow-2xl w-full max-w-2xl max-h-[90vh] overflow-y-auto">
+                        {!showConfirmation ? (
+                            <>
+                                <div className="flex items-center justify-between p-6 pb-4 border-b border-gray-200 dark:border-gray-700">
+                                    <div>
+                                        <h2 className="text-2xl font-bold text-gray-900 dark:text-white">
+                                            Register for Event
+                                        </h2>
+                                        <p className="text-gray-600 dark:text-gray-400 mt-1">
+                                            {selectedEvent?.title}
+                                        </p>
+                                    </div>
+                                    <button
+                                        onClick={handleCloseDialog}
+                                        className="p-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-colors"
+                                    >
+                                        <X className="w-6 h-6 text-gray-500" />
+                                    </button>
+                                </div>
+
+                                <div className="p-6 pb-4 bg-gradient-to-r from-orange-50 to-amber-50 dark:from-orange-900/20 dark:to-amber-900/20 border-b border-gray-200 dark:border-gray-700">
+                                    <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
+                                        <div className="flex items-center gap-2">
+                                            <Calendar className="w-4 h-4 text-orange-500" />
+                                            <span className="text-gray-700 dark:text-gray-300">{selectedEvent?.date}</span>
+                                        </div>
+                                        <div className="flex items-center gap-2">
+                                            <Clock className="w-4 h-4 text-orange-500" />
+                                            <span className="text-gray-700 dark:text-gray-300">{selectedEvent?.time}</span>
+                                        </div>
+                                        <div className="flex items-center gap-2">
+                                            <Users className="w-4 h-4 text-orange-500" />
+                                            <span className="text-gray-700 dark:text-gray-300">{selectedEvent?.attendees} registered</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div className="p-6">
+                                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                        <div>
+                                            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                                                First Name *
+                                            </label>
+                                            <div className="relative">
+                                                <User className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />
+                                                <input
+                                                    type="text"
+                                                    name="firstName"
+                                                    value={formData.firstName}
+                                                    onChange={handleInputChange}
+                                                    required
+                                                    className="w-full pl-10 pr-4 py-3 border border-gray-300 dark:border-gray-600 rounded-xl focus:ring-2 focus:ring-orange-500 focus:border-orange-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-white transition-colors"
+                                                    placeholder="Enter your first name"
+                                                />
+                                            </div>
+                                        </div>
+
+                                        <div>
+                                            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                                                Last Name *
+                                            </label>
+                                            <div className="relative">
+                                                <User className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />
+                                                <input
+                                                    type="text"
+                                                    name="lastName"
+                                                    value={formData.lastName}
+                                                    onChange={handleInputChange}
+                                                    required
+                                                    className="w-full pl-10 pr-4 py-3 border border-gray-300 dark:border-gray-600 rounded-xl focus:ring-2 focus:ring-orange-500 focus:border-orange-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-white transition-colors"
+                                                    placeholder="Enter your last name"
+                                                />
+                                            </div>
+                                        </div>
+
+                                        <div>
+                                            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                                                Email Address *
+                                            </label>
+                                            <div className="relative">
+                                                <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />
+                                                <input
+                                                    type="email"
+                                                    name="email"
+                                                    value={formData.email}
+                                                    onChange={handleInputChange}
+                                                    required
+                                                    className="w-full pl-10 pr-4 py-3 border border-gray-300 dark:border-gray-600 rounded-xl focus:ring-2 focus:ring-orange-500 focus:border-orange-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-white transition-colors"
+                                                    placeholder="Enter your email address"
+                                                />
+                                            </div>
+                                        </div>
+
+                                        <div>
+                                            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                                                Phone Number
+                                            </label>
+                                            <div className="relative">
+                                                <Phone className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />
+                                                <input
+                                                    type="tel"
+                                                    name="phone"
+                                                    value={formData.phone}
+                                                    onChange={handleInputChange}
+                                                    className="w-full pl-10 pr-4 py-3 border border-gray-300 dark:border-gray-600 rounded-xl focus:ring-2 focus:ring-orange-500 focus:border-orange-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-white transition-colors"
+                                                    placeholder="Enter your phone number"
+                                                />
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                   <div className="mt-6">
+  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+    Experience Level
+  </label>
+  <div className="relative">
+    <select
+      name="experience"
+      value={formData.experience}
+      onChange={handleInputChange}
+      className="w-full appearance-none px-4 py-3 pr-10 border border-gray-300 dark:border-gray-600 rounded-xl focus:ring-2 focus:ring-orange-500 focus:border-orange-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-white transition-colors"
+    >
+      <option value="">Select your experience level</option>
+      <option value="beginner">Beginner</option>
+      <option value="intermediate">Intermediate</option>
+      <option value="advanced">Advanced</option>
+    </select>
+    <div className="absolute inset-y-0 right-3 flex items-center pointer-events-none">
+      <svg
+        className="w-4 h-4 text-orange-500"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="2"
+        viewBox="0 0 24 24"
+      >
+        <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
+      </svg>
+    </div>
+  </div>
+</div>
+
+                                    <div className="mt-6">
+                                        <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                                            What do you hope to learn?
+                                        </label>
+                                        <textarea
+                                            name="expectations"
+                                            value={formData.expectations}
+                                            onChange={handleInputChange}
+                                            rows={4}
+                                            className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-xl focus:ring-2 focus:ring-orange-500 focus:border-orange-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-white transition-colors resize-none"
+                                            placeholder="Tell us about your expectations and what you'd like to achieve from this event..."
+                                        />
+                                    </div>
+
+                                    <div className="flex gap-4 mt-8">
+                                        <button
+                                            type="button"
+                                            onClick={handleCloseDialog}
+                                            className="flex-1 px-6 py-3 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 rounded-xl hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors font-medium"
+                                        >
+                                            Cancel
+                                        </button>
+                                        <button
+                                            onClick={handleSubmitRegistration}
+                                            disabled={!formData.firstName.trim() || !formData.lastName.trim() || !formData.email.trim()}
+                                            className={`flex-1 font-semibold py-3 px-6 rounded-xl transition-all duration-300 shadow-lg hover:shadow-xl ${
+                                                !formData.firstName.trim() || !formData.lastName.trim() || !formData.email.trim()
+                                                    ? 'bg-gray-400 text-gray-600 cursor-not-allowed'
+                                                    : 'bg-gradient-to-r from-orange-600 to-amber-600 hover:from-orange-700 hover:to-amber-700 text-white'
+                                            }`}
+                                        >
+                                            Complete Registration
+                                        </button>
+                                    </div>
+                                </div>
+                            </>
+                        ) : (
+                            <div className="p-8 text-center">
+                                <div className="w-20 h-20 bg-gradient-to-br from-green-500 to-emerald-500 rounded-full flex items-center justify-center mx-auto mb-6">
+                                    <CheckCircle className="w-10 h-10 text-white" />
+                                </div>
+                                <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-4">
+                                    Registration Successful!
+                                </h2>
+                                <p className="text-gray-600 dark:text-gray-400 mb-6 max-w-md mx-auto">
+                                    Thank you for registering for <strong>{selectedEvent?.title}</strong>. 
+                                    You'll receive a confirmation email shortly with all the event details and joining instructions.
+                                </p>
+                                <div className="bg-gradient-to-r from-orange-50 to-amber-50 dark:from-orange-900/20 dark:to-amber-900/20 rounded-2xl p-6 mb-6 border border-orange-200 dark:border-orange-500/20">
+                                    <h3 className="font-semibold text-gray-900 dark:text-white mb-3">Event Details</h3>
+                                    <div className="space-y-2 text-sm text-gray-600 dark:text-gray-400">
+                                        <div className="flex items-center justify-center gap-2">
+                                            <Calendar className="w-4 h-4 text-orange-500" />
+                                            <span>{selectedEvent?.date}</span>
+                                        </div>
+                                        <div className="flex items-center justify-center gap-2">
+                                            <Clock className="w-4 h-4 text-orange-500" />
+                                            <span>{selectedEvent?.time}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <button
+                                    onClick={handleCloseDialog}
+                                    className="bg-gradient-to-r from-orange-600 to-amber-600 hover:from-orange-700 hover:to-amber-700 text-white font-semibold py-3 px-8 rounded-xl transition-all duration-300 shadow-lg hover:shadow-xl"
+                                >
+                                    Close
+                                </button>
+                            </div>
+                        )}
+                    </div>
+                </div>
+            )}
         </div>
     );
 };

@@ -1,4 +1,4 @@
-import React, { useCallback, useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { Button, Input, Select, RTE } from '../index';
 import appwriteService from "../../appwrite/config";
@@ -8,10 +8,10 @@ import { ClipLoader } from 'react-spinners';
 
 export default function PostForm({ post }) {
     const [loading, setLoading] = useState(false);
-    const [fileName, setFileName] = useState('');
     const [previewImage, setPreviewImage] = useState(null);
+    const [fileName, setFileName] = useState("");
 
-    const { register, handleSubmit, watch, setValue, control, getValues } = useForm({
+    const { register, handleSubmit, setValue, control, getValues } = useForm({
         defaultValues: {
             title: post?.title || '',
             content: post?.content || '',
@@ -22,24 +22,14 @@ export default function PostForm({ post }) {
     const navigate = useNavigate();
     const userData = useSelector((state) => state.auth.userData);
 
-    // Handle image file selection and preview
     const handleImageChange = (e) => {
         const file = e.target.files[0];
         if (file) {
             setFileName(file.name);
             setPreviewImage(URL.createObjectURL(file));
-        } else {
-            setFileName('');
-            setPreviewImage(null);
+            setValue("image", [file]); // update form value
         }
     };
-
-    // When editing a post, set initial preview
-    useEffect(() => {
-        if (post?.featuredImage) {
-            setPreviewImage(appwriteService.getFileView(post.featuredImage));
-        }
-    }, [post]);
 
     const submit = async (data) => {
         setLoading(true);
@@ -91,12 +81,13 @@ export default function PostForm({ post }) {
 
     return (
         <div className="min-h-screen relative overflow-hidden">
+            {/* gradient bg */}
             <div className="absolute inset-0 bg-gradient-to-br from-orange-50 via-amber-50 to-orange-100 dark:from-gray-900 dark:via-orange-950/20 dark:to-gray-800">
                 <div className="absolute top-10 left-10 w-72 h-72 bg-orange-200/30 dark:bg-orange-400/10 rounded-full blur-3xl animate-pulse"></div>
                 <div className="absolute bottom-10 right-10 w-96 h-96 bg-amber-200/20 dark:bg-amber-400/5 rounded-full blur-3xl animate-pulse delay-1000"></div>
                 <div className="absolute top-1/2 left-1/3 w-64 h-64 bg-orange-300/20 dark:bg-orange-500/10 rounded-full blur-2xl animate-bounce delay-2000" style={{ animationDuration: '6s' }}></div>
             </div>
-            
+
             <div className="relative z-10 max-w-5xl mx-auto px-6 py-12">
                 <div className="backdrop-blur-xl bg-white/70 dark:bg-gray-900/40 border border-white/20 dark:border-gray-700/30 rounded-3xl shadow-2xl shadow-orange-500/10 dark:shadow-orange-400/5 overflow-hidden">
                     <div className="relative p-8 pb-6">
@@ -110,30 +101,28 @@ export default function PostForm({ post }) {
                     </div>
 
                     <form onSubmit={handleSubmit(submit)} className="p-8 pt-4 space-y-8">
+                        {/* Title */}
                         <div className="group">
-                            <div className="relative backdrop-blur-sm bg-white/50 dark:bg-gray-800/30 rounded-2xl border border-white/30 dark:border-gray-600/20 transition-all duration-300 group-focus-within:bg-white/60 dark:group-focus-within:bg-gray-800/40 group-focus-within:shadow-lg group-focus-within:shadow-orange-200/30">
-                                <Input
-                                    label="Post Title"
-                                    placeholder="Enter your captivating title..."
-                                    className="bg-transparent border-none focus:ring-2 focus:ring-orange-400/50 rounded-2xl text-lg"
-                                    {...register("title", { required: true })}
-                                />
-                            </div>
+                            <Input
+                                label="Post Title"
+                                placeholder="Enter your captivating title..."
+                                className="bg-transparent border-none focus:ring-2 focus:ring-orange-400/50 rounded-2xl text-lg"
+                                {...register("title", { required: true })}
+                            />
                         </div>
 
+                        {/* Content */}
                         <div className="group">
                             <label className="block text-lg font-semibold text-gray-700 dark:text-gray-300 mb-3 flex items-center gap-2">
                                 <span className="w-2 h-2 bg-orange-400 rounded-full animate-pulse"></span>
                                 Content
                             </label>
-                            <div className="backdrop-blur-sm bg-white/50 dark:bg-gray-800/30 rounded-2xl border border-white/30 dark:border-gray-600/20 overflow-hidden transition-all duration-300 group-focus-within:bg-white/60 dark:group-focus-within:bg-gray-800/40 group-focus-within:shadow-lg group-focus-within:shadow-orange-200/30">
-                                <RTE
-                                    label=""
-                                    name="content"
-                                    control={control}
-                                    defaultValue={getValues("content")}
-                                />
-                            </div>
+                            <RTE
+                                label=""
+                                name="content"
+                                control={control}
+                                defaultValue={getValues("content")}
+                            />
                         </div>
 
                         {/* Image Upload + Preview */}
@@ -148,7 +137,7 @@ export default function PostForm({ post }) {
                                         type="file"
                                         accept="image/png, image/jpg, image/jpeg, image/gif"
                                         className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
-                                        {...register("image", { required: !post })}
+                                        {...register("image", )}
                                         onChange={handleImageChange}
                                     />
                                     <div className="text-center pointer-events-none">
@@ -178,6 +167,8 @@ export default function PostForm({ post }) {
                             <div className="group relative backdrop-blur-sm bg-white/50 dark:bg-gray-800/30 rounded-2xl overflow-hidden border border-white/30 dark:border-gray-600/20 flex items-center justify-center">
                                 {previewImage ? (
                                     <img src={previewImage} alt="Preview" className="w-full h-48 object-cover" />
+                                ) : post ? (
+                                    <img src={appwriteService.getFileView(post.featuredImage)} alt={post.title} className="w-full h-48 object-cover" />
                                 ) : (
                                     <p className="text-gray-400">No image selected</p>
                                 )}
@@ -196,17 +187,15 @@ export default function PostForm({ post }) {
                             />
                         </div>
 
+                        {/* Submit Button */}
                         <div className="pt-6">
                             <Button
                                 type="submit"
                                 disabled={loading}
-                                className={`
-                                    group relative w-full py-5 px-8 rounded-2xl font-bold text-lg text-white overflow-hidden
-                                    backdrop-blur-xl border border-white/20 transition-all duration-300
-                                    ${post 
-                                        ? 'bg-gradient-to-r from-green-500/90 to-emerald-500/90 hover:from-green-600/90 hover:to-emerald-600/90 shadow-lg shadow-green-500/25' 
-                                        : 'bg-gradient-to-r from-orange-500/90 to-amber-500/90 hover:from-orange-600/90 hover:to-amber-600/90 shadow-lg shadow-orange-500/25'
-                                    }
+                                className={`group relative w-full py-5 px-8 rounded-2xl font-bold text-lg text-white overflow-hidden backdrop-blur-xl border border-white/20 transition-all duration-300
+                                    ${post
+                                        ? 'bg-gradient-to-r from-green-500/90 to-emerald-500/90 hover:from-green-600/90 hover:to-emerald-600/90 shadow-lg shadow-green-500/25'
+                                        : 'bg-gradient-to-r from-orange-500/90 to-amber-500/90 hover:from-orange-600/90 hover:to-amber-600/90 shadow-lg shadow-orange-500/25'}
                                     hover:shadow-xl hover:scale-[1.02] active:scale-[0.98]
                                     disabled:opacity-60 disabled:cursor-not-allowed disabled:hover:scale-100
                                 `}

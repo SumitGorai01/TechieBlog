@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
+import { motion } from "framer-motion";
 import appwriteService from "../appwrite/config";
 import { Link } from "react-router-dom";
-import { User, Clock, Bookmark } from "lucide-react";
+import { User, Clock, BookmarkPlus, Share2 } from "lucide-react";
 import { formatDistanceToNow } from "date-fns";
-import authService from "../appwrite/auth"; // Import the function
+import authService from "../appwrite/auth";
 
 function getWordCount(text) {
   if (!text) return 0;
@@ -15,7 +16,7 @@ function getReadTime(wordCount) {
   return Math.max(1, Math.round(wordCount / wordsPerMinute));
 }
 
-function PostCard({ $id, title, featuredImage, $createdAt, userId, content }) {
+const PostCard = ({ $id, title, featuredImage, $createdAt, userId, content }) => {
   const [authorName, setAuthorName] = useState("Loading...");
   const [isSaved, setIsSaved] = useState(false);
 
@@ -23,21 +24,16 @@ function PostCard({ $id, title, featuredImage, $createdAt, userId, content }) {
     const fetchAuthor = async () => {
       try {
         if (userId) {
-          console.log("Fetching author name for user ID:", userId);
-          
           const name = await authService.getUserNameById(userId);
-        
           setAuthorName(name);
         }
-      } catch (error) {
-        console.log("Error fetching author:", error);
+      } catch {
         setAuthorName("Unknown User");
       }
     };
 
     fetchAuthor();
 
-    // Check if this post is saved in localStorage
     const saved = JSON.parse(localStorage.getItem("savedBlogs") || "[]");
     setIsSaved(saved.includes($id));
   }, [userId, $id]);
@@ -59,61 +55,86 @@ function PostCard({ $id, title, featuredImage, $createdAt, userId, content }) {
   const readTime = getReadTime(wordCount);
 
   return (
-    <Link to={`/post/${$id}`} className="block transform transition-all duration-300 hover:scale-[1.02] hover:z-10 w-full group">
-      <div className="w-[320px] h-[420px] mx-auto relative">
-        <div className="bg-white dark:bg-gray-800 rounded-2xl overflow-hidden h-full shadow-md dark:shadow-lg hover:shadow-lg transition-all duration-300 m-2">
-          {/* Image Section */}
-          <div className="h-[240px] relative overflow-hidden">
-            <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent z-10" />
-            <img
-              src={appwriteService.getFileView(featuredImage, 320, 240)}
-              alt={title}
-              className="w-full h-full object-cover transform transition-transform duration-700 group-hover:scale-110 group-hover:rotate-1"
-            />
-            {/* Save/Bookmark Icon */}
+    <motion.div
+      whileHover={{ y: -4 }}
+      transition={{ duration: 0.25 }}
+      className="group cursor-pointer h-[320px]"
+    >
+      <Link
+        to={`/post/${$id}`}
+        className="bg-white dark:bg-slate-800 rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 border border-slate-200 dark:border-slate-700 flex flex-col h-full"
+      >
+        {/* Image Section with Save & Share Buttons */}
+        <div className="relative h-[180px] overflow-hidden flex-shrink-0">
+          <img
+            src={appwriteService.getFileView(featuredImage, 400, 240)}
+            alt={title}
+            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+          />
+
+          {/* Top Buttons */}
+          <div className="absolute top-2 left-2 flex gap-2 right-2 justify-between">
+            {/* Save Button - Left */}
             <button
               onClick={handleSave}
-              aria-label={isSaved ? "Remove from Saved" : "Save for Later"}
-              className={`absolute top-3 right-3 z-20 p-2 rounded-full bg-white/80 dark:bg-gray-900/80 shadow-md hover:bg-orange-100 dark:hover:bg-orange-900 transition-colors ${isSaved ? "text-orange-500" : "text-gray-400"}`}
+              className={`flex items-center gap-1 px-2 py-1.5 rounded-lg text-sm backdrop-blur-md bg-white/80 dark:bg-slate-800/80 transition-colors ${
+                isSaved
+                  ? "text-orange-500"
+                  : "text-slate-600 dark:text-slate-200 hover:text-orange-500"
+              }`}
             >
-              <Bookmark className={`w-6 h-6 ${isSaved ? "fill-orange-500" : "fill-none"}`} />
+              <BookmarkPlus className="w-4 h-4" />
+              {isSaved ? "Saved" : "Save"}
+            </button>
+
+            {/* Share Button - Right */}
+            <button
+              onClick={(e) => {
+                e.preventDefault();
+                navigator.share?.({
+                  title,
+                  text: title,
+                  url: window.location.origin + `/post/${$id}`,
+                });
+              }}
+              className="flex items-center gap-1 px-2 py-1.5 rounded-lg text-sm backdrop-blur-md bg-white/80 dark:bg-slate-800/80 text-slate-600 dark:text-slate-200 hover:text-orange-500 transition-colors"
+            >
+              <Share2 className="w-4 h-4" /> 
             </button>
           </div>
+        </div>
 
-          {/* Content Section */}
-          <div className="p-4 flex flex-col justify-between h-[180px]">
-            <h2 className="text-lg font-bold line-clamp-3 text-gray-800 dark:text-gray-100 group-hover:text-orange-600 dark:group-hover:text-orange-400 transition-colors duration-300">
-              {title}
-            </h2>
-            {/* Read Time & Word Count */}
-            <div className="flex items-center gap-3 text-xs text-gray-500 dark:text-gray-400 mt-2">
-              <span className="flex items-center gap-1"><Clock className="w-4 h-4" /> {readTime} min read</span>
-              <span className="flex items-center gap-1">· ✍️ {wordCount} words</span>
-            </div>
-            {/* Author & Timestamp */}
-            <div className="flex justify-between items-center text-gray-700 dark:text-gray-300 text-sm mt-2">
-              <div className="flex items-center gap-1">
-                <Link to={`/profile/${userId}`}
-                  className="flex items-center gap-1 truncate max-w-[140px] text-orange-600 dark:text-orange-400 hover:text-orange-700 dark:hover:text-orange-300 transition-colors duration-200"
-                >
-                  <User className="w-4 h-4" />
-                  <span className="truncate">{authorName}</span>
-                </Link>
-              </div>
-              <div className="flex items-center gap-1">
-                <Clock className="w-4 h-4" />
-                <span className="truncate max-w-[100px]">
-                  {formatDistanceToNow(new Date($createdAt), { addSuffix: true })}
-                </span>
-              </div>
-            </div>
+        {/* Content */}
+        <div className="p-5 flex flex-col flex-grow">
+          <h3 className="text-lg font-semibold text-slate-900 dark:text-slate-100 mb-2 group-hover:text-orange-600 dark:group-hover:text-orange-400 transition-colors truncate">
+            {title}
+          </h3>
+
+          {/* Read Time & Word Count */}
+          <div className="flex items-center gap-3 text-xs text-slate-500 dark:text-slate-400 mb-3">
+            <span className="flex items-center gap-1">
+              <Clock className="w-4 h-4" /> {readTime} min read
+            </span>
+            <span>· {wordCount} words</span>
+          </div>
+
+          {/* Author & Date */}
+          <div className="flex items-center justify-between text-sm mt-auto">
+            <Link
+              to={`/profile/${userId}`}
+              className="flex items-center gap-2 text-slate-600 dark:text-slate-400 hover:text-orange-500 dark:hover:text-orange-400 transition-colors"
+            >
+              <User className="w-4 h-4" />
+              <span className="truncate max-w-[120px]">{authorName}</span>
+            </Link>
+            <span className="text-xs text-slate-500 dark:text-slate-400 whitespace-nowrap">
+              {formatDistanceToNow(new Date($createdAt), { addSuffix: true })}
+            </span>
           </div>
         </div>
-        {/* Hover Effect Bar */}
-        <div className="absolute bottom-0 rounded-lg left-0 right-0 h-1 bg-gradient-to-r from-orange-400 to-red-500 transform scale-x-0 group-hover:scale-x-90 transition-transform duration-500"/>
-      </div>
-    </Link>
+      </Link>
+    </motion.div>
   );
-}
+};
 
 export default PostCard;
