@@ -17,11 +17,6 @@ import {
   HelpCircle,
   Mail,
   Phone,
-  X,
-  Send,
-  Bot,
-  Minimize2,
-  Maximize2,
   Sparkles,
   ChevronUp,
   Users as UsersIcon,
@@ -35,51 +30,7 @@ import { FaDiscord } from "react-icons/fa6"; // Or from 'react-icons/fa'
 const Footer = () => {
   const [scrollProgress, setScrollProgress] = useState(0);
   const [isVisible, setIsVisible] = useState(false);
-  const [isChatOpen, setIsChatOpen] = useState(false);
-  const [isMinimized, setIsMinimized] = useState(false);
-  const [messages, setMessages] = useState([
-    {
-      id: 1,
-      text: "Hi! I'm TechieBlog Assistant. How can I help you today?",
-      isBot: true,
-      timestamp: new Date(),
-    },
-  ]);
-  const [inputMessage, setInputMessage] = useState("");
   const navigate = useNavigate();
-
-  const botResponses = {
-    greeting: [
-      "Hello! Welcome to TechieBlog! How can I assist you today?",
-      "Hi there! I'm here to help you with any questions about our platform.",
-      "Hey! Great to see you here. What would you like to know?",
-    ],
-    about: [
-      "TechieBlog is your go-to platform for tech insights, tutorials, and industry news. We bridge the gap between knowledge and action for tech enthusiasts and developers.",
-      "We're a community-driven tech blog focused on helping developers and tech enthusiasts stay updated with the latest trends and technologies.",
-    ],
-    contact: [
-      "You can reach us at support@techieblog.com or call us at +1 (555) 123-4567. We're located at 123 Tech Street, Digital City.",
-      "Feel free to contact us through our Contact Us page or send us an email at support@techieblog.com",
-    ],
-    help: [
-      "I can help you with information about our platform, contact details, navigation, and general questions. What specific help do you need?",
-      "You can ask me about our services, how to navigate the site, contact information, or any general questions about TechieBlog.",
-    ],
-    account: [
-      "To access your account, click on the Account link in our Support section. You can login or create a new account there.",
-      "Account management is available through our login page. You can find it in the Support section of our footer.",
-    ],
-    events: [
-      "Check out our Events page to see upcoming tech events, webinars, and conferences we're hosting or participating in.",
-      "We regularly organize tech events and workshops. Visit our Events section to stay updated!",
-    ],
-    default: [
-      "I'm not sure about that specific question, but you can contact our support team at support@techieblog.com for detailed assistance.",
-      "That's a great question! For more specific inquiries, please reach out to our support team through the Contact Us page.",
-      "I'd recommend checking our FAQ section or contacting our support team for more detailed information about that topic.",
-    ],
-  };
 
   useEffect(() => {
     const handleScroll = () => {
@@ -95,97 +46,29 @@ const Footer = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const handleNavigation = (path) => {
-    window.scrollTo(0, 0);
-    navigate(path);
-  };
+  useEffect(() => {
+    const script1 = document.createElement('script');
+    script1.src = import.meta.env.VITE_BOTPRESS_SCRIPT_1;
+    script1.defer = true;
 
-  const getRandomResponse = (responses) => {
-    return responses[Math.floor(Math.random() * responses.length)];
-  };
+const script2 = document.createElement('script');
+script2.src = import.meta.env.VITE_BOTPRESS_SCRIPT_2;
+script2.defer = true;
 
-  const getBotResponse = (userMessage) => {
-    const message = userMessage.toLowerCase();
+    document.body.appendChild(script1);
+    document.body.appendChild(script2);
 
-    if (
-      message.includes("hello") ||
-      message.includes("hi") ||
-      message.includes("hey")
-    ) {
-      return getRandomResponse(botResponses.greeting);
-    } else if (
-      message.includes("what") ||
-      message.includes("about") ||
-      message.includes("techieblog")
-    ) {
-      return getRandomResponse(botResponses.about);
-    } else if (
-      message.includes("contact") ||
-      message.includes("email") ||
-      message.includes("phone") ||
-      message.includes("reach")
-    ) {
-      return getRandomResponse(botResponses.contact);
-    } else if (
-      message.includes("help") ||
-      message.includes("assist") ||
-      message.includes("support")
-    ) {
-      return getRandomResponse(botResponses.help);
-    } else if (
-      message.includes("account") ||
-      message.includes("login") ||
-      message.includes("profile")
-    ) {
-      return getRandomResponse(botResponses.account);
-    } else if (
-      message.includes("event") ||
-      message.includes("webinar") ||
-      message.includes("conference")
-    ) {
-      return getRandomResponse(botResponses.events);
-    } else {
-      return getRandomResponse(botResponses.default);
-    }
-  };
-
-  const handleSendMessage = () => {
-    if (!inputMessage.trim()) return;
-
-    const userMessage = {
-      id: messages.length + 1,
-      text: inputMessage,
-      isBot: false,
-      timestamp: new Date(),
+    return () => {
+      document.body.removeChild(script1);
+      document.body.removeChild(script2);
     };
+  }, []);
 
-    setMessages((prev) => [...prev, userMessage]);
-    setInputMessage("");
-
-    setTimeout(() => {
-      const botMessage = {
-        id: messages.length + 2,
-        text: getBotResponse(inputMessage),
-        isBot: true,
-        timestamp: new Date(),
-      };
-      setMessages((prev) => [...prev, botMessage]);
-    }, 1000);
-  };
-
-  const handleKeyPress = (e) => {
-    if (e.key === "Enter") {
-      handleSendMessage();
-    }
-  };
-
-  const toggleChat = () => {
-    setIsChatOpen(!isChatOpen);
-    setIsMinimized(false);
-  };
-
-  const toggleMinimize = () => {
-    setIsMinimized(!isMinimized);
+const handleNavigation = (path) => {
+  window.scrollTo(0, 0);
+  navigate(path);
+};
+  
   };
 
   return (
@@ -383,100 +266,13 @@ const Footer = () => {
       </div>
 
       <div className="fixed bottom-20 right-6 z-50">
-        {isChatOpen && (
-          <div
-            className={`bg-white dark:bg-gray-800 rounded-lg shadow-2xl border border-gray-200 dark:border-gray-700 mb-4 transition-all duration-300 ${
-              isMinimized ? "w-80 h-16" : "w-80 h-96"
-            }`}
-          >
-            <div className="flex items-center justify-between p-4 bg-gradient-to-r from-orange-500 to-red-500 text-white rounded-t-lg">
-              <div className="flex items-center space-x-2">
-                <Bot className="w-5 h-5" />
-                <span className="font-semibold">TechieBlog Assistant</span>
-              </div>
-              <div className="flex items-center space-x-2">
-                <button
-                  onClick={toggleMinimize}
-                  className="hover:bg-white/20 p-1 rounded transition-colors duration-200"
-                >
-                  {isMinimized ? (
-                    <Maximize2 className="w-4 h-4" />
-                  ) : (
-                    <Minimize2 className="w-4 h-4" />
-                  )}
-                </button>
-                <button
-                  onClick={toggleChat}
-                  className="hover:bg-white/20 p-1 rounded transition-colors duration-200"
-                >
-                  <X className="w-4 h-4" />
-                </button>
-              </div>
-            </div>
-
-            {!isMinimized && (
-              <>
-                <div className="h-64 overflow-y-auto p-4 space-y-3">
-                  {messages.map((message) => (
-                    <div
-                      key={message.id}
-                      className={`flex ${
-                        message.isBot ? "justify-start" : "justify-end"
-                      }`}
-                    >
-                      <div
-                        className={`max-w-xs px-3 py-2 rounded-lg text-sm ${
-                          message.isBot
-                            ? "bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-gray-200"
-                            : "bg-orange-500 text-white"
-                        }`}
-                      >
-                        {message.text}
-                      </div>
-                    </div>
-                  ))}
-                </div>
-
-                <div className="border-t border-gray-200 dark:border-gray-700 p-4">
-                  <div className="flex space-x-2">
-                    <input
-                      type="text"
-                      value={inputMessage}
-                      onChange={(e) => setInputMessage(e.target.value)}
-                      onKeyPress={handleKeyPress}
-                      placeholder="Type your message..."
-                      className="flex-1 px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 dark:bg-gray-700 dark:text-white text-sm"
-                    />
-                    <button
-                      onClick={handleSendMessage}
-                      className="bg-orange-500 hover:bg-orange-600 text-white p-2 rounded-lg transition-colors duration-200"
-                    >
-                      <Send className="w-4 h-4" />
-                    </button>
-                  </div>
-                </div>
-              </>
-            )}
-          </div>
-        )}
-
-        <div
-          className={`w-12 h-12 bg-gradient-to-r from-orange-500 to-red-500 rounded-full flex items-center justify-center cursor-pointer shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-110 ${
-            isChatOpen ? "mb-2" : ""
-          }`}
-          onClick={toggleChat}
-        >
-          {isChatOpen ? (
-            <X className="w-6 h-6 text-white" />
-          ) : (
-            <MessageCircle className="w-6 h-6 text-white" />
-          )}
-        </div>
+<script src="https://cdn.botpress.cloud/webchat/v3.2/inject.js" defer></script>
+<script src="https://files.bpcontent.cloud/2025/08/09/18/20250809180041-F5Z71XWG.js" defer></script>
       </div>
 
       <div
         id="scrollButton"
-        className={`fixed bottom-6 right-6 w-10 h-10 flex items-center justify-center z-50 cursor-pointer transition-all duration-500 hover:scale-110 ${
+        className={`fixed bottom-24 right-9 w-10 h-10 flex items-center justify-center z-50 cursor-pointer transition-all duration-500 hover:scale-110 ${
           isVisible ? "opacity-100" : "opacity-0 pointer-events-none"
         }`}
         onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
