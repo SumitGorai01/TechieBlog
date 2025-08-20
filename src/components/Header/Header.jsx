@@ -15,6 +15,8 @@ import {
   Calendar,
   Bookmark,
   Newspaper,
+  Search,
+  Bell,
 } from "lucide-react";
 import Logo from "../Logo";
 import Searchbar from "./Searchbar.jsx";
@@ -25,7 +27,6 @@ import LightModeIcon from "@mui/icons-material/LightMode";
 import { toggleTheme } from "../../store/themeSlice";
 import Sidebar from "./Sidebar.jsx";
 import { Menu, X } from "lucide-react";
-import { icon } from "@fortawesome/fontawesome-svg-core";
 
 function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -45,7 +46,7 @@ function Header() {
     { name: "About Us", slug: "/about-us", active: true, icon: Info },
     { name: "Events", slug: "/events", active: true, icon: Calendar },
     { name: "Contact Us", slug: "/contact-us", active: true, icon: Phone },
-    { name: "News" , slug: "/news" , active: true, icon: Newspaper}
+    { name: "News", slug: "/news", active: true, icon: Newspaper }
   ];
 
   const handleNavigation = () => {
@@ -53,17 +54,63 @@ function Header() {
   };
 
   return (
-    <header id="sticky-header" className="sticky top-0 z-50 w-full backdrop-blur-xl bg-[#fffef9]/90 dark:bg-[#1f1f1f]/90 border-b border-orange-100/50 dark:border-gray-800/50 transition-all duration-300 shadow-sm">
+    <header className="sticky top-0 z-50 w-full">
+      <div className="absolute inset-0 bg-gradient-to-r from-orange-50/95 via-white/95 to-orange-50/95 dark:from-gray-900/95 dark:via-gray-800/95 dark:to-gray-900/95 backdrop-blur-xl border-b border-orange-200/30 dark:border-orange-800/20"></div>
+      
       <Container>
-       <nav className="flex items-center justify-between gap-6 py-3 px-4">
+        <nav className="relative flex items-center justify-between gap-6 py-4 px-6">
           <div className="flex-shrink-0">
-            <Link to="/"
-             className="group transition-transform duration-200 hover:scale-105"
-            >
-              
-              <Logo width={50} />
+            <Link to="/" className="group transition-all duration-300 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-orange-500/20 rounded-xl">
+              <div className="relative">
+                <Logo width={50} />
+                <div className="absolute inset-0 bg-orange-500/10 rounded-xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+              </div>
             </Link>
           </div>
+
+          {authStatus && (
+            <>
+              <div className="hidden lg:flex items-center gap-2">
+                {navItems
+                  .filter((item) => item.active && ["All Posts", "Add Post", "Saved Blogs"].includes(item.name))
+                  .map((item) => (
+                    <NavLink
+                      key={item.name}
+                      to={item.slug}
+                      onClick={handleNavigation}
+                      className={({ isActive }) => `
+                        group relative inline-flex items-center gap-3 px-5 py-3 rounded-2xl 
+                        font-medium text-sm transition-all duration-300 hover:scale-[1.02]
+                        ${isActive 
+                          ? "bg-gradient-to-br from-orange-100 to-orange-50 dark:from-orange-900/30 dark:to-orange-800/20 text-orange-700 dark:text-orange-300 shadow-lg shadow-orange-500/10" 
+                          : "text-gray-600 dark:text-gray-300 hover:bg-orange-50/60 dark:hover:bg-orange-900/20 hover:text-orange-600 dark:hover:text-orange-300"
+                        }
+                      `}
+                    >
+                      <item.icon 
+                        size={18} 
+                        className="transition-all duration-300 group-hover:scale-110 group-hover:rotate-3" 
+                      />
+                      <span className="relative">
+                        {item.name}
+                        <div className={`absolute -bottom-1 left-0 h-0.5 bg-gradient-to-r from-orange-500 to-orange-600 rounded-full transition-all duration-300 ${
+                          ({ isActive }) => isActive ? "w-full" : "w-0 group-hover:w-full"
+                        }`}></div>
+                      </span>
+                    </NavLink>
+                  ))}
+              </div>
+
+              <div className="flex-1 max-w-2xl mx-6">
+                <div className="relative group">
+                  {/* <div className="absolute inset-0 bg-gradient-to-r from-orange-500/20 to-orange-600/20 rounded-2xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div> */}
+                  {/* <div className="relative bg-white/80 dark:bg-gray-800/80 backdrop-blur-md border border-orange-200/50 dark:border-orange-800/30 rounded-2xl overflow-hidden"> */}
+                    <Searchbar />
+                  {/* </div> */}
+                </div>
+              </div>
+            </>
+          )}
 
           {!authStatus && (
             <ul className="hidden md:flex flex-grow justify-center items-center gap-2">
@@ -73,13 +120,14 @@ function Header() {
                   <li key={item.name}>
                     <NavLink to={item.slug} onClick={handleNavigation}>
                       {({ isActive }) => (
-                        <div
-                          className={`group relative inline-flex items-center gap-2 px-4 py-2.5 rounded-xl font-medium text-sm transition-all duration-200 hover:scale-105 ${
-                            isActive
-                              ? "bg-gradient-to-r from-orange-50 to-orange-100 dark:from-gray-700 dark:to-gray-600 text-orange-700 dark:text-orange-300 shadow-sm"
-                              : "text-orange-600 dark:text-orange-300 hover:bg-orange-50 dark:hover:bg-gray-700 hover:shadow-md"
-                          }`}
-                        >
+                        <div className={`
+                          group relative inline-flex items-center gap-2 px-4 py-2.5 rounded-xl 
+                          font-medium text-sm transition-all duration-200 hover:scale-105
+                          ${isActive
+                            ? "bg-gradient-to-r from-orange-50 to-orange-100 dark:from-gray-700 dark:to-gray-600 text-orange-700 dark:text-orange-300 shadow-sm"
+                            : "text-orange-600 dark:text-orange-300 hover:bg-orange-50 dark:hover:bg-gray-700 hover:shadow-md"
+                          }
+                        `}>
                           <item.icon size={18} className="transition-transform duration-200 group-hover:scale-110" />
                           <span>{item.name}</span>
                           {isActive && (
@@ -93,52 +141,54 @@ function Header() {
             </ul>
           )}
 
-        {authStatus && (
-            <div className="flex-1 max-w-md mx-4">
-              <Searchbar />
-            </div>
-          )}
-
           <div className="flex items-center gap-3">
-             <button
+
+            <button
               onClick={() => dispatch(toggleTheme())}
-  className="relative flex items-center justify-center p-2.5 rounded-full 
-             bg-white/70 dark:bg-gray-800/70 backdrop-blur-md 
-             border border-orange-200/30 dark:border-orange-800/30 
-             text-orange-600 dark:text-orange-300 
-             shadow-sm hover:shadow-lg 
-             transition-all duration-300 hover:scale-110 hover:bg-orange-50/60 dark:hover:bg-gray-700/60"
-  aria-label="Toggle Theme"        
+              className="relative group flex items-center justify-center p-3 rounded-2xl 
+                       bg-gradient-to-br from-orange-100/60 to-orange-50/60 dark:from-orange-900/20 dark:to-orange-800/20 
+                       border border-orange-200/40 dark:border-orange-800/30 
+                       text-orange-600 dark:text-orange-300 
+                       shadow-lg hover:shadow-xl hover:shadow-orange-500/10
+                       transition-all duration-300 hover:scale-110 
+                       hover:from-orange-200/60 hover:to-orange-100/60 
+                       dark:hover:from-orange-800/30 dark:hover:to-orange-700/30
+                       focus:outline-none focus:ring-2 focus:ring-orange-500/20"
+              aria-label="Toggle Theme"
             >
               <div className="relative w-5 h-5">
                 {darkMode ? (
                   <LightModeIcon 
-                   className="absolute inset-0 text-yellow-400 transition-all duration-500 ease-in-out transform rotate-0 scale-100 opacity-100"
+                    className="absolute inset-0 text-yellow-400 transition-all duration-500 ease-in-out transform rotate-0 scale-100 opacity-100 group-hover:rotate-12"
                     style={{ fontSize: '20px' }}
                   />
                 ) : (
                   <DarkModeIcon 
-                    className="absolute inset-0 text-gray-400 transition-all duration-300 opacity-100 rotate-0 scale-100" 
+                    className="absolute inset-0 text-slate-600 transition-all duration-300 opacity-100 rotate-0 scale-100 group-hover:-rotate-12" 
                     style={{ fontSize: '20px' }}
                   />
                 )}
               </div>
+              <div className="absolute inset-0 bg-orange-500/20 rounded-2xl blur-md opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
             </button>
 
             {!authStatus &&
               navItems
-                .filter((item) => item.name === "Login" || item.name === "Signup")
+                // .filter((item) => item.name === "Login" || item.name === "Signup")
+                .filter((item) => item.name === "Signup")
                 .map((item) => (
                   <NavLink
                     key={item.name}
                     to={item.slug}
-                    className={({ isActive }) =>
-                      `group hidden sm:inline-flex items-center gap-2 px-5 py-2.5 rounded-xl font-semibold text-sm transition-all duration-200 hover:scale-105 ${
-                        item.name === "Signup"
-                          ? "bg-gradient-to-r from-orange-500 to-orange-600 text-white shadow-lg hover:shadow-orange-200 dark:hover:shadow-orange-900/50 hover:from-orange-600 hover:to-orange-700"
-                          : `${isActive ? "bg-orange-100 dark:bg-gray-700" : ""} text-orange-600 dark:text-orange-300 hover:bg-orange-100 dark:hover:bg-gray-700 border border-orange-200 dark:border-orange-800 shadow-sm hover:shadow-md`
-                      }`
-                    }
+                    className={({ isActive }) => `
+                      group hidden sm:inline-flex items-center gap-2 px-6 py-3 rounded-2xl 
+                      font-semibold text-sm transition-all duration-300 hover:scale-105 
+                      focus:outline-none focus:ring-2 focus:ring-orange-500/20
+                      ${item.name === "Signup"
+                        ? "bg-gradient-to-r from-orange-500 to-orange-600 text-white shadow-lg hover:shadow-xl hover:shadow-orange-500/25 hover:from-orange-600 hover:to-orange-700"
+                        : `${isActive ? "bg-orange-100 dark:bg-gray-700" : ""} text-orange-600 dark:text-orange-300 hover:bg-orange-100/60 dark:hover:bg-gray-700/60 border border-orange-200/60 dark:border-orange-800/60 shadow-md hover:shadow-lg`
+                      }
+                    `}
                   >
                     <span>{item.name}</span>
                     <item.icon size={18} className="transition-transform duration-200 group-hover:scale-110" />
@@ -147,26 +197,36 @@ function Header() {
 
             {authStatus && (
               <>
-                <BasicMenu setIsMenuOpen={setIsMenuOpen} />
+                <div className="relative">
+                  <BasicMenu setIsMenuOpen={setIsMenuOpen} />
+                </div>
+                
                 <Sidebar isOpen={isSidebarOpen} setIsOpen={setIsSidebarOpen} />
+                
                 <button
                   onClick={() => setIsSidebarOpen(!isSidebarOpen)}
-                  className="p-2.5 rounded-xl bg-gradient-to-br from-orange-100 to-orange-200 dark:from-gray-600 dark:to-gray-700 text-orange-600 dark:text-orange-300 hover:from-orange-200 hover:to-orange-300 dark:hover:from-gray-500 dark:hover:to-gray-600 transition-all duration-200 hover:scale-105 shadow-sm hover:shadow-md"
+                  className="relative group p-3 rounded-2xl 
+                           bg-gradient-to-br from-orange-100/60 to-orange-50/60 dark:from-orange-900/20 dark:to-orange-800/20 
+                           text-orange-600 dark:text-orange-300 
+                           hover:from-orange-200/60 hover:to-orange-100/60 dark:hover:from-orange-800/30 dark:hover:to-orange-700/30 
+                           transition-all duration-300 hover:scale-105 shadow-lg hover:shadow-xl
+                           focus:outline-none focus:ring-2 focus:ring-orange-500/20"
                   aria-label="Toggle Sidebar"
                 >
                   <div className="relative w-5 h-5">
                     {isSidebarOpen ? (
                       <X 
                         size={20} 
-                        className="absolute inset-0 transition-all duration-300 opacity-100 rotate-0 scale-100" 
+                        className="absolute inset-0 transition-all duration-300 opacity-100 rotate-0 scale-100 group-hover:rotate-90" 
                       />
                     ) : (
                       <Menu 
                         size={20} 
-                        className="absolute inset-0 transition-all duration-300 opacity-100 rotate-0 scale-100" 
+                        className="absolute inset-0 transition-all duration-300 opacity-100 rotate-0 scale-100 group-hover:scale-110" 
                       />
                     )}
                   </div>
+                  <div className="absolute inset-0 bg-orange-500/20 rounded-2xl blur-md opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                 </button>
               </>
             )}
@@ -174,7 +234,12 @@ function Header() {
             {!authStatus && (
               <button
                 onClick={() => setIsMenuOpen(!isMenuOpen)}
-                className="md:hidden p-2.5 rounded-xl bg-gradient-to-br bg-white/40 dark:from-gray-800 dark:to-gray-700 text-orange-600 dark:text-orange-300 hover:from-orange-100 hover:to-orange-200 dark:hover:from-gray-700 dark:hover:to-gray-600 transition-all duration-200 hover:scale-105 shadow-sm"
+                className="md:hidden p-3 rounded-2xl 
+                         bg-gradient-to-br from-orange-100/60 to-orange-50/60 dark:from-gray-800/60 dark:to-gray-700/60 
+                         text-orange-600 dark:text-orange-300 
+                         hover:from-orange-200/60 hover:to-orange-100/60 dark:hover:from-gray-700/60 dark:hover:to-gray-600/60 
+                         transition-all duration-200 hover:scale-105 shadow-lg
+                         focus:outline-none focus:ring-2 focus:ring-orange-500/20"
                 aria-label="Toggle Menu"
               >
                 <div className="relative w-5 h-5">
@@ -196,29 +261,36 @@ function Header() {
         </nav>
 
         {!authStatus && isMenuOpen && (
-          <div className="md:hidden mt-4">
-            <ul className="flex flex-col items-center gap-4 text-lg">
-              {navItems
-                .filter((item) => item.active)
-                .map((item) => (
-                  <li key={item.name}>
-                    <NavLink
-                      to={item.slug}
-                      onClick={handleNavigation}
-                      className={({ isActive }) =>
-                        `${isActive ? "bg-orange-200" : ""} 
-                         inline-flex items-center gap-2 px-5 py-2 rounded-xl 
-                         text-orange-800 font-medium hover:bg-orange-100 transition`
-                      }
-                    >
-                      <item.icon size={20} />
-                      {item.name}
-                    </NavLink>
-                  </li>
-                ))}
-              <li>
-              </li>
-            </ul>
+          <div className="md:hidden relative">
+            <div className="absolute inset-0 bg-gradient-to-b from-orange-50/90 to-white/90 dark:from-gray-800/90 dark:to-gray-900/90 backdrop-blur-md rounded-3xl border border-orange-200/30 dark:border-orange-800/20"></div>
+            <div className="relative p-6 mt-4 mb-6">
+              <ul className="flex flex-col gap-4">
+                {navItems
+                  .filter((item) => item.active)
+                  .map((item) => (
+                    <li key={item.name}>
+                      <NavLink
+                        to={item.slug}
+                        onClick={handleNavigation}
+                        className={({ isActive }) => `
+                          group inline-flex items-center gap-3 px-6 py-4 rounded-2xl w-full
+                          font-medium text-lg transition-all duration-300 hover:scale-[1.02]
+                          ${isActive 
+                            ? "bg-gradient-to-r from-orange-100 to-orange-50 dark:from-orange-900/40 dark:to-orange-800/30 text-orange-700 dark:text-orange-300 shadow-lg" 
+                            : "text-orange-600 dark:text-orange-300 hover:bg-orange-50/60 dark:hover:bg-orange-900/20"
+                          }
+                        `}
+                      >
+                        <item.icon 
+                          size={22} 
+                          className="transition-transform duration-300 group-hover:scale-110 group-hover:rotate-3" 
+                        />
+                        <span>{item.name}</span>
+                      </NavLink>
+                    </li>
+                  ))}
+              </ul>
+            </div>
           </div>
         )}
       </Container>
