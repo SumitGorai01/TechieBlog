@@ -24,6 +24,7 @@ import {
   Maximize2,
   Sparkles,
   ChevronUp,
+  Newspaper,
   Users as UsersIcon,
 } from "lucide-react";
 import Logo from "../Logo";
@@ -297,6 +298,7 @@ const Footer = () => {
                 { name: "Account", path: "/login", icon: UserRound },
                 { name: "FAQ", path: "/faq", icon: HelpCircle },
                 { name: "Contact Us", path: "/contact-us", icon: Phone },
+                { name: "News", path: "/news", icon: Newspaper },
               ].map((item) => (
                 <li key={item.name}>
                   <button
@@ -316,53 +318,37 @@ const Footer = () => {
             </ul>
           </div>
 
-          <div className="space-y-6">
+          <div className="space-y-5">
             <div className="flex items-center space-x-2">
               <div className="w-1 h-6 bg-gradient-to-b from-orange-400 to-orange-600 rounded-full"></div>
-              <h3 className="text-lg font-bold text-slate-800 dark:text-slate-200">
-                Get in Touch
-              </h3>
+              <h3 className="text-lg font-bold text-slate-800 dark:text-slate-200">Get in Touch</h3>
             </div>
             <ul className="space-y-2">
               <li className="group flex items-start space-x-3 text-slate-600 dark:text-slate-400 transition-colors duration-300">
-                <div className="w-8 h-8 bg-orange-100/50 dark:bg-orange-900/20 rounded-lg flex items-center justify-center mt-0.5  transition-all duration-300 group-hover:bg-orange-200/70 dark:group-hover:bg-orange-800/30">
+                <div className="w-8 h-8 bg-orange-100/50 dark:bg-orange-900/20 rounded-lg flex items-center justify-center transition-all duration-300 group-hover:bg-orange-200/70 dark:group-hover:bg-orange-800/30">
                   <MapPin className="w-4 h-4 text-orange-500 dark:text-orange-400" />
                 </div>
                 <div>
-                  <span className="text-sm font-medium text-slate-800 dark:text-slate-200">
-                    Address
-                  </span>
-                  <p className="text-sm">Tech Park, Digital City, India</p>
+                  <span className="text-sm font-medium text-slate-800 dark:text-slate-200">Address</span>
+                  <p className="text-sm">123 Tech Street, Digital City</p>
                 </div>
               </li>
               <li className="group flex items-start space-x-3 text-slate-600 dark:text-slate-400 transition-colors duration-300">
-                <div className="w-8 h-8 bg-orange-100/50 dark:bg-orange-900/20 rounded-lg flex items-center justify-center mt-0.5  transition-all duration-300 group-hover:bg-orange-200/70 dark:group-hover:bg-orange-800/30">
+                <div className="w-8 h-8 bg-orange-100/50 dark:bg-orange-900/20 rounded-lg flex items-center justify-center mt-0.5 transition-all duration-300 group-hover:bg-orange-200/70 dark:group-hover:bg-orange-800/30">
                   <Phone className="w-4 h-4 text-orange-500 dark:text-orange-400" />
                 </div>
                 <div>
-                  <span className="text-sm font-medium text-slate-800 dark:text-slate-200">
-                    Phone : { " "}
-                  </span><a
-                    href="tel:+15551234567"
-                    className="text-sm hover:text-orange-500 transition-colors duration-200"
-                  >
-                    +1 (555) 123-4567
-                  </a>
-                  {/* <p className="text-sm">+1 (555) 123-4567</p> */}
+                  <span className="text-sm font-medium text-slate-800 dark:text-slate-200">Phone</span>
+                  <p className="text-sm">+1 (555) 123-4567</p>
                 </div>
               </li>
               <li className="group flex items-start space-x-3 text-slate-600 dark:text-slate-400 transition-colors duration-300">
-                <div className="w-8 h-8 bg-orange-100/50 dark:bg-orange-900/20 rounded-lg flex items-center justify-center  transition-all duration-300 group-hover:bg-orange-200/70 dark:group-hover:bg-orange-800/30">
+                <div className="w-8 h-8 bg-orange-100/50 dark:bg-orange-900/20 rounded-lg flex items-center justify-center mt-0.5 transition-all duration-300 group-hover:bg-orange-200/70 dark:group-hover:bg-orange-800/30">
                   <Mail className="w-4 h-4 text-orange-500 dark:text-orange-400" />
                 </div>
                 <div>
-                  <span className="text-sm font-medium text-slate-800 dark:text-slate-200">
-                    Email:{" "}
-                  </span>
-                  <a
-                    href="mailto:sumitgr7479@gmail.com"
-                    className="text-sm mt-1 hover:text-orange-500 transition-colors duration-200"
-                  >
+                  <span className="text-sm font-medium text-slate-800 dark:text-slate-200">Email: </span>
+                  <a href="mailto:support@techieblog.com" className="text-sm hover:text-orange-500 transition-colors duration-200">
                     support@techieblog.com
                   </a>
                 </div>

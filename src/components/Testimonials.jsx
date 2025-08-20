@@ -4,6 +4,8 @@ import ContributorsLink from "../components/contributors/contributorsLink.jsx";
 import { Link } from "react-router-dom";
 import Counter from "./Counter.jsx";
 
+import { motion } from "framer-motion";
+// import { Quote, Star } from "lucide-react";
 const testimonials = [
   {
     id: 1,
@@ -30,26 +32,23 @@ const testimonials = [
   },
   {
     id: 3,
-    name: "Meet the Contributors",
-    role: "Meet the brilliant minds who brought this project to life!",
-    content: (
-      <Link to="/contributors" className="block">
-        <ContributorsLink classes="w-16 h-16" />
-      </Link>
-    ),
+    name: "Ankit Kumar",
+    role: "Full Stack Developer",
+    content:
+      "What I love most about TechieBlog is the depth of technical content. It's perfect for both beginners and experienced developers.",
     rating: 5,
     image:
-      "https://i.fbcd.co/products/resized/resized-750-500/l014e-21-e05-mainpreview-bf38f61424a9008541dde17dd5ec374266c8a8602da2c55a92e4874ac7bfdf8a.jpg",
+      "https://avatars.githubusercontent.com/u/62989475?s=130&v=4",
     verified: true,
-    readTime: "Community",
+    readTime: "Daily Reader",
   },
 ];
 
 const stats = [
-  { icon: Users, value: "50",mark:"K+", label: "Active Readers" },
-  { icon: Star, value: "4.9",mark:"+", label: "Average Rating" },
-  { icon: Award, value: "500",mark:null, label: "Articles Published" },
-  { icon: TrendingUp, value: "98",mark:"%", label: "Satisfaction Rate" },
+  { icon: Users, value: "50", mark: "K+", label: "Active Readers" },
+  { icon: Star, value: "4.9", mark: "+", label: "Average Rating" },
+  { icon: Award, value: "500", mark: null, label: "Articles Published" },
+  { icon: TrendingUp, value: "98", mark: "%", label: "Satisfaction Rate" },
 ];
 
 const Testimonials = () => {
@@ -95,12 +94,21 @@ const Testimonials = () => {
                 <div className="absolute inset-0 bg-gradient-to-r from-orange-500/5 to-red-500/5 dark:from-orange-500/10 dark:to-red-500/10 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
 
                 <div className="relative text-center">
+                  {/* Icon */}
                   <div className="inline-flex items-center justify-center w-12 h-12 mb-4 bg-gradient-to-r from-orange-500 to-red-500 rounded-xl shadow-lg">
                     <stat.icon className="w-6 h-6 text-white" />
                   </div>
+
+                  {/* Animated Counter */}
                   <div className="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white mb-1">
-                    <Counter target={stat.value} suffix={stat.mark} duration={10} />
+                    <Counter
+                      target={Number(stat.value)}
+                      suffix={stat.mark || ""}
+                      duration={3}
+                    />
                   </div>
+
+                  {/* Label */}
                   <div className="text-sm text-gray-600 dark:text-gray-300 font-medium">
                     {stat.label}
                   </div>
@@ -110,95 +118,126 @@ const Testimonials = () => {
           ))}
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {testimonials.map((testimonial, index) => (
-            <div
-              key={testimonial.id}
-              className="group relative cursor-pointer"
-              style={{ animationDelay: `${index * 150}ms` }}
-              onClick={() => {
-                if (testimonial.id === 3) {
-                  window.open("/contributors", "_blank"); // new tab
-                }
-              }}
+
+        <div className="relative max-w-7xl mx-auto px-4">
+          {/* ✅ Heading Section */}
+          <div className="text-center mb-16">
+            <motion.div
+              className="inline-block mb-4 px-4 py-1 text-xs sm:text-sm rounded-full bg-orange-100 text-orange-600 dark:bg-orange-900/30 dark:text-orange-300"
+              initial={{ opacity: 0, y: -20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6 }}
             >
-              <div className="relative h-full p-8 bg-white/90 dark:bg-white/10 backdrop-blur-xl border border-gray-200 dark:border-white/20 rounded-3xl shadow-2xl transition-all duration-500 hover:scale-105 hover:shadow-3xl">
-                <div className="absolute inset-0 bg-gradient-to-br from-orange-500/5 via-transparent to-red-500/5 dark:from-orange-500/10 dark:to-red-500/10 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+              Our Community
+            </motion.div>
 
-                <div className="absolute -top-4 -left-4 w-12 h-12 bg-gradient-to-r from-orange-500 to-red-500 rounded-2xl shadow-xl flex items-center justify-center transform group-hover:scale-110 transition-transform duration-300">
-                  <Quote className="w-6 h-6 text-white" />
-                </div>
+            <motion.h2
+              className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-gray-900 dark:text-white mb-4"
+              initial={{ opacity: 0, y: -20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6 }}
+            >
+              What Our Members Say
+            </motion.h2>
 
-                <div className="relative">
-                  <div className="flex items-center mb-6">
-                    <div className="relative">
-                      <img
-                        src={testimonial.image}
-                        alt={testimonial.name}
-                        className="w-16 h-16 rounded-2xl object-cover border-2 border-white dark:border-gray-700 shadow-lg"
-                      />
-                      {testimonial.verified && (
-                        <div className="absolute -bottom-1 -right-1 w-6 h-6 bg-green-500 rounded-full border-2 border-white dark:border-gray-800 flex items-center justify-center">
-                          <svg
-                            className="w-3 h-3 text-white"
-                            fill="currentColor"
-                            viewBox="0 0 20 20"
-                          >
-                            <path
-                              fillRule="evenodd"
-                              d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                              clipRule="evenodd"
-                            />
-                          </svg>
-                        </div>
-                      )}
-                    </div>
+            <p className="text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto leading-relaxed">
+              Hear from developers and readers who make{" "}
+              <span className="text-transparent bg-gradient-to-r from-orange-500 to-red-500 bg-clip-text font-semibold">
+                TechieBlog
+              </span>{" "}
+              their go-to place for insights and knowledge.
+            </p>
+          </div>
 
-                    <div className="ml-4 flex-1">
-                      <h4 className="text-lg font-bold text-gray-900 dark:text-white">
-                        {testimonial.name}
-                      </h4>
-                      <p className="text-sm text-gray-600 dark:text-gray-300 mb-1">
-                        {testimonial.role}
-                      </p>
-                      <div className="inline-flex items-center px-2 py-1 bg-orange-100 dark:bg-orange-900/30 rounded-full text-xs text-orange-700 dark:text-orange-300 font-medium">
-                        {testimonial.readTime}
-                      </div>
-                    </div>
+          {/* ✅ Cards Section */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {testimonials.map((testimonial, index) => (
+              <motion.div
+                key={testimonial.id}
+                className="group relative cursor-pointer"
+                style={{ animationDelay: `${index * 150}ms` }}
+                initial={{ opacity: 0, y: 40 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6 }}
+              >
+                <div className="relative h-full p-8 bg-white/90 dark:bg-white/10 backdrop-blur-xl border border-gray-200 dark:border-white/20 rounded-3xl shadow-2xl transition-all duration-500 hover:scale-105 hover:shadow-3xl">
+                  {/* Gradient hover overlay */}
+                  <div className="absolute inset-0 bg-gradient-to-br from-orange-500/5 via-transparent to-red-500/5 dark:from-orange-500/10 dark:to-red-500/10 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+
+                  {/* Quote Icon */}
+                  <div className="absolute -top-4 -left-4 w-12 h-12 bg-gradient-to-r from-orange-500 to-red-500 rounded-2xl shadow-xl flex items-center justify-center transform group-hover:scale-110 transition-transform duration-300">
+                    <Quote className="w-6 h-6 text-white" />
                   </div>
 
-                  <div className="mb-6">
-                    {typeof testimonial.content === "string" ? (
+                  {/* Card Content */}
+                  <div className="relative">
+                    {/* Avatar & Info */}
+                    <div className="flex items-center mb-6">
+                      <div className="relative">
+                        <img
+                          src={testimonial.image}
+                          alt={testimonial.name}
+                          className="w-16 h-16 rounded-2xl object-cover border-2 border-white dark:border-gray-700 shadow-lg"
+                        />
+                        {testimonial.verified && (
+                          <div className="absolute -bottom-1 -right-1 w-6 h-6 bg-green-500 rounded-full border-2 border-white dark:border-gray-800 flex items-center justify-center">
+                            <svg
+                              className="w-3 h-3 text-white"
+                              fill="currentColor"
+                              viewBox="0 0 20 20"
+                            >
+                              <path
+                                fillRule="evenodd"
+                                d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                                clipRule="evenodd"
+                              />
+                            </svg>
+                          </div>
+                        )}
+                      </div>
+
+                      <div className="ml-4 flex-1">
+                        <h4 className="text-lg font-bold text-gray-900 dark:text-white">
+                          {testimonial.name}
+                        </h4>
+                        <p className="text-sm text-gray-600 dark:text-gray-300 mb-1">
+                          {testimonial.role}
+                        </p>
+                        <div className="inline-flex items-center px-2 py-1 bg-orange-100 dark:bg-orange-900/30 rounded-full text-xs text-orange-700 dark:text-orange-300 font-medium">
+                          {testimonial.readTime}
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Content */}
+                    <div className="mb-6">
                       <p className="text-gray-700 dark:text-gray-300 leading-relaxed text-sm">
                         "{testimonial.content}"
                       </p>
-                    ) : (
-                      <div className="flex justify-center">
-                        {testimonial.content}
+                    </div>
+
+                    {/* Stars + Rating */}
+                    <div className="flex items-center justify-between">
+                      <div className="flex space-x-1">
+                        {[...Array(testimonial.rating)].map((_, starIndex) => (
+                          <Star
+                            key={starIndex}
+                            className="w-5 h-5 text-orange-500 fill-current transform hover:scale-110 transition-transform duration-200"
+                          />
+                        ))}
                       </div>
-                    )}
-                  </div>
-
-                  <div className="flex items-center justify-between">
-                    <div className="flex space-x-1">
-                      {[...Array(testimonial.rating)].map((_, starIndex) => (
-                        <Star
-                          key={starIndex}
-                          className="w-5 h-5 text-orange-500 fill-current transform hover:scale-110 transition-transform duration-200"
-                        />
-                      ))}
-                    </div>
-
-                    <div className="text-xs text-gray-500 dark:text-gray-400 font-medium">
-                      {testimonial.rating}.0 rating
+                      <div className="text-xs text-gray-500 dark:text-gray-400 font-medium">
+                        {testimonial.rating}.0 rating
+                      </div>
                     </div>
                   </div>
+
+                  {/* Hover Glow */}
+                  <div className="absolute inset-0 rounded-3xl bg-gradient-to-r from-orange-500 via-red-500 to-orange-500 opacity-0 group-hover:opacity-20 transition-opacity duration-300 blur-sm"></div>
                 </div>
-
-                <div className="absolute inset-0 rounded-3xl bg-gradient-to-r from-orange-500 via-red-500 to-orange-500 opacity-0 group-hover:opacity-20 transition-opacity duration-300 blur-sm"></div>
-              </div>
-            </div>
-          ))}
+              </motion.div>
+            ))}
+          </div>
         </div>
 
         <div className="text-center mt-16">
