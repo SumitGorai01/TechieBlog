@@ -2,6 +2,7 @@ import React from "react";
 import { Quote, Star, Users, Award, TrendingUp } from "lucide-react";
 import ContributorsLink from "../components/contributors/contributorsLink.jsx";
 import { Link } from "react-router-dom";
+import Counter from "./Counter.jsx";
 
 const testimonials = [
   {
@@ -45,10 +46,10 @@ const testimonials = [
 ];
 
 const stats = [
-  { icon: Users, value: "50K+", label: "Active Readers" },
-  { icon: Star, value: "4.9", label: "Average Rating" },
-  { icon: Award, value: "500+", label: "Articles Published" },
-  { icon: TrendingUp, value: "98%", label: "Satisfaction Rate" },
+  { icon: Users, value: "50",mark:"K+", label: "Active Readers" },
+  { icon: Star, value: "4.9",mark:"+", label: "Average Rating" },
+  { icon: Award, value: "500",mark:null, label: "Articles Published" },
+  { icon: TrendingUp, value: "98",mark:"%", label: "Satisfaction Rate" },
 ];
 
 const Testimonials = () => {
@@ -98,7 +99,7 @@ const Testimonials = () => {
                     <stat.icon className="w-6 h-6 text-white" />
                   </div>
                   <div className="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white mb-1">
-                    {stat.value}
+                    <Counter target={stat.value} suffix={stat.mark} duration={10} />
                   </div>
                   <div className="text-sm text-gray-600 dark:text-gray-300 font-medium">
                     {stat.label}
