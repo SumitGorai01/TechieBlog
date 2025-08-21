@@ -46,7 +46,7 @@ function Header() {
     { name: "About Us", slug: "/about-us", active: true, icon: Info },
     { name: "Events", slug: "/events", active: true, icon: Calendar },
     { name: "Contact Us", slug: "/contact-us", active: true, icon: Phone },
-    { name: "News", slug: "/news", active: true, icon: Newspaper }
+    // { name: "News", slug: "/news", active: true, icon: Newspaper }
   ];
 
   const handleNavigation = () => {
